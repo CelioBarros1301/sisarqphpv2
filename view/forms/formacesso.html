@@ -1,0 +1,160 @@
+<?php
+
+    
+    if ( !isset($_SESSION['user'])){
+        #header("location: index.php");
+    }
+
+    # Informacoes do banco
+    
+    include_once  "acessomenu.php";
+    $selecao=$_GET["status"]!="i"?"selected":"";
+    $readonly=$_GET['status']!="i"?"readonly":"";
+
+    $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
+     
+?>
+
+ <div class="row">
+        <div class="col-md-8 offset-3 col-sm-12">
+            <div class="arquivo-form">
+ 
+                <form action="acessomenu.php" method="POST">
+                    
+                    <div class="row">
+                        <div class="form-group">    
+                            <label> Usuario </label><br>	
+                            <select id="idUsuario" name="codUsu" <?=$readonly;?> class="form-control" onchange="changecombousuario(document.getElementById('idUsuario').value,'cadacesso')">
+                                <?php
+                                    $codUsu=isset($_GET["codUsu"])?$_GET["codUsu"]:"";
+                                    if ( $_GET["status"]=="i" )
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Usuario<=</option>';	
+                                    }
+                                    foreach ($tabelaUsuario as $coluna){
+                                        $selecao = $codUsu==$coluna["Codigo"]?"selected":"";
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Login"] ."</option>";                     
+                                    }
+                                ?>
+                                 
+                            </select>
+                        </div>
+                    </div>     
+                    <div class="row"> 
+                        <div class="form-group">    
+                            <label> Menus </label><br>	
+                            <select id="idMenu" name="codMenu" <?=$readonly;?> ">
+                                <?php
+                                $codMenu=isset($_GET["codMenu"])?$_GET["codMenu"]:"";
+                                if ( $_GET["status"]=="i" )
+                                { 
+                                    echo '<option disabled selected value=0>=>Selecionar Menu<=</option>';	
+                                }
+                                foreach ($tabelaMenu as $coluna){
+                                    $selecao = $codMenu==$coluna["CodMenu"]?"selected":"";
+                                    echo '<option ' . $selecao . ' '. $readonly . ' value="'. $coluna["CodMenu"] . '">' .$coluna["Sequencia"]."-".$coluna["Opcao"] ."</option>";                     
+                                }
+                                ?>
+                                 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <hr bold>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-center">Permissões de Acesso</p>
+                        </div>
+                        <div class="col-md-4">
+                            <hr bold>
+                        </div>
+                    </div>            
+    
+                    
+                    <div class="row"> 
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["sta_menu"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="menu" name="statMenu">
+                                    <label class="custom-control-label" for="menu">Menu</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["sta_inc"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="incluir" name="statInc">
+                                    <label class="custom-control-label" for="incluir">Incluir</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["sta_alt"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="alterar" name="statAlt">
+                                    <label class="custom-control-label" for="alterar">Alterar</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["sta_exc"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="excluir" name="statExc">
+                                    <label class="custom-control-label" for="excluir">Excluir</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["sta_con"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="consultar" name="statCon">
+                                    <label class="custom-control-label" for="consultar">Consultar</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["sta_rel"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="relatorio" name="statRel">
+                                    <label class="custom-control-label" for="relatorio">Relatorio</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label hidden >Operacao</label>
+                        <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" class="form-control" placeholder="Nome da Empresa" required  >
+                    </div>
+                                                          
+                    <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                        
+                        <i class="fa fa-check-circle" style="font-size:24px;color:green;"></i>
+                        <?php 
+                            if ($_GET['status']=='e')
+                            {
+                                echo "Excluir";
+                            }
+                            else
+                            {
+                                echo "Salvar";
+                            }
+                        ?>
+                    </button>
+
+                    <button type="button" class="btn btn-primary" aria-pressed="true" onclick="history.back();">
+                        <i class="fa fa-times " style="font-size:24px;color:red;"></i>
+                        Cancelar
+                    </button> 
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+

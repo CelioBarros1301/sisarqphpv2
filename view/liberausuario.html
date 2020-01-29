@@ -1,0 +1,74 @@
+<?php
+
+    
+    if ( !isset($_SESSION['user'])){
+        #header("location: index.php");
+    }
+
+    # Informacoes da regra de negocio e acesso ao dados
+    include_once  "liberausuario.php";
+
+    
+    
+?>
+<div class="row">
+        <div class="col-sm-10" >
+                
+        <form action="" method="POST">
+            
+            
+            <h3>
+                <i class="fa fa-plus"></i>
+                Lista de Usuarios		
+            </h3>
+            <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
+                            style="width:100%" id="tbpadrao">
+
+                <thead>
+                    <tr>
+                        <?php foreach ($dataTableColunas as $coluna)
+                            {
+                            echo "<th>". $coluna. "</th>";
+                            }
+                            if ( count($dataTable)>0  )
+                            {        
+                                echo "<th>Ações</th>";
+                            }
+                            else
+                            {
+                                echo "<th> </th>";
+                            }
+                        ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for ($i=0;$i < count($dataTable);$i++ ) {
+                            echo "<tr>";
+                                foreach ($dataTable[$i] as $indice => $campo){
+                                    {
+                                        echo "<td>";
+                                            echo $campo;
+                                        echo "</td>";
+                                    }
+                                }    
+                                
+                                echo "<td>";
+                                    if ( $user['log_usuario']!=$dataTable[$i]['Login'] )
+                                        {
+                                            $link='href=sisarq.php?option=liberausuario&id='.$dataTable[$i]['Codigo'] .'&status=l';
+                                            echo '<a name="libera" class="btn btn-warning btn-sm"'.$link.'>';
+                                                echo '<i class="fa fa-unlock-alt" ></i>';
+                                            echo '</a> ';
+                                        }        
+                                echo '</td>';
+                                                
+                            echo "</tr>";
+                        } 
+
+                    ?>
+                </tbody>
+
+            </table>
+        </form>
+    </div>
+</div>

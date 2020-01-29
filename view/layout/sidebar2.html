@@ -1,0 +1,92 @@
+
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      
+      <ul class="nav" data-widget="tree">
+        <li class="header">Olá <?=$user['log_usuario'];?></li>
+        <li class="header">Navegação Principal</li>
+        <!-- <li class="">
+          <a href="?op=dashboard">
+            <i class="fa fa-dashboard"></i>  <span>Painel de Controle</span>
+          </a>
+        </li> -->
+
+        
+        <li class="">
+          <a href="?op=general-settings">
+            <i class="fa fa-cogs"></i>  <span>Configurações Gerais</span>
+          </a>
+        </li>
+
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-users"></i> 
+            <span>Usuarios</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">            
+            <li><a href="?op=new-user">
+              <i class="fa fa-plus"></i> Adicionar</a>
+            </li>
+            <li>
+              <a href="?op=manager-users"><i class="fa fa-gear"></i> Gerenciar</a>
+            </li>                  
+          </ul>
+        </li>
+
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-user-md"></i> 
+            <span>Medicos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">            
+            <li><a href="?op=new-doctor">
+              <i class="fa fa-plus"></i> Adicionar</a>
+            </li>
+            <li>
+              <a href="?op=manager-doctors"><i class="fa fa-gear"></i> Gerenciar</a>
+            </li>                  
+          </ul>
+        </li>
+
+
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-calendar-plus"></i> 
+            <span>Agendamentos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">            
+            <li><a href="?op=new-schedule">
+              <i class="fa fa-plus"></i> Adicionar</a>
+            </li>
+            <li>
+              <a href="?op=manager-schedules"><i class="fa fa-gear"></i> Gerenciar</a>
+            </li>                  
+          </ul>
+        </li>
+
+        <li class="">
+          <a href="?op=general-settings">
+            <i class="fa fa-file-pdf-o"></i>  <span>Relatorios</span>
+          </a>
+        </li>
+
+        <li class="">
+          <a href="?op=general-settings">
+            <i class="fa fa-power-off"></i>  <span>Sair</span>
+          </a>
+        </li>
+        <li><a class="sidebar-minify-btn" data-click="sidebar-minify" href="javascript:;"><i class="fa fa-angle-double-left"></i></a></li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta charset="utf-8" />
+    <title>Consultas Power</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="Ct5APdVvO2LD2XFs2P7ZIuqCwbR4qoYNoe8ogDURCU3g4Qy9ndEJkuH8LVDPCsiPYvp03pl+UXEL1pnVTWWHUg==" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link rel="stylesheet" media="all" href="view/assets2/application-ffa1b4c1e6304e0a1d0e876f48be27e92a7223baf9e509835a08d6cc9ff7b1b5.css" data-turbolinks-track="reload" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="view/assets2/plugins/switchery/switchery.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+  
+   
+    <link rel="shortcut icon" href="upload/<?=$config['config_favicon'];?>">   
+    
+    <script src="view/assets2/application-021bd3f307ff21bc6a9faec471e55ef58baa072dc854b57f0ce5c0e60e6a5b31.js" data-turbolinks-track="reload"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>    
+    <script src="view/assets2/plugins/switchery/switchery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    
+</head>
+
+<body class="flat-black">
+    <!--begin #page-loader-->
+    <div class="fade show" id="page-loader"><span class="spinner"></span></div>
+    <!--end #page-loader-->
+    <!--begin #page-container-->
+    <div class="fade page-sidebar-fixed page-header-fixed" id="page-container">
+        <!--begin #header-->
+        <div class="header navbar-default" id="header">
+            <!--begin navbar-header-->
+            <div class="navbar-header"><a class="navbar-brand" href="index.html"><img src="https://images.vexels.com/media/users/3/144205/isolated/lists/039f3a81b340e8ad1b6a1f2f228385d1-icone-de-acidente-vascular-cerebral.png"><b> CONSULTAS POWER - SISTEMA </b></a>
+                <button class="navbar-toggle" data-click="sidebar-toggled" type="button"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <!--end navbar-header-->
+            <!--begin header-nav-->
+            <!--end header navigation right-->
+        </div>
+        <!--end #header-->
+        <!--begin #sidebar-->
+        <div class="sidebar" id="sidebar">
+            <!--begin sidebar scrollbar-->
+            <div data-height="100%" data-scrollbar="true">
+                <?php include_once("view/layout/sidebar2.html"); ?>
+                <!--end sidebar nav-->
+            </div>
+            <!--end sidebar scrollbar-->
+        </div>
+        
+        <div class="sidebar-bg"></div>
+        <!--end #sidebar-->
+        <div class="content" id="content" style="">
+            <?php page_content(); ?>
+            <div id="about">
+                <!--begin container-->
+                <div class="container fadeInDown contentAnimated finishAnimated" data-animation="true" data-animation-type="fadeInDown">
+                    <!--begin row-->
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+        <!--begin scroll to top btn--><a class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top" href="javascript:;"><i class="fa fa-angle-up"></i></a>
+        <!--end scroll to top btn-->
+    </div>
+    <!--end page container-->
+
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-150731524-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-150731524-1');
+    </script>
+    <script>
+        root_url = "index.html"
+        $(document).ready(function() {
+            App.init();
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR'
+            });
+        });
+    </script>
+
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5e26fe6d8e78b86ed8aa5d72/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+<!-- Mirrored from servicos2.speedgov.com.br/maracanau/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Dec 2019 15:40:39 GMT -->
+
+</html>

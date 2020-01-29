@@ -1,0 +1,117 @@
+<?php
+
+    
+    if ( !isset($_SESSION['user'])){
+        #header("location: index.php");
+    }
+
+    # Informacoes do banco
+    
+    include_once  "corredor.php";
+    ##$selecao=$_GET["status"]!="i"?"selected":"";
+    $readonly=$_GET['status']!="i"?"readonly":"";
+
+    $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
+ 
+                                                            
+     
+?>
+
+ <div class="row">
+        <div class="col-md-8 offset-3 col-sm-12">
+            <div class="arquivo-form">
+ 
+                <form action="corredor.php" method="POST">
+                    
+                    <div class="row">
+                        <div class="form-group">    
+                            <label> Empresa </label><br>	
+                            <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" onchange="changecomboempresa(document.getElementById('idEmpresa').value,'cadcorredor')">
+                                <?php
+                                if ( $_GET["status"]=="i" && $_GET["codEmp"]=="0")
+                                { 
+                                    echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                                }
+                                foreach ($tabelaEmpresa as $coluna){
+                                    $selecao = $_GET["codEmp"]==$coluna["Codigo"]?"selected":"";
+                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
+                                }
+                                ?>
+                                 
+                            </select>
+                        </div>
+                    </div>        
+            
+                    <div class="row"> 
+                        <div class="form-group">    
+                            <label> Arquivo </label><br>	
+                            <select name="codArq" <?=$readonly;?> class="form-control" >
+                                <?php
+                                if ( $_GET["status"]=="i" && $_GET["codArq"]=="0")
+                                { 
+                                    echo '<option disabled selected value=0>=>Selecionar Arquivo<=</option>';	
+                                }
+                                foreach ($tabelaArquivo as $coluna){
+                                    $selecao = $_GET["codArq"]==$coluna["CodArquivo"]?"selected":"";
+                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
+                                }
+                                ?>
+                                 
+                            </select>
+                        </div>
+                    </div>
+
+                                        
+                    <div class="row"> 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Codigo Corredor</label>
+                                <input type="text" name="codCor"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codCor"]:"";?>" <?=$readonlyCampo;?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>Descricao</label>
+                                <input type="text" name="desCor" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_corredor"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Descricao Corredor" required  >
+                            </div>
+                        </div>
+                    </div>        
+                    
+                    <div class="row"> 
+                        <div class="form-group">
+                            <label>Sigla Corredor</label>
+                            <input type="text" name="sigCor" maxlength="80" value="<?=$_GET['status']!="i"?$registro["sig_corredor"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Sigla do Corredor" required  >
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label hidden >Operacao</label>
+                        <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" class="form-control" placeholder="Nome da Empresa" required  >
+                    </div>
+                                                          
+                    <button type="submit" class="btn btn-primary"  <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                        
+                        <i class="fa fa-check-circle" style="font-size:24px;color:green;"></i>
+                        <?php 
+                            if ($_GET['status']=='e')
+                            {
+                                echo "Excluir";
+                            }
+                            else
+                            {
+                                echo "Salvar";
+                            }
+                        ?>
+                    </button>
+
+                    <button type="button" class="btn btn-primary" aria-pressed="true" onclick="history.back();">
+                        <i class="fa fa-times " style="font-size:24px;color:red;"></i>
+                        Cancelar
+                    </button> 
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+

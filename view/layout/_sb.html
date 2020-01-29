@@ -1,0 +1,400 @@
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <!-- <div class="user-panel">
+        <div class="pull-left image">
+          <img src="<?php echo getAvatar($GLOBALS['project_index'], $user->user_profile_photo); ?>" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p><?=$user->user_name; ?></p>
+          <a href="#"><i class="fa fa-circle text-success"></i>  Online</a>
+        </div>
+      </div>
+      search form
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i> 
+                </button>
+              </span>
+        </div>
+      </form> -->
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="nav" data-widget="tree">
+        <li class="header">Navegação Principal</li>
+        <!-- <li class="">
+          <a href="?op=dashboard">
+            <i class="fa fa-dashboard"></i>  <span>Painel de Controle</span>
+          </a>
+        </li> -->
+
+        <?php if( checkPermission(2, $user->user_access) == true or checkPermission(3, $user->user_access) == true ): ?>
+        <li class="">
+          <a href="?op=general-settings">
+            <i class="fa fa-cogs"></i>  <span>Configurações do Site</span>
+          </a>
+        </li>
+        <?php endif; ?>
+       
+        <!-- BANNERS PRINCIPAIS -->
+        <?php if( checkPermission(2, $user->user_access) == true or checkPermission(3, $user->user_access) == true ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-image"></i> 
+            <span>Banners Principais</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php if( checkPermission(2, $user->user_access) ): ?>
+            <li><a href="?op=new-banner"><i class="fa fa-user-plus"></i> Novo Banner</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(3, $user->user_access) ): ?>
+            <li><a href="?op=manager-banners"><i class="fa fa-gear"></i> Gerenciar Banners</a></li>
+            <?php endif; ?>
+           <!--  <li><a href="?op=manager-banners"><i class="fa fa-list-alt"></i> Listar Banners</a></li> -->          
+          </ul>
+        </li>
+        <?php endif; ?>
+
+        <!-- NOTICIAS  -->
+        <?php if( checkPermission(2, $user->user_access) == true or checkPermission(3, $user->user_access) == true ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-file"></i> 
+            <span>Notícias</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php if( checkPermission(2, $user->user_access) ): ?>
+            <li><a href="?op=new-publication"><i class="fa fa-user-plus"></i> Nova Publicação</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(3, $user->user_access) ): ?>
+            <li><a href="?op=manager-publications"><i class="fa fa-gear"></i> Gerenciar Notícias</a></li>
+            <?php endif; ?>
+            <li><a href="?op=manager-publications"><i class="fa fa-list-alt"></i> Listar Notícias</a></li>
+          
+          </ul>
+        </li>
+        <?php endif; ?>
+
+        
+
+        <!-- VIDEOS -->
+        <?php if( checkPermission(2, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="javascript:void(0);">
+            <i class="fa fa-video-camera"></i>  <span>Vídeos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <li><a href="?op=new-video"><i class="fa fa-plus-square"></i>  Inserir Vídeo </a></li>
+            <li><a href="?op=manager-videos"><i class="fa fa-eye"></i>  Gerenciar Vídeos</a></li>
+          </ul>
+        </li>
+        <?php endif; ?>
+
+        <!-- PONTOS TURISTICOS -->
+        <?php /*if( checkPermission(11, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="javascript:void(0);">
+            <i class="fa fa-picture-o"></i>  <span>Pontos Turísticos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <li><a href="?op=new-point"><i class="fa fa-plus-square"></i>  Inserir Ponto Turistico </a></li>
+            <li><a href="?op=manager-point"><i class="fa fa-eye"></i>  Gerenciar Pontos</a></li>
+          </ul>
+        </li>
+        <?php endif;*/ ?>
+
+
+        <!-- SECRETARIAS -->
+        <?php if( checkPermission(23, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-bank"></i> 
+            <span>Secretarias</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php //if( checkPermission(2, $user->user_access) ): ?>
+            <li><a href="?op=new-secretary"><i class="fa fa-user-plus"></i> Nova Secretaria</a></li>
+            <?php //endif; ?>
+            <?php //if( checkPermission(3, $user->user_access) ): ?>
+            <li><a href="?op=manager-secretary"><i class="fa fa-gear"></i> Gerenciar Secretarias</a></li>
+            <?php //endif; ?>
+            <!-- <li><a href="?op=list-secretary"><i class="fa fa-list-alt"></i> Listar Secretarias</a></li> -->
+          
+          </ul>
+        </li>
+        <?php endif; ?>
+
+        <!-- SECRETARIAS -->
+        <?php if( checkPermission(23, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-bank"></i> 
+            <span>Entidades</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php //if( checkPermission(2, $user->user_access) ): ?>
+            <li><a href="?op=new-cityhallpoint"><i class="fa fa-user-plus"></i> Nova Entidade</a></li>
+            <?php //endif; ?>
+            <?php //if( checkPermission(3, $user->user_access) ): ?>
+            <li><a href="?op=manager-cityhallpoints"><i class="fa fa-gear"></i> Gerenciar Endidades</a></li>
+            <?php //endif; ?>
+            <!-- <li><a href="?op=list-secretary"><i class="fa fa-list-alt"></i> Listar Secretarias</a></li> -->          
+          </ul>
+        </li>
+        <?php endif; ?>
+
+
+        <?php /*if( checkPermission(4, $user->user_access) or checkPermission(5, $user->user_access) or checkPermission(6, $user->user_access) or checkPermission(7, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-bars"></i> 
+            <span>Categorias</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php if( checkPermission(4, $user->user_access) ): ?>
+            <li><a href="?op=new-category"><i class="fa fa-plus"></i>  Adicionar Categorias</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(5, $user->user_access) ): ?>
+            <li><a href="?op=new-subcategory"><i class="fa fa-plus"></i>  Adicionar Subcategorias</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(6, $user->user_access) ): ?>
+            <li><a href="?op=manager-categories"><i class="fa fa-cogs"></i>  Gerenciar Categorias</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(7, $user->user_access) ): ?>
+            <li><a href="?op=manager-subcategories"><i class="fa fa-cogs"></i>  Gerenciar Subategorias</a></li>
+            <?php endif; ?>
+          </ul>
+        </li>
+        <?php endif;*/ ?>
+        <!-- <?php if( checkPermission(8, $user->user_access) ): ?>
+        <li class="has-sub">
+        
+          <a href="javascript:void(0);">
+            <i class="fa fa-comments"></i>  <span>Comentários</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <li><a href="?op=manager-coments"><span>Aprovar Comentários</span></a></li>
+          </ul>
+        </li>
+        <?php endif; ?> -->
+		    <!-- <?php if( checkPermission(9, $user->user_access) or checkPermission(10, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="javascript:void(0);">
+            <i class="fa fa-edit"></i>  <span>Paginas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php if( checkPermission(9, $user->user_access) ): ?>
+            <li><a href="?op=new-page"><i class="fa fa-plus"></i>  Adicionar pagina</a></li>
+            <li><a href="?op=new-subpage"><i class="fa fa-plus"></i>  Adicionar sub-pagina</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(10, $user->user_access) ): ?>
+            <li><a href="?op=manager-page"><i class="fa fa-gears"></i>  Gerenciar paginas</a></li>
+            <li><a href="?op=manager-subpage"><i class="fa fa-gears"></i>  Gerenciar sub-paginas</a></li>
+            <?php endif; ?>
+          </ul>
+        </li>
+        <?php endif; ?> -->
+        <?php /*if( checkPermission(11, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="javascript:void(0);">
+            <i class="fa fa-photo"></i>  <span>Albums</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <li><a href="?op=new-album"><i class="fa fa-circle-o"></i>  Novo Album</a></li>
+            <li><a href="?op=manager-albums"><i class="fa fa-circle-o"></i>  Gerenciar Albums/imagens</a></li>
+          </ul>
+        </li>
+        <?php endif;*/ ?>
+        
+        <!-- LICITAÇÔES -->
+        <?php if( checkPermission(31, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="javascript:void(0);">
+            <i class="fa fa-file-pdf-o"></i>  <span>Licitações e Contratos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <li><a href="?op=new-licitation"><i class="fa fa-eye"></i>  Cadastrar Licitação </a></li>
+            <li><a href="?op=manager-licitations"><i class="fa fa-plus-square"></i>  Gerenciar Licitações </a></li>
+            <li><a href="?op=new-warninglicitation"><i class="fa fa-eye"></i>  Cadastrar Avisos de Licitações </a></li>
+            <li><a href="?op=manager-warninglicitations"><i class="fa fa-plus-square"></i>  Gerenciar Avisos Licitações </a></li>
+            <li><a href="?op=new-contract "><i class="fa fa-eye"></i>  Cadastrar Contrato </a></li>
+            <li><a href="?op=manager-contracts"><i class="fa fa-plus-square"></i>  Gerenciar Contratos </a></li>            
+          </ul>
+        </li>
+        <?php endif; ?>
+
+
+        <!-- DIÁRIAS -->
+        <!-- <?php if( checkPermission(11, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="javascript:void(0);">
+            <i class="fa fa-usd"></i>  <span>Diárias</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <li><a href="?op=new-diary"><i class="fa fa-plus-square"></i>  Inserir Diária </a></li>
+            <li><a href="?op=manager-diary"><i class="fa fa-eye"></i>  Gerenciar Diárias</a></li>
+          </ul>
+        </li>
+        <?php endif; ?> -->
+        
+        <!-- DOCUMENTOS, DECRETOS, LEIS ETC,...-->
+        <?php if( checkPermission(12, $user->user_access) or checkPermission(13, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-files-o"></i>  <span> Publicações e Leis </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            
+              <li><a href="?op=manager-decrets"><i class="fa fa-file-word-o"></i> DECRETOS</a></li>
+              <li><a href="?op=manager-portarys"><i class="fa fa-file-word-o"></i> PORTARIAS</a></li>
+              <li><a href="?op=manager-laws"><i class="fa fa-file-word-o"></i> LEIS</a></li>
+             <!--  <li><a href="?op=list_laws"><i class="fa fa-file-word-o"></i> LEIS</a></li>
+              <li><a href="?op=list_laws"><i class="fa fa-file-word-o"></i> LEIS</a></li>
+              <li><a href="?op=list_laws"><i class="fa fa-file-word-o"></i> LEIS</a></li>
+              <li><a href="?op=list_laws"><i class="fa fa-file-word-o"></i> LEIS</a></li>
+              <li><a href="?op=list_laws"><i class="fa fa-file-word-o"></i> LEIS</a></li> -->
+                       
+            
+          </ul>
+        </li>
+        <?php endif; ?>
+
+
+        <?php if( checkPermission(12, $user->user_access) or checkPermission(13, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-file-pdf-o"></i>  <span>Relatórios da LRF</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php if( checkPermission(12, $user->user_access) ): ?>
+            <li><a href="?op=new_document"><i class="fa fa-plus"></i>  Novo Documento</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(13, $user->user_access) ): ?>
+            <li><a href="?op=manager-types"><i class="fa fa-plus"></i>  Gerenciar</a></li>
+            <?php
+              $manager = new Manager();
+              $documents = $manager->select_common('tb_documents',null,null,null);
+              if($documents):
+                foreach($documents as $doc):
+            ?>
+              <?php if($doc['id_document'] == 49){  ?>
+      			   <li><a href="?op=manager-pcgs"><i class="fa fa-file-word-o"></i> <?=$doc['document_name']; ?></a></li>
+              <?php }elseif($doc['id_document'] == 50){ ?> 
+               <li><a href="?op=manager-pcss"><i class="fa fa-file-word-o"></i> <?=$doc['document_name']; ?></a></li>
+              <?php }else{ ?> 
+               <li><a href="?op=list_documents&document=<?php echo $doc['id_document']; ?>"><i class="fa fa-file-word-o"></i> <?=$doc['document_name']; ?></a></li>
+              <?php } ?>
+            <?php endforeach; endif; ?>
+            <?php endif; ?>
+            
+          </ul>
+        </li>
+        <?php endif; ?>
+
+        <!-- OUVIDORIA -->
+        <?php if( checkPermission(20, $user->user_access)): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-comments"></i>  <span>Ouvidoria</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">            
+            <li><a href="?op=manager-coments"><i class="fa fa-gears"></i>  Gerenciar Mensagens</a></li>       
+            <li><a href="http://dashboard.tawk.to/" target="_blank"><i class="fa fa-commenting-o"></i>  Abrir Chat TawkTO</a></li>
+            <li><a href="https://<?=$_SERVER['SERVER_NAME'];?>/esic/restrito/index/" target="_blank"><i class="fa fa-commenting-o"></i>  Acesso ao E-SIC</a></li>
+          </ul>
+        </li>
+        <?php endif; ?>
+
+        <?php if( checkPermission(14, $user->user_access) or checkPermission(15, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-users"></i>  <span>Usuários</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php if( checkPermission(14, $user->user_access) ): ?>
+            <li><a href="?op=new-user"><i class="fa fa-plus"></i>  Novo Usuário</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(15, $user->user_access) ): ?>
+            <li><a href="?op=manager-users"><i class="fa fa-gears"></i>  Gerenciar Usuários</a></li>
+            <?php endif; ?>
+            <li><a href="?op=manager-users"><i class="fa fa-list-alt"></i>  Visualizar Usuários</a></li>
+          </ul>
+        </li>
+        <?php endif; ?>
+
+
+        <!-- <?php if( checkPermission(16, $user->user_access) or checkPermission(17, $user->user_access) ): ?>
+        <li class="has-sub">
+          <a href="#">
+            <i class="fa fa-users"></i>  <span>Funções</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i> 
+            </span>
+          </a>
+          <ul class="sub-menu">
+            <?php if( checkPermission(16, $user->user_access) ): ?>
+            <li><a href="?op=new-office"><i class="fa fa-plus"></i>  Novo Função</a></li>
+            <?php endif; ?>
+            <?php if( checkPermission(17, $user->user_access) ): ?>
+            <li><a href="?op=manager-offices"><i class="fa fa-gears"></i>  Gerenciar Funções</a></li>
+            <?php endif; ?>
+            <li><a href="?op=manager-offices"><i class="fa fa-list-alt"></i>  Listar Funções</a></li>
+          </ul>
+        </li>
+        <?php endif; ?> -->
+        <li><a class="sidebar-minify-btn" data-click="sidebar-minify" href="javascript:;"><i class="fa fa-angle-double-left"></i></a></li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
