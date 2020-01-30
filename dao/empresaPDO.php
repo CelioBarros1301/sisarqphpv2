@@ -1,38 +1,45 @@
 <?php
-require_once("Conexao_Class.php");
+
+# Limpando o cache
+ob_start();
+
+# Incluindo os arquivos Necessários
+include_once dirname(__DIR__)."/model/config.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
+
 
 class EmpresaPDO
 {
 
-     
-     public  function __construct(){}
-  
+
+    public  function __construct(){}
+
     public function busca($codigo)
     {
-            $result=array();
-            $conexao=Conexao::getConnection();
-            $sql="SELECT cod_empresa Codigo,";
-            $sql.="des_empresa Empresa ";
-            $sql.=" FROM tb_empresas ";
-            $sql.=" WHERE cod_empresa=?";
-            
-            $smtm=$conexao->prepare($sql);
-            $smtm->bindValue(1,$codigo);
-            $smtm->execute();
-            $resultSet=$smtm->fetch(PDO::FETCH_ASSOC);
-            $conexao=null;
-            return $resultSet ;      
-            
+        $result=array();
+        $conexao=Conexao::getConnection();
+        $sql ="SELECT cod_empresa Codigo ,";
+        $sql.="       des_empresa Empresa ";
+        $sql.=" FROM tb_empresas ";
+        $sql.=" WHERE cod_empresa=?";
+
+        $smtm=$conexao->prepare($sql);
+        $smtm->bindValue(1,$codigo);
+        $smtm->execute();
+        $resultSet=$smtm->fetch(PDO::FETCH_ASSOC);
+        $conexao  =null;
+        return $resultSet ;      
+
 
     }
     public function insert($codigo,$descricao)
     {
-        /*
-        * Objeto: Incluir Empresa
-        * Parametros:   $codigo->Codigo da Empesa
-        *               $descricao->nome da empresa             
-        * Nota: Se o codigo da empresa for igual a 000, sistema deve gerar automaticamente o proximo codigo
-        */
+    /*
+    * Objeto: Incluir Empresa
+    * Parametros:   $codigo->Codigo da Empesa
+    *               $descricao->nome da empresa             
+    * Nota: Se o codigo da empresa for igual a 000, sistema deve gerar automaticamente o proximo codigo
+    */
         $conexao=Conexao::getConnection();
         $sql='INSERT INTO tb_empresas(`cod_empresa`,`des_empresa`) ';
         $sql.= 'VALUES ( ';
@@ -49,7 +56,7 @@ class EmpresaPDO
         $smtm=$conexao->prepare($sql);
         if ($codigo=="000")
         {
-                $smtm->bindValue(1,$descricao);
+            $smtm->bindValue(1,$descricao);
         }
         else
         {
@@ -65,12 +72,12 @@ class EmpresaPDO
     public function update($codigo,$descricao)
     {
         $conexao=Conexao::getConnection();
-        $sql="UPDATE  tb_empresas SET des_empresa=?";
+        $sql ="UPDATE  tb_empresas SET des_empresa=?";
         $sql.= " WHERE cod_empresa=?";
         $smtm=$conexao->prepare($sql);
         $smtm->bindValue(1,$descricao);
         $smtm->bindValue(2,$codigo);
-        $result=$smtm->execute();
+        $result =$smtm->execute();
         $conexao=null;
         return $result;
     }
@@ -79,24 +86,23 @@ class EmpresaPDO
     {
         $conexao=null;
         try{
-            $conexao=Conexao::getConnection();
-            $sql="DELETE  FROM  tb_empresas ";
-            $sql.= " WHERE cod_empresa=?";
-            
-            $smtm=$conexao->prepare($sql);
-            $smtm->bindValue(1,$codigo);
-            $result= $smtm->execute();
-            $conexao=null;
+        $conexao=Conexao::getConnection();
+        $sql ="DELETE  FROM  tb_empresas ";
+        $sql.= " WHERE cod_empresa=?";
+
+        $smtm=$conexao->prepare($sql);
+        $smtm->bindValue(1,$codigo);
+        $result = $smtm->execute();
+        $conexao=null;
         }
         catch (PDOExecption $e  )
         {
-            $mensagem = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
+            $mensagem  = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
             $mensagem .= "\nErro: " . $e->getMessage();
             $conexao=null;
-            var_dump($mensagem);
             throw new Exception($mensagem);
         }
-        
+
         return $result;
     }
 
@@ -116,17 +122,11 @@ class EmpresaPDO
             $smtm->bindValue(1,$filtro);
         }
         $smtm->execute();
-        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $result =$smtm->fetchAll(PDO::FETCH_ASSOC);
         $conexao=null;
         return  $result;
     }
 
-
-
-
-   
-
-    
 }
 
 ?>

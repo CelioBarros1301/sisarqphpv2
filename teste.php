@@ -93,5 +93,7 @@
 
     }
       
-    echo $menuHtml;
+    #echo $menuHtml;
+
+    echo $GLOBALS['project_path'];
     ?>
