@@ -1,20 +1,109 @@
+<?php
+    
+  # Exibicão de erros
+  ini_set("display_errors", 1);
+  error_reporting(E_ALL | E_WARNING);
+
+
+  # Incluindo os arquivos Necessários
+  include_once 'dao/menuPDO.php';
+
+  # Exibicão de erros
+  ini_set("display_errors", 1);
+  error_reporting(E_ALL | E_WARNING);
+
+  # Limpando o cache
+  ob_start();
+
+
+  # inicia a sessao
+  session_start();
+  $user = $_SESSION['user'];
+  $perfil=($user['per_usuario']=="1"?"Admin":"Padrao");
+
+ 
+  #--> Montando o Menu do Sistema
+  $menuPDO= new MenuPDO();
+  $menu=$menuPDO->lista($user['id_usu']);
+
+  
+  $indice =0;
+  $menuHtml="";
+  
+  while( $indice<count($menu) )
+  {    
+      $item=substr($menu[$indice]['seq_menu'],0,2);
+      # Verificar se e SubMenu
+      if ($menu[$indice]['tipo_menu']=='1')
+      {
+          $menuHtml.= '<li class="">';
+          $menuHtml.= '   <a href="?option='. $menu[$indice]['href_menu'].'">';
+          $menuHtml.= '     <i class="' .$menu[$indice]['icone_menu'].'"></i> ';
+          $menuHtml.= '     <span>' .$menu[$indice]['nome_menu'] .'</span>';
+          $menuHtml.= '   </a>';
+          $menuHtml.= '</li>';
+          $indice++;
+      }
+      else
+      {
+          $menuHtml.='<li class="has-sub">';
+
+          while( $indice<count($menu) && $item==substr($menu[$indice]['seq_menu'],0,2) )
+          {
+              
+              if ($menu[$indice]['tipo_menu']=='0')
+              {
+                  $menuHtml.='<a href="#">';
+                  $menuHtml.='  <i class="'.$menu[$indice]['icone_menu'].'"></i> '; 
+                  $menuHtml.='  <span>' .$menu[$indice]['nome_menu'] .'</span>';
+                  $menuHtml.='  <span class="pull-right-container">';
+                  $menuHtml.='     <i class="fa fa-angle-left pull-right"></i>'; 
+                  $menuHtml.='  </span>';
+                  $menuHtml.='</a>';
+                  $menuHtml.='<ul class="sub-menu">';
+              }
+              else
+              {
+
+                  $menuHtml.='<li>';
+                  $menuHtml.='   <a href="?option='. $menu[$indice]['href_menu'].'">';
+                  $menuHtml.='     <i class="' .$menu[$indice]['icone_menu'].'"></i> ';
+                  $menuHtml.=      $menu[$indice]['nome_menu'];
+                  $menuHtml.='   </a>';
+                  $menuHtml.='</li>';
+
+              }
+              $indice++;
+          }
+
+          $menuHtml.='</ul>';
+          $menuHtml.='</li>';
+      }
+
+  }
+    
+?>
 
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       
       <ul class="nav" data-widget="tree">
-        <li class="header">Olá <?=$user['log_usuario'];?></li>
+        <li class="header" ><span style="background-color:whitesmoke;">Olá <?=$user['log_usuario'];?></span></li>
         <li class="header">Navegação Principal</li>
+
+        <?php echo $menuHtml ?>
+
+
         <!-- <li class="">
           <a href="?op=dashboard">
             <i class="fa fa-dashboard"></i>  <span>Painel de Controle</span>
           </a>
-        </li> -->
+        </li> 
 
         
         <li class="">
-          <a href="?op=general-settings">
+           <a href="?op=general-settings">
             <i class="fa fa-cogs"></i>  <span>Configurações Gerais</span>
           </a>
         </li>
@@ -85,6 +174,7 @@
             <i class="fa fa-power-off"></i>  <span>Sair</span>
           </a>
         </li>
+      -->
         <li><a class="sidebar-minify-btn" data-click="sidebar-minify" href="javascript:;"><i class="fa fa-angle-double-left"></i></a></li>
       </ul>
     </section>

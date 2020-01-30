@@ -7,7 +7,7 @@
 ob_start();
 
 # Incluindo os arquivos Necessários
-include_once dirname(__DIR__)."/model/config.php";
+include_once $project_path."/model/config.php";
 include_once $project_path."/controller/constantes.php";
 
 
