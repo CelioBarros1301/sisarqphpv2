@@ -19,15 +19,15 @@
 
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
-
+    $registr=array();
 
     # Preencher Formulario com os dados 
 
     if (isset($_GET['status'] ))
     {
         $acao      = $_GET['status'];
-        $codEmpresa= $_GET['codEmp'];
-        $codSetor  = $_GET['codSet'];
+        $codEmpresa= isset($_GET['codEmp'])?$_GET['codEmp']:"";
+        $codSetor  = isset($_GET['codSet'])?$_GET['codSet']:"";
 
         if ( $acao=="i" ) 
         { 
@@ -35,9 +35,11 @@
         }
         else
         {
-            $tabelaEmpresa=$empresaPDO->lista($codEmpresa);
+            $tabelaEmpresa= $empresaPDO->lista($codEmpresa);
+            $registro     = $setorPDO->busca($codEmpresa,$codSetor);
+
         }
-        $registro=$setorPDO->busca($codEmpresa,$codSetor);
+        #$registro=$setorPDO->busca($codEmpresa,$codSetor);
 
     }
     else if( !isset($_GET['status']))
@@ -91,7 +93,8 @@
                 $registro=$setorPDO->delete($codEmpresa,$codSetor);
             break;
         }
-        header("location:sisarq.php?option=setor");
+        #echo "location:".$GLOBALS['project_index']."sisarq.php?option=setor";
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=setor");
     }
 
 ?>

@@ -30,73 +30,74 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <action="<?php echo $GLOBALS['project_index']; ?>/controller/setor.php" method="post" enctype="multipart/form-data">
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/setor.php" method="post" enctype="multipart/form-data">
                   
-                  <div class="row"> <!--Linha 01-->
+                    <div class="row"> <!--Linha 01-->
 
-                    <div class="col-md-12">
-                      <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
-                      
-                      <div class="form-group ">
-                        <label>Empresa</label>
-                        <select name="codEmp" <?=$readonly;?> required class="form-control">
-                          <?php
-                          if ( $_GET["status"]=="i")
-                          { 
-                              echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
-                          }
-                          foreach ($tabelaEmpresa as $coluna){
-                              echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
-                          }
-                          ?>
-                           
-                        </select>
-                      </div>
-                    </div>
-                  
-                  </div><!--Linha 01-->
-                  
-                  <div class="row"><!--Linha 02-->
-                  
-                    <div class="col-md-2">
-                      <div class="form-group ">
-                            <label>Codigo</label>
-                            <input type="text" name="codSet"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codSet"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control " placeholder="Codigo Setor" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,2)'>
-                      </div>
-                    </div>
-                  
-                    <div class="col-md-6">
-                      <div class="form-group ">
-                            <label>Descricao</label>
-                            <input type="text" name="desSet" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_setor"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Descrição do Setor" required  >
-                      </div>        
-                    </div>
-                  </div> <!--Linha 02-->   
-                    
-                  <div class="row">  <!--Linha 03-->
-
-                    <div class="col-md-12">
-                      <p class="text-right">
-                        <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
-                          <i class="fa fa-check-circle" ></i> 
-                          <b>
-                            <?php 
-                              if ($_GET['status']=='e')
-                              {
-                                  echo "Excluir";
-                              }
-                              else
-                              {
-                                  echo "Salvar";
-                              }
+                      <div class="col-md-12">
+                        <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
+                        
+                        <div class="form-group ">
+                          <label>Empresa</label>
+                          <select name="codEmp" <?=$readonly;?> required class="form-control">
+                            <?php
+                            if ( $_GET["status"]=="i")
+                            { 
+                                echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                            }
+                            foreach ($tabelaEmpresa as $coluna){
+                                echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
+                            }
                             ?>
-                          </b>
-                        </button>
-                      </p>
-                    </div> 
+                            
+                          </select>
+                        </div>
+                      </div>
+                    
+                    </div><!--Linha 01-->
+                    
+                    <div class="row"><!--Linha 02-->
+                    
+                      <div class="col-md-2">
+                        <div class="form-group ">
+                              <label>Codigo</label>
+                              <input type="text" name="codSet"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codSet"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control " placeholder="Codigo Setor" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,2)'>
+                        </div>
+                      </div>
+                    
+                      <div class="col-md-6">
+                        <div class="form-group ">
+                              <label>Descricao</label>
+                              <input type="text" name="desSet" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_setor"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Descrição do Setor" required  >
+                        </div>        
+                      </div>
+                    </div> <!--Linha 02-->   
+                      
+                    <div class="row">  <!--Linha 03-->
 
-                  </div> <!--Linha 03-->
+                      <div class="col-md-12">
+                        <p class="text-right">
+                          <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                            <i class="fa fa-check-circle" ></i> 
+                            <b>
+                              <?php 
+                                if ($_GET['status']=='e')
+                                {
+                                    echo "Excluir";
+                                }
+                                else
+                                {
+                                    echo "Salvar";
+                                }
+                              ?>
+                            </b>
+                          </button>
+                        </p>
+                      </div> 
 
+                    </div> <!--Linha 03-->
+                    
+                  </form>
                 </div>
             </div>
         </div>

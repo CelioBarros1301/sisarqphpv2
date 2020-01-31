@@ -1,0 +1,100 @@
+<?php ini_set("display_errors", 1); ?>
+<div class="content" id="content" style="margin: 0px;padding:0px;">
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="#">Início</a></li>
+        <li class="breadcrumb-item active">Novo Usuário</li>
+    </ol>
+    <h1 class="page-header">Novo Usuário</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                <h4 class="panel-title">Informe abaixo os dados do Usuário </h4></div>
+                <div class="panel-body">
+                  <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
+                  <!-- <div class="row"> -->
+                   <form action="<?php echo $GLOBALS['project_index']; ?>/controller/user.php" method="post" enctype="multipart/form-data">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input type="hidden" name="action" value="add">
+                      <div class="form-group col-md-12">
+                        <label>Nome do Usuário</label>
+                        <input type="text" class="form-control" placeholder="Nome do Usuário" name="usuario_nome">                  
+
+                      </div><!-- ./ form-group -->
+                      <div class="form-group col-md-12">
+                        <label>Email</label>
+                        <input type="email" name="usuario_email" class="form-control" placeholder="Email"/>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <label>Senha</label>
+                        <input type="password" name="usuario_senha" class="form-control" placeholder="Senha" required/>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <label>Contato</label>
+                        <input type="text" name="usuario_contato" class="form-control" placeholder="Telefone ou Celular" required/>
+                      </div>
+                    </div><!-- ./ col-md-6 -->
+                    
+                    <div class="col-md-6">
+                      <!-- <img src="http://www.barramansa.rj.gov.br/transparencia/images/pages/portal_transp.png" class="img-responsive" /> -->
+                      <div class="form-group col-md-12">
+                        <label>CPF</label>
+                        <input type="text" name="usuario_cpf" class="form-control" placeholder="CPF" required/>
+                      </div>                      
+
+                      <div class="form-group col-md-12">
+                          <label>Data de Nascimento</label>
+                          <input type="date" name="usuario_dt_nasc" class="form-control" required>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <label>Endereco</label>
+                        <input type="text" name="usuario_endereco" class="form-control" placeholder="Endereço" required/>
+                      </div>
+
+                                            
+
+                      <div class="form-group col-md-12">
+                        <label>Tipo do Perfil</label>                        
+                        <select name="perfil_id" class="form-control" required>
+                              <option selected disabled>-- Selecione --</option>
+                              <?php foreach ($profiles as $p): ?>
+                              	<option value="<?=$p['id_perfil'];?>">
+                              		<?=$p['perfil_nome'];?>
+                              	</option>
+                              <?php endforeach; ?>                         
+                        </select>
+                      </div>
+
+                      <hr />
+                      <div class="row">                         
+                        <div class="col-md-12">
+                          <p class="text-right"><button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> <b>Cadastrar Usuário</b></button></p>
+                        </div><!-- ./ col-md-6 -->
+                      </div><!-- ./ row -->
+                    </form>
+                    </div><!-- . col-md-6 -->
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function optionCheck(){
+        var option = document.getElementById("secretary").value;
+        if(option == "other"){
+            document.getElementById("hiddenDiv").style.visibility ="visible";
+            document.getElementById("secretary_name2").required = true; 
+            document.getElementById("secretary_name2").disabled = false; 
+        }else{
+            document.getElementById("hiddenDiv").style.visibility ="hidden";          
+            document.getElementById("secretary_name2").disabled = true; 
+        }        
+    }
+</script>
