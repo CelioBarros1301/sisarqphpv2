@@ -1,10 +1,5 @@
 <?php
-/*
-* Classe: Arquivo
-* Funçao: Acesso as informacoes do Arquivo 
-* Regras: 
-* Tabela: tb_arquivos
-*/
+
 Class TipoDocumento
 {
 

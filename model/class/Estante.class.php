@@ -1,10 +1,5 @@
 <?php
-/*
-* Classe: Estante
-* Funçao: Acesso as informacoes do Estantes
-* Regras: 
-* Tabela: tb_corredores
-*/
+
 Class Estante
 {
 

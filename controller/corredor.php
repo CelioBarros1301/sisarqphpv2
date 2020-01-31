@@ -1,21 +1,20 @@
 <?php
   
-/*
-* Regras de Negocio para a Processo de Manutencao do Corredor
-*  Objetos envolvidos: Arquivo
-*  Regra: 
-*/
-    
-    require("corredorPDO.php");
-    require("Corredor_Class.php");
-
-    require("arquivoPDO.php");
-    require("empresaPDO.php");
-    
+    #
+    # Regras de Negocio para a Processo de Corredor
+    #
    
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
+
+    include_once $GLOBALS['project_path'].'/dao/corredorPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Corredor.class.php';
+    include_once $GLOBALS['project_path'].'/dao/arquivoPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/empresaPDO.php';
+  
+    # Instaciando as classes necessarias
     $corredorPDO= new CorredorPDO();
     $corredor=new Corredor();
-    
     
     $arquivoPDO= new ArquivoPDO();
     $empresaPDO= new EmpresaPDO();
@@ -23,16 +22,19 @@
     
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
-    $filtroEmpresa="";
-    
+    $registro=array();
+
+
     # Preencher Formulario com os dados 
+        
         
     if (isset($_GET['status'] ))
     {
         $acao=$_GET['status'];
-        $codEmpresa  =$_GET['codEmp'];
-        $codArquivo  =$_GET['codArq'];
-        $codCorredor =$_GET['codCor'];
+        $codEmpresa   = isset($_GET['codEmp'])?$_GET['codEmp']:"";
+        $codArquivo   = isset($_GET['codArq'])?$_GET['codArq']:"";
+        $codCorredor  = isset($_GET['codCor'])?$_GET['codCor']:"";
+   
         if ($acao=="i" ) 
         { 
             $tabelaEmpresa=$empresaPDO->lista("");
@@ -43,9 +45,9 @@
         {
             $tabelaEmpresa=$empresaPDO->lista($codEmpresa);
             $tabelaArquivo=$arquivoPDO->listaArquivo($codEmpresa,$codArquivo);
+            $registro=$corredorPDO->busca($codEmpresa,$codArquivo,$codCorredor);
             
         }
-        $registro=$corredorPDO->busca($codEmpresa,$codArquivo,$codCorredor);
         
     }
     else if( !isset($_GET['status']))
@@ -108,7 +110,8 @@
                 $registro=$corredorPDO->delete($codEmpresa,$codArquivo,$codCorredor);
             break;
         }
-        header("location:sisarq.php?option=corredor&filtroEmp=$filtroEmpresa");
+    
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=corredor&filtroEmp=$filtroEmpresa");
     }
      
 ?>

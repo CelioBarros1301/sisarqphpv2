@@ -19,7 +19,7 @@
 
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
-    $registr=array();
+    $registro=array();
 
     # Preencher Formulario com os dados 
 
@@ -39,8 +39,7 @@
             $registro     = $setorPDO->busca($codEmpresa,$codSetor);
 
         }
-        #$registro=$setorPDO->busca($codEmpresa,$codSetor);
-
+     
     }
     else if( !isset($_GET['status']))
     {
@@ -93,7 +92,6 @@
                 $registro=$setorPDO->delete($codEmpresa,$codSetor);
             break;
         }
-        #echo "location:".$GLOBALS['project_index']."sisarq.php?option=setor";
         header("location:".$GLOBALS['project_index']."sisarq.php?option=setor");
     }
 

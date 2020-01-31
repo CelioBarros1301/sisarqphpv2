@@ -1,6 +1,12 @@
 <?php
 
-require_once("Conexao_Class.php");
+
+# Limpando o cache
+ob_start();
+
+# Incluindo os arquivos Necessários
+include_once dirname(__DIR__)."/model/config.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
 
 class CorredorPDO
 {
@@ -157,7 +163,7 @@ class CorredorPDO
         $result=array();
 
         $sql="SELECT    empresa.cod_empresa CodEmpresa ,des_empresa  Empresa,";
-        $sql.="         arquivo.cod_arquivo CodArquivo ,des_arquivo  Descricao,";
+        $sql.="         arquivo.cod_arquivo CodArquivo ,des_arquivo  Arquivo,";
         $sql.="         cod_corredor        CodCorredor,des_corredor Corredor, ";
         $sql.="         sig_corredor Sigla ";
         

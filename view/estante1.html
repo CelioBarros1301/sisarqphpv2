@@ -1,0 +1,140 @@
+<?php
+
+    
+    if ( !isset($_SESSION['user'])){
+        #header("location: index.php");
+    }
+
+    #--> Guardando Acesso as operacoes
+
+    include_once "menuPDO.php";
+    
+    $menuPDO= new MenuPDO();
+    $acoes=$menuPDO->listaMenu($user['id_usu'],"Estante");
+
+   
+   
+    # Informacoes da regra de negocio e acesso ao dados
+    include_once  "estante.php";
+    
+    
+?>
+<div class="row">
+        <div class="col-sm-10" >
+                
+        <form action="" method="POST">
+
+            <div class="form-group">    
+                <label > Empresa </label><br>
+                <?php
+                    $filtro="";
+                    if ( isset($_GET['filtroEmp']) )	
+                    {
+                        $filtro= $_GET['filtroEmp'];   
+                    }
+                ?>
+                <select id="codigo" name="codEmp"  class="form-control" onchange="consultagride(document.getElementById('codigo').value)">
+                    <?php
+                    echo '<option value=""> Todas Empresas</option>';
+                    foreach ($tabelaEmpresa as $coluna){
+                        if ( isset($_GET['filtroEmp']) && $coluna["Codigo"]== $_GET['filtroEmp'] )
+                        {
+                            $selecao="selected";
+                            
+                        }
+                        else 
+                        {
+                            $selecao="";
+                        }
+
+                        echo '<option '. $selecao. ' '. ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
+                    }
+                    ?>
+                    
+                </select>
+            </div>
+            
+            <?php
+                if ( $acoes['sta_inc']==1 )
+                { 
+                                                        
+                echo '<a href="sisarq.php?option=cadestante&codEmp=0&codArq=&codCor=&codEst=&status=i" class="btn btn-primary btn-xs"><i class="fa fa-file-text-o"
+                        aria-hidden="true"></i> Novo</a>';
+                }
+            ?>
+
+            <button class="btn btn-primary btn-xs"><i class="fa fa-search" aria-hidden="true"></i> Filtro </button>
+            
+            <h3>
+                <i class="fa fa-plus"></i>
+                Lista de Estantes		
+            </h3>
+            <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
+                            style="width:100%" id="tbpadrao">
+
+                            <thead>
+                                    <tr>
+                                        <?php foreach ($dataTableColunas as $coluna)
+                                            {
+                                            echo "<th>". $coluna. "</th>";
+                                            }
+                                            if ( count($dataTable)>0  )
+                                            {        
+                                                echo "<th>Ações</th>";
+                                            }
+                                            else
+                                            {
+                                                echo "<th> </th>";
+                                            }
+                                        ?>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php for ($i=0;$i < count($dataTable);$i++ ) {
+                                            echo "<tr>";
+                                            
+                                                foreach ($dataTable[$i] as $campo){
+                                                    echo "<td>";
+                                                        echo $campo;
+                                                    echo "</td>";
+                                                }    
+                                                
+                                                echo "<td>";
+                                                    
+                                                    if ( $acoes['sta_alt']==1 )
+                                                    {                 
+                                                        $link='href=sisarq.php?option=cadestante&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'].'&codCor='. $dataTable[$i]['CodCorredor'].'&codEst='. $dataTable[$i]['CodEstante']. '&status=a';
+                                                        echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
+                                                                echo '<i class="fa fa-edit"></i>';
+                                                        echo '</a> ';
+                                                    }
+                                                    if ( $acoes['sta_exc']==1 )
+                                                    {                 
+                                                        $link='href=sisarq.php?option=cadestante&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'] .'&codCor='. $dataTable[$i]['CodCorredor'].'&codEst='. $dataTable[$i]['CodEstante'].'&status=e';
+                                                        echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
+                                                            echo '<i class="fa fa-trash"></i>';
+                                                        echo '</a> ';
+                                                    }
+                                                    if ( $acoes['sta_con']==1 )
+                                                    {                 
+                                                        $link='href=sisarq.php?option=cadestante&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'] .'&codCor='. $dataTable[$i]['CodCorredor'].'&codEst='. $dataTable[$i]['CodEstante'].'&status=c';
+                                                        echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
+                                                            echo '<i class="fa fa-eye"></i>';
+                                                        echo '</a> ';
+                                                    }
+
+                                             
+                                                echo '</td>';
+                                                              
+                                            echo "</tr>";
+                                        } 
+                
+                                    ?>
+                
+                </tbody>
+
+            </table>
+        
+        </form>
+    </div>
+</div>

@@ -1,6 +1,11 @@
 <?php
 
-require_once("Conexao_Class.php");
+# Limpando o cache
+ob_start();
+
+# Incluindo os arquivos Necessários
+include_once dirname(__DIR__)."/model/config.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
 
 class EstantePDO
 {

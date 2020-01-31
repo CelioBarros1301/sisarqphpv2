@@ -38,7 +38,7 @@ function validate_options(){
 		break;
 
 		case 'cadempresa':
-			include_once 'formempresa.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formempresa.html';
 		break;
 
 		# Autorizado
@@ -47,7 +47,7 @@ function validate_options(){
 		break;
 
 		case 'cadautorizado':
-			include_once 'formautorizado.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formautorizado.html';
 		break;
 
 
@@ -56,7 +56,7 @@ function validate_options(){
 			include_once $GLOBALS['project_path'].'/view/acessomenu.html';			
 		break;
 		case 'cadacesso':	
-			include_once 'formacesso.html';			
+			include_once $GLOBALS['project_path'].'/view/forms/formacesso.html';			
 		break;
 
 
@@ -67,7 +67,7 @@ function validate_options(){
 		break;
 
 		case 'cadsetorautorizado':
-			include_once 'formsetorautorizado.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formsetorautorizado.html';
 		break;
 
 		# usuario
@@ -76,7 +76,7 @@ function validate_options(){
 		break;
 
 		case 'cadusuario':
-			include_once 'formusuario.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formusuario.html';
 		break;
 
 		case 'liberausuario':
@@ -96,7 +96,7 @@ function validate_options(){
 		break;
 
 		case 'cadarquivo':
-			include_once 'formarquivo.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formarquivo.html';
 		break;
 
 		# corredor
@@ -105,7 +105,7 @@ function validate_options(){
 		break;
 
 		case 'cadcorredor':
-			include_once 'formcorredor.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formcorredor.html';
 		break;
 
 		# estante
@@ -114,7 +114,7 @@ function validate_options(){
 		break;
 
 		case 'cadestante':
-			include_once 'formestante.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formestante.html';
 		break;
 
 
@@ -124,7 +124,7 @@ function validate_options(){
 		break;
 
 		case 'cadprateleira':
-			include_once 'formprateleira.html';
+			include_once $GLOBALS['project_path'].'/view/formsformprateleira.html';
 		break;
 
 		# caixa
@@ -133,7 +133,7 @@ function validate_options(){
 		break;
 
 		case 'cadcaixa':
-			include_once 'formcaixa.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formcaixa.html';
 		break;
 
 
@@ -154,7 +154,7 @@ function validate_options(){
 		break;
 
 		case 'cadtipodoc':
-			include_once 'formtipodocumento.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formtipodocumento.html';
 		break;
 
 		# documento
@@ -163,7 +163,7 @@ function validate_options(){
 		break;
 
 		case 'caddocumento':
-			include_once 'formdocumento.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formdocumento.html';
 		break;
 
 

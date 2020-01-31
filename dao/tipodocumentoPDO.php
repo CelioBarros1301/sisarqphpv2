@@ -1,6 +1,12 @@
 <?php
 
-require_once("Conexao_Class.php");
+# Limpando o cache
+ob_start();
+
+# Incluindo os arquivos Necessários
+include_once dirname(__DIR__)."/model/config.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
+
 
 class TipoDocumentoPDO
 {
@@ -12,7 +18,7 @@ class TipoDocumentoPDO
             
             $conexao=Conexao::getConnection();
             $result=array();
-            $sql="SELECT * ";
+            $sql ="SELECT * ";
             $sql.=" FROM tb_tipo_documentos   ";
             $sql.=" WHERE cod_empresa  =? and ";
             $sql.="       cod_documento=?     ";
@@ -24,7 +30,7 @@ class TipoDocumentoPDO
             
             $smtm->execute();
             $resultSet=$smtm->fetch(PDO::FETCH_ASSOC);
-            $conexao=null;
+            $conexao  =null;
             return $resultSet ;      
             
 
@@ -32,16 +38,11 @@ class TipoDocumentoPDO
     
     public function insert($tipodocumento)
     {
-        /*
-        * Objeto: Incluir Usuario
-        * Parametros: $usuario-> Objeto Usuario               
-        * Nota: Se o codigo do Usuario e autoincremento
-                */
-
+     
         try
         {
             $conexao=Conexao::getConnection();
-            $sql='INSERT INTO tb_tipo_documentos ( ';
+            $sql ='INSERT INTO tb_tipo_documentos ( ';
             $sql.='`cod_empresa`,  ';
             $sql.='`cod_documento`,';
             $sql.='`des_documento`,';
@@ -82,7 +83,7 @@ class TipoDocumentoPDO
         }
         catch (PDOExecption $e  )
         {
-            $mensagem = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
+            $mensagem  = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
             $mensagem .= "\nErro: " . $e->getMessage();
             throw new Exception($mensagem);
         }
@@ -92,7 +93,7 @@ class TipoDocumentoPDO
     public function update($tipodocumento)
     {
         $conexao=Conexao::getConnection();
-        $sql="UPDATE  tb_tipo_documentos SET ";
+        $sql ="UPDATE  tb_tipo_documentos SET ";
         $sql.='`des_documento`=? ,';
         $sql.='`sig_documento`=? ';
 
@@ -117,15 +118,14 @@ $result=$smtm->execute();
     public function delete($codEmpresa,$codDocumento)
     {
         $conexao=Conexao::getConnection();
-        $sql="DELETE  FROM  tb_tipo_documentos ";
+        $sql = "DELETE  FROM  tb_tipo_documentos ";
         $sql.= " WHERE cod_empresa  =? and ";
         $sql.= "       cod_documento=?  ";
         
         $smtm=$conexao->prepare($sql);
         $smtm->bindValue(1,$codEmpresa);
         $smtm->bindValue(2,$codDocumento);
-        $result=$smtm->execute();
-        ##$conexao->commit();
+        $result =$smtm->execute();
         $conexao=null;
         return $result;
     }
@@ -134,8 +134,8 @@ $result=$smtm->execute();
     public function lista($filtro)
     {
         $conexao=Conexao::getConnection();
-        $result=array();
-        $sql="SELECT empresa.cod_empresa CodEmpresa,des_empresa Empresa," ;  
+        $result =array();
+        $sql ="SELECT empresa.cod_empresa CodEmpresa,des_empresa Empresa," ;  
         $sql.="     cod_documento CodDocumento,des_documento    Documento, ";
         $sql.="     sig_documento Sigla ";
         
@@ -156,7 +156,7 @@ $result=$smtm->execute();
         }
 
         $smtm->execute();
-        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $result =$smtm->fetchAll(PDO::FETCH_ASSOC);
         $conexao=null;
         return  $result;
     }
@@ -164,8 +164,8 @@ $result=$smtm->execute();
     public function listaTipoDocumento($codEmpresa,$codDocumento)
     {
         $conexao=Conexao::getConnection();
-        $result=array();
-        $sql="SELECT    cod_documento CodTipo,des_documento Tipo ";
+        $result =array();
+        $sql ="SELECT    cod_documento CodTipo,des_documento Tipo ";
         $sql.=" FROM tb_tipo_documentos documento ";
         
         
@@ -194,7 +194,7 @@ $result=$smtm->execute();
             
         }
         $smtm->execute();
-        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $result =$smtm->fetchAll(PDO::FETCH_ASSOC);
         $conexao=null;
         return  $result;
     }

@@ -1,10 +1,6 @@
 <?php
-/*
-* Classe: Arquivo
-* Funçao: Acesso as informacoes do Corredores 
-* Regras: 
-* Tabela: tb_corredores
-*/
+
+
 Class Corredor
 {
 

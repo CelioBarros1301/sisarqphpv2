@@ -1,32 +1,35 @@
 <?php
   
-/*
-* Regras de Negocio para a Processo de Manutencoa Arquivo
-*  Objetos envolvidos: Arquivo
-*  Regra: 
-*/
-    
-    require("arquivoPDO.php");
-    require("Arquivo_Class.php");
-    require("empresaPDO.php");
-    
-    $arquivoPDO= new ArquivoPDO();
-    $arquivo=new Arquivo();
-    $empresaPDO=new EmpresaPDO();
 
-        
-    
+    #
+    # Regras de Negocio para a Processo de Arquivo
+    #
+   
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
+
+    include_once $GLOBALS['project_path'].'/dao/arquivoPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Arquivo.class.php';
+    include_once $GLOBALS['project_path'].'/dao/empresaPDO.php';
+  
+    # Instaciando as classes necessarias
+    $arquivoPDO  = new ArquivoPDO();
+    $arquivo     = new Arquivo();
+    $empresaPDO  = new EmpresaPDO();
+
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
+    $registro=array();
 
-        
+
     # Preencher Formulario com os dados 
         
     if (isset($_GET['status'] ))
     {
         $acao=$_GET['status'];
-        $codEmpresa=$_GET['codEmp'];
-        $codArquivo=$_GET['codArq'];
+        $codEmpresa   = isset($_GET['codEmp'])?$_GET['codEmp']:"";
+        $codArquivo   = isset($_GET['codArq'])?$_GET['codArq']:"";
+  
         
         if ($acao=="i" ) 
         { 
@@ -35,8 +38,8 @@
         else
         {
             $tabelaEmpresa=$empresaPDO->lista($codEmpresa);
+            $registro=$arquivoPDO->busca($codEmpresa,$codArquivo);
         }
-        $registro=$arquivoPDO->busca($codEmpresa,$codArquivo);
         
     }
     else if( !isset($_GET['status']))
@@ -89,7 +92,7 @@
                 $registro=$arquivoPDO->delete($codEmpresa,$codArquivo);
             break;
         }
-        header("location:sisarq.php?option=arquivo");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=arquivo");
     }
      
 ?>

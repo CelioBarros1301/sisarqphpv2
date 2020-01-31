@@ -1,19 +1,21 @@
 <?php
-  
-/*
-* Regras de Negocio para a Processo de Manutencao do Corredor
-*  Objetos envolvidos: Arquivo
-*  Regra: 
-*/
-    
-    require("estantePDO.php");
-    require("Estante_Class.php");
 
-    require("corredorPDO.php");
-    require("arquivoPDO.php");
-    require("empresaPDO.php");
-    
+    #
+    # Regras de Negocio para a Processo de Estante
+    #
    
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
+
+    include_once $GLOBALS['project_path'].'/dao/estantePDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Estante.class.php';
+    include_once $GLOBALS['project_path'].'/dao/corredorPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/arquivoPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/empresaPDO.php';
+  
+    
+    
+    # Instaciando as classes necessarias
     $estantePDO  = new EstantePDO();
     $estante     = new Estante();
     
@@ -24,17 +26,20 @@
     
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
-    $filtroEmpresa="";
-    
+    $registro=array();
+
+
     # Preencher Formulario com os dados 
+        
         
     if (isset($_GET['status'] ))
     {
         $acao=$_GET['status'];
-        $codEmpresa  =$_GET['codEmp'];
-        $codArquivo  =$_GET['codArq'];
-        $codCorredor =$_GET['codCor'];
-        $codEstante  =$_GET['codEst'];
+        $codEmpresa   = isset($_GET['codEmp'])?$_GET['codEmp']:"";
+        $codArquivo   = isset($_GET['codArq'])?$_GET['codArq']:"";
+        $codCorredor  = isset($_GET['codCor'])?$_GET['codCor']:"";
+        $codEstante   = isset($_GET['codEst'])?$_GET['codEst']:"";
+  
   
         if ($acao=="i" ) 
         { 
@@ -48,9 +53,9 @@
             $tabelaEmpresa =$empresaPDO->lista($codEmpresa);
             $tabelaArquivo =$arquivoPDO->listaArquivo($codEmpresa,$codArquivo);
             $tabelaCorredor=$corredorPDO->listaCorredor($codEmpresa,$codArquivo,$codCorredor);
+            $registro=$estantePDO->busca($codEmpresa,$codArquivo,$codCorredor,$codEstante);
             
         }
-        $registro=$estantePDO->busca($codEmpresa,$codArquivo,$codCorredor,$codEstante);
         
         
     }
@@ -119,7 +124,7 @@
                 $registro=$estantePDO->delete($codEmpresa,$codArquivo,$codCorredor,$codEstante);
             break;
         }
-        header("location:sisarq.php?option=estante&filtroEmp=$filtroEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=estante&filtroEmp=$filtroEmpresa");
     }
      
 ?>

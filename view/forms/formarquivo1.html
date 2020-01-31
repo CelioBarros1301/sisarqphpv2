@@ -7,12 +7,11 @@
 
     # Informacoes do banco
     
-    include_once  "setor.php";
+    include_once  "arquivo.php";
     $selecao=$_GET["status"]!="i"?"selected":"";
     $readonly=$_GET['status']!="i"?"readonly":"";
 
     $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
- 
                                                             
      
 ?>
@@ -21,11 +20,11 @@
         <div class="col-md-8 offset-3 col-sm-12">
             <div class="arquivo-form">
  
-                <form action="setor.php" method="POST">
+                <form action="arquivo.php" method="POST">
                     
                     <div class="row">
                         <div class="form-group">    
-                            <label> Empresa </label><br>	
+                            <label> Empresa </label><br>
                             <select name="codEmp" <?=$readonly;?> required class="form-control">
                                 <?php
                                 if ( $_GET["status"]=="i")
@@ -42,16 +41,18 @@
                     </div>        
             
                     <div class="row"> 
-                        <div class="form-group">
-                            <label>Codigo</label>
-                            <input type="text" name="codSet"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codSet"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,2)'>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Codigo Arquivo</label>
+                                <input type="text" name="codArq"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codArq"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,2)'>
+                            </div>
                         </div>
-                    </div>
                     
-                    <div class="row"> 
-                        <div class="form-group">
-                            <label>Descricao</label>
-                            <input type="text" name="desSet" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_setor"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Nome da Empresa" required  >
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>Descricao</label>
+                                <input type="text" name="desArq" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_arquivo"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Descricao do Arquivo" required  >
+                            </div>
                         </div>
                     </div>        
             
@@ -75,7 +76,7 @@
                         ?>
                     </button>
 
-                    <button type="button" class="btn btn-primary" aria-pressed="true" onclick="history.back();">
+                    <button type="button" class="btn btn-primary" aria-pressed="true"  onclick="history.back();">
                         <i class="fa fa-times " style="font-size:24px;color:red;"></i>
                         Cancelar
                     </button> 

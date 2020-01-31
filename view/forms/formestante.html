@@ -1,135 +1,164 @@
 <?php
 
-    
-    if ( !isset($_SESSION['user'])){
-        #header("location: index.php");
-    }
+# Verificar se sessão existe
+if ( !isset($_SESSION['user'])){
+    header("location: $project_index?error=");
+}
 
-    # Informacoes do banco
-    
-    include_once  "estante.php";
-    #$selecao=$_GET["status"]!="i"?"selected":"";
-    $readonly=$_GET['status']!="i"?"readonly":"";
-    $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
- 
-                                                            
+# Incluindo as classes necessárias
+include_once $GLOBALS['project_path'].'controller/estante.php';
+
+  
+$selecao=$_GET["status"]!="i"?"selected":"";
+$readonly=$_GET['status']!="i"?"readonly":"";
+
+$readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
+
 ?>
+<div class="content" id="content" style="margin: 0px;padding:0px;">
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="#">Início</a></li>
+        <li class="breadcrumb-item active">Nova Estante</li>
+        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Estante</a>
+        </li>
+    </ol>
+    <h1 class="page-header">Nova Estante</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                  <h4 class="panel-title">Informe abaixo os dados da Estante </h4>
+                </div>
+                <div class="panel-body">
+                  <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
+                  <!-- <div class="row"> -->
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/corredor.php" method="post" enctype="multipart/form-data">
+                  
+                    <div class="row"> <!--Linha 01-->
 
- <div class="row">
-        <div class="col-md-8 offset-3 col-sm-12">
-            <div class="arquivo-form">
- 
-                <form action="estante.php" method="POST">
-                    
-                    <div class="row">
-                        <div class="form-group">    
-                            <label> Empresa </label><br>	
-                            <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" onchange="changecomboempresa(document.getElementById('idEmpresa').value,'cadestante')">
-                                <?php
-                                if ( $_GET["status"]=="i" && $_GET["codEmp"]=="0")
-                                { 
-                                    echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
-                                }
-                                foreach ($tabelaEmpresa as $coluna){
-                                    $selecao = $_GET["codEmp"]==$coluna["Codigo"]?"selected":"";
-                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
-                                }
-                                ?>
-                                 
-                            </select>
+                        <div class="col-md-12">
+                            <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
+                        
+                            <div class="form-group ">
+                                <label>Empresa</label>
+                                <select name="codEmp" <?=$readonly;?> required class="form-control">
+                                    <?php
+                                    if ( $_GET["status"]=="i")
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                                    }
+                                    foreach ($tabelaEmpresa as $coluna){
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
+                                    }
+                                    ?>
+                                    
+                                </select>
+                            </div>
                         </div>
-                    </div>        
+                 
+                    </div><!--Linha 01-->
+
+                    <div class="row"> <!--Linha 02-->
+                 
+                        <div class="col-md-6" >
+                            <div class="form-group">    
+                                <label> Arquivo </label><br>	
+                                <select name="codArq" <?=$readonly;?> class="form-control" >
+                                    <?php
+                                    if ( $_GET["status"]=="i" && $_GET["codArq"]=="0")
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Arquivo<=</option>';	
+                                    }
+                                    foreach ($tabelaArquivo as $coluna){
+                                        $selecao = $_GET["codArq"]==$coluna["CodArquivo"]?"selected":"";
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
+                                    }
+                                    ?>
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" >
+                            <div class="form-group">    
+                                <label> Corredor </label><br>	
+                                <select name="codCor" <?=$readonly;?> class="form-control">
+                                    <?php
+                                    if ( $_GET["status"]=="i" && $_GET["codCor"]=="0")
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Corredor<=</option>';	
+                                    }
+                                    foreach ($tabelaCorredor as $coluna){
+                                        $selecao = $_GET["codCor"]==$coluna["CodCorredor"]?"selected":"";
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
+                                    }
+                                    ?>
+                                     
+                                </select>
+                            </div>
+                        </div>
+    
+
+                    </div><!--Linha 02-->
             
-                    <div class="row"> 
-                        <div class="form-group">    
-                            <label> Arquivo </label><br>	
-                            <select id="idArquivo" name="codArq" <?=$readonly;?> class="form-control" onchange="changecomboarquivo(document.getElementById('idEmpresa').value,document.getElementById('idArquivo').value,'cadestante')">
-                                <?php
-                                if ( $_GET["status"]=="i" && ( $_GET["codArq"]=="0" || $_GET["codArq"]=="") )
-                                { 
-                                    echo '<option disabled selected value=0>=>Selecionar Arquivo<=</option>';	
-                                }
-                                foreach ($tabelaArquivo as $coluna){
-                                    $selecao = $_GET["codArq"]==$coluna["CodArquivo"]?"selected":"";
-                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
-                                }
-                                ?>
-                                 
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row"> 
-                        <div class="form-group">    
-                            <label> Corredor </label><br>	
-                            <select name="codCor" <?=$readonly;?> class="form-control">
-                                <?php
-                                if ( $_GET["status"]=="i" && $_GET["codCor"]=="0")
-                                { 
-                                    echo '<option disabled selected value=0>=>Selecionar Corredor<=</option>';	
-                                }
-                                foreach ($tabelaCorredor as $coluna){
-                                    $selecao = $_GET["codCor"]==$coluna["CodCorredor"]?"selected":"";
-                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
-                                }
-                                ?>
-                                 
-                            </select>
-                        </div>
-                    </div>
 
 
-
-                    <div class="row"> 
-                        <div class="col-md-4">
+               
+                    <div class="row">  <!--Linha 03-->
+                    
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Codigo Estante</label>
                                 <input type="text" name="codEst"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codEst"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
-                            </div>
+                            </div> 
                         </div>
-                        
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label>Descricao</label>
-                                <input type="text" name="desEst" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_estante"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Descricao da Estante" required  >
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row"> 
+                    
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Descricao</label>
+                            <input type="text" name="desEst" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_estante"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Descricao da Estante" required  >
+                       </div>
+                      </div>
+      
+                      <div class="col-md-4">
                         <div class="form-group">
                             <label>Sigla Estante</label>
                             <input type="text" name="sigEst" maxlength="80" value="<?=$_GET['status']!="i"?$registro["sig_estante"]:"";?>"  <?=$_GET['status']=="e"?"readonly":"";?> class="form-control" placeholder="Sigla da Estante" required  >
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label hidden >Operacao</label>
-                        <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" class="form-control" placeholder="Nome da Empresa" required  >
-                    </div>
-                                                          
-                    <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
-                        
-                        <i class="fa fa-check-circle" style="font-size:24px;color:green;"></i>
-                        <?php 
-                            if ($_GET['status']=='e')
-                            {
-                                echo "Excluir";
-                            }
-                            else
-                            {
-                                echo "Salvar";
-                            }
-                        ?>
-                    </button>
+                      </div>
+        
 
-                    <button type="button" class="btn btn-primary" aria-pressed="true" onclick="history.back();">
-                        <i class="fa fa-times " style="font-size:24px;color:red;"></i>
-                        Cancelar
-                    </button> 
+                    </div> <!--Linha 03-->   
+                      
+                    <div class="row">  <!--Linha 04-->
+
+                      <div class="col-md-12">
+                        <p class="text-right">
+                          <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                            <i class="fa fa-check-circle" ></i> 
+                            <b>
+                              <?php 
+                                if ($_GET['status']=='e')
+                                {
+                                    echo "Excluir";
+                                }
+                                else
+                                {
+                                    echo "Salvar";
+                                }
+                              ?>
+                            </b>
+                          </button>
+                        </p>
+                      </div> 
+
+                    </div> <!--Linha 04-->
                     
-                </form>
+                  </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
 

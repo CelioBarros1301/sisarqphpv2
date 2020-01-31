@@ -73,16 +73,16 @@
                 <div class="table-responsive">
                     <div class="box-body">
                         <table class="table table-hover table-bordered " id="table-manager">
-                          <thead>
-                            <tr>
-                                <?php foreach ($dataTableColunas as $coluna)
-                                    {
-                                    echo "<th>". $coluna. "</th>";
-                                    }
-                                ?>
-                                <th><i class="fa fa-gears"></i></th>
-                            </tr>
-                          
+                            <thead>
+                                <tr>
+                                    <?php foreach ($dataTableColunas as $coluna)
+                                        {
+                                        echo "<th>". $coluna. "</th>";
+                                        }
+                                    ?>
+                                    <th><i class="fa fa-gears"></i></th>
+                                </tr>
+                            </thead>
                             <tbody>
                             <?php for ($i=0;$i < count($dataTable);$i++ ) {
                                 echo "<tr>";
@@ -111,7 +111,7 @@
                                         }
                                         if ( $acoes['sta_con']==1 )
                                         {
-                                            $link='href=sisarq.php?option=cadsetor&codEmp='. $dataTable[$i]['CodEmpresa'].'&codSet='. $dataTable[$i]['CodSetor'] .'&status=c';
+                                            $link='href=sisarq.php?option=cadsetor&codEmp='. $dataTable[$i]['CodEmpresa'].'&codSet='. $dataTable[$i]['CodSetor'] .'&status=v';
                                             echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
                                                 echo '<i class="fa fa-eye"></i>';
                                             echo '</a> ';
