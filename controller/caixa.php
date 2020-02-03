@@ -1,38 +1,43 @@
 <?php
-  
-/*
-* Regras de Negocio para a Processo de Manutencao do Corredor
-*  Objetos envolvidos: Arquivo
-*  Regra: 
-*/
+    #
+    # Regras de Negocio para a Processo de Prateleira  #
     
-    require("caixaPDO.php");
-    require("Caixa_Class.php");
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
 
-    require("setorPDO.php");
-    require("empresaPDO.php");
+    include_once $GLOBALS['project_path'].'/dao/caixaPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Caixa.class.php';
+    include_once $GLOBALS['project_path'].'/dao/setorPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/empresaPDO.php';
+
+
+
     
-   
+    # Instaciando as classes necessarias
     $caixaPDO = new CaixaPDO();
     $caixa    = new Caixa();
     
     
     $setorPDO  = new SetorPDO();
     $empresaPDO=new EmpresaPDO();
-               
+            
     
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
+    $registro=array();
     $filtroEmpresa="";
-    
+
+
     # Preencher Formulario com os dados 
+      
         
     if (isset($_GET['status'] ))
     {
         $acao=$_GET['status'];
-        $codEmpresa=$_GET['codEmp'];
-        $codSetor  =$_GET['codSet'];
-        $codCaixa  =$_GET['codCai'];
+
+        $codEmpresa  = isset($_GET['codEmp'])?$_GET['codEmp']:"";
+        $codSetor    = isset($_GET['codSet'])?$_GET['codSet']:"";
+        $codCaixa    = isset($_GET['codCai'])?$_GET['codCai']:"";
         if ($acao=="i" ) 
         { 
             $tabelaEmpresa=$empresaPDO->lista("");
@@ -108,7 +113,10 @@
                 $registro=$caixaPDO->delete($codEmpresa,$codSetor,$codCaixa);
             break;
         }
-       header("location:sisarq.php?option=caixa&filtroEmp=$filtroEmpresa");
+
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=caixa&filtroEmp=$filtroEmpresa");
+ 
+       
     }
      
 ?>

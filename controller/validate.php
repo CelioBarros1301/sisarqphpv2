@@ -124,7 +124,7 @@ function validate_options(){
 		break;
 
 		case 'cadprateleira':
-			include_once $GLOBALS['project_path'].'/view/formsformprateleira.html';
+			include_once $GLOBALS['project_path'].'/view/forms/formprateleira.html';
 		break;
 
 		# caixa

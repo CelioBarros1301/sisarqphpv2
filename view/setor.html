@@ -73,26 +73,33 @@
                 <div class="table-responsive">
                     <div class="box-body">
                         <table class="table table-hover table-bordered " id="table-manager">
-                            <thead>
-                                <tr>
-                                    <?php foreach ($dataTableColunas as $coluna)
+                            <tr>
+                                <?php 
+                                    foreach ($dataTableColunas as $coluna)
+                                    {
+                                        if (substr($coluna,0,3)!="Cod" )
                                         {
-                                        echo "<th>". $coluna. "</th>";
+                                            echo "<th>". $coluna. "</th>";
                                         }
-                                    ?>
-                                    <th><i class="fa fa-gears"></i></th>
-                                </tr>
-                            </thead>
+                                    }
+                                ?>
+                                <th><i class="fa fa-gears"></i></th>
+                            </tr>    
+
                             <tbody>
                             <?php for ($i=0;$i < count($dataTable);$i++ ) {
                                 echo "<tr>";
                                 
-                                    foreach ($dataTable[$i] as $campo){
-                                        echo "<td>";
-                                            echo $campo;
-                                        echo "</td>";
-                                    }    
-                                    
+                                    foreach ($dataTable[$i] as $key=>$campo)
+                                    {
+                                        if (substr($key,0,3)!="Cod" )
+                                        {
+                                            echo "<td>";
+                                                echo $campo;
+                                            echo "</td>";
+                                        }
+                                    }       
+                            
                                     echo "<td>";
                                         
                                         if ( $acoes['sta_alt']==1 )

@@ -1,37 +1,44 @@
 <?php
   
-/*
-* Regras de Negocio para a Processo de Autorizados para acesso as Documentos cadastrados no sistema
-*  Objetos envolvidos: Autorizados,Usuario
-*  Regra: Quando do cadastro de um Autorizado e for informar o Login, sistema deverá 
-*         incluir as informacoes na tabela de Usuario que e responsavel pela liberaçao de
-*         acesso ao sistema
-*/
-    require("autorizadoPDO.php");
-    require("Autorizado_Class.php");
- 
 
-    require("usuarioPDO.php");
-    require("Usuario_Class.php");
+    #
+    # Regras de Negocio para a Processo de Autorizaos
+    #
+   
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
 
+    include_once $GLOBALS['project_path'].'/dao/autorizadoPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Autorizado.cass.php';
+    include_once $GLOBALS['project_path'].'/dao/usuarioPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Usuario.class.php';
+  
     
+    
+    # Instaciando as classes necessarias
     $autorizadoPDO= new AutorizadoPDO();
     $autorizado=new Autorizado();
 
     $usuarioPDO= new UsuarioPDO();
     $usuario=new Usuario();
 
-
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
+    $registro=array();
 
-        
+
     # Preencher Formulario com os dados 
         
     if (isset($_GET['status'] ))
     {
         $acao=$_GET['status'];
-        $codigo=$_GET['id'];
+        $codEmpresa   = isset($_GET['codEmp'])?$_GET['codEmp']:"";
+        $codArquivo   = isset($_GET['codArq'])?$_GET['codArq']:"";
+        
+    if (isset($_GET['status'] ))
+    {
+        $acao=$_GET['status'];
+        $codigo=isset($_GET['id'])?$_GET['id']:"";
         $registro=$autorizadoPDO->busca($codigo);
         
     }
@@ -103,7 +110,8 @@
                 $registro=$autorizadoPDO->delete($codigo);
             break;
         }
-        header("location:sisarq.php?option=autorizado");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=autorizado");
+        
     }
      
 ?>

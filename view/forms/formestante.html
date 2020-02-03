@@ -32,7 +32,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/corredor.php" method="post" enctype="multipart/form-data">
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/estante.php" method="post" enctype="multipart/form-data">
                   
                     <div class="row"> <!--Linha 01-->
 
@@ -109,7 +109,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Codigo Estante</label>
-                                <input type="text" name="codEst"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codEst"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
+                                <input type="text" name="codEst"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codEst"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control" placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
                             </div> 
                         </div>
                     

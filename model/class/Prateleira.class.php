@@ -1,10 +1,5 @@
 <?php
-/*
-* Classe: Prateleira
-* Funçao: Acesso as informacoes da Prateleira
-* Regras: 
-* Tabela: tb_corredores
-*/
+
 Class Prateleira
 {
 

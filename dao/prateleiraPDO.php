@@ -1,6 +1,11 @@
 <?php
 
-require_once("Conexao_Class.php");
+# Limpando o cache
+ob_start();
+
+# Incluindo os arquivos Necessários
+include_once dirname(__DIR__)."/model/config.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
 
 class PrateleiraPDO
 {
@@ -50,7 +55,7 @@ class PrateleiraPDO
         try
         {
             $conexao=Conexao::getConnection();
-            $sql='INSERT INTO tb_prateleiras ( ';
+            $sql ='INSERT INTO tb_prateleiras ( ';
             $sql.='`cod_empresa`,';
             $sql.='`cod_arquivo`,';
             $sql.='`cod_corredor`,';
@@ -69,10 +74,10 @@ class PrateleiraPDO
                 $sql.='?,';
                 
                 $sql.='(SELECT ifnull(right(concat("00",max(prateleira.cod_prateleira)+1),2),"01") from tb_prateleiras prateleira ';
-                $sql.=' where prateleira.cod_empresa=' . "'". $prateleira->getCodigoEmpresa() ."' AND ";
-                $sql.='     prateleira.cod_arquivo  =' . "'". $prateleira->getCodigoArquivo()         ."' AND ";
-                $sql.='     prateleira.cod_corredor =' . "'". $prateleira->getCodigoCorredor()       ."' AND ";
-                $sql.='     prateleira.cod_estante  =' . "'". $prateleira->getCodigoEstante()          ."' ),";
+                $sql.=' where prateleira.cod_empresa=' . "'". $prateleira->getCodigoEmpresa()  ."' AND ";
+                $sql.='     prateleira.cod_arquivo  =' . "'". $prateleira->getCodigoArquivo()  ."' AND ";
+                $sql.='     prateleira.cod_corredor =' . "'". $prateleira->getCodigoCorredor() ."' AND ";
+                $sql.='     prateleira.cod_estante  =' . "'". $prateleira->getCodigoEstante()  ."' ),  ";
                 
                 $sql.='?,?)';
               
@@ -109,7 +114,7 @@ class PrateleiraPDO
         }
         catch (PDOExecption $e  )
         {
-            $mensagem = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
+            $mensagem  = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
             $mensagem .= "\nErro: " . $e->getMessage();
             throw new Exception($mensagem);
         }
@@ -119,7 +124,7 @@ class PrateleiraPDO
     public function update($prateleira)
     {
         $conexao=Conexao::getConnection();
-        $sql="UPDATE  tb_prateleiras SET ";
+        $sql ="UPDATE  tb_prateleiras SET ";
         $sql.='`des_prateleira`=? ,';
         $sql.='`sig_prateleira`=? ';
         
@@ -154,7 +159,7 @@ class PrateleiraPDO
     public function delete($codEmpresa,$codArquivo,$codCorredor,$codEstante,$codPrateleira)
     {
         $conexao=Conexao::getConnection();
-        $sql="DELETE  FROM  tb_prateleiras ";
+        $sql = "DELETE  FROM  tb_prateleiras ";
         $sql.= " WHERE cod_empresa    =? and ";
         $sql.= "       cod_arquivo    =? and ";
         $sql.= "       cod_corredor   =? and ";
@@ -182,11 +187,11 @@ class PrateleiraPDO
         $conexao=Conexao::getConnection();
         $result=array();
 
-        $sql="SELECT    empresa.cod_empresa    CodEmpresa    ,des_empresa    Empresa   ,";
-        $sql.="         arquivo.cod_arquivo    CodArquivo    ,des_arquivo    Arquivo   ,";
-        $sql.="         corredor.cod_corredor  CodCorredor   ,des_corredor   Corredor  ,";
-        $sql.="         estante.cod_estante    CodEstante    ,des_estante    Estante   ,";
-        $sql.="         cod_prateleira         CodPrateleira ,des_prateleira Prateleira,";
+        $sql ="SELECT   empresa.cod_empresa    CodEmpresa    ,des_empresa     Empresa   ,";
+        $sql.="         arquivo.cod_arquivo    CodArquivo    ,des_arquivo     Arquivo   ,";
+        $sql.="         corredor.cod_corredor  CodCorredor   ,des_corredor    Corredor  ,";
+        $sql.="         estante.cod_estante    CodEstante    ,des_estante     Estante   ,";
+        $sql.="         cod_prateleira         CodPrateleira ,des_prateleira  Prateleira,";
         $sql.="         sig_prateleira Sigla ";
         
         $sql.="FROM tb_prateleiras prateleira "; 
@@ -202,11 +207,11 @@ class PrateleiraPDO
         $sql.="     inner join tb_corredores corredor on ";
         $sql.="          prateleira.cod_empresa =corredor.cod_empresa and ";
         $sql.="          prateleira.cod_arquivo =corredor.cod_arquivo and ";
-        $sql.="          prateleira.cod_corredor=corredor.cod_corredor  ";
+        $sql.="          prateleira.cod_corredor=corredor.cod_corredor    ";
         
         $sql.="     inner join tb_arquivos arquivo on ";
         $sql.="          prateleira.cod_empresa=arquivo.cod_empresa and ";
-        $sql.="          prateleira.cod_arquivo=arquivo.cod_arquivo ";
+        $sql.="          prateleira.cod_arquivo=arquivo.cod_arquivo     ";
       
         $sql.="     inner join tb_empresas empresa on ";
         $sql.="          prateleira.cod_empresa=empresa.cod_empresa ";
@@ -233,7 +238,7 @@ class PrateleiraPDO
     {
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql="SELECT cod_prateleira CodPrateleira,des_prateleira Prateleira ";
+        $sql ="SELECT cod_prateleira CodPrateleira,des_prateleira Prateleira ";
         $sql.=" FROM tb_prateleiras ";
         
         $smtm=$conexao -> prepare($sql);
