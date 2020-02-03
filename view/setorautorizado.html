@@ -1,129 +1,169 @@
 <?php
-
     
+   
+    # Verificar se sessão existe
     if ( !isset($_SESSION['user'])){
-        #header("location: index.php");
+        header("location: $project_index?error=");
     }
+    $user=$_SESSION['user'];
 
-    #--> Guardando Acesso as operacoes
-
-    include_once "menuPDO.php";
+	# Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
     
+    include_once $GLOBALS['project_path'].'dao/menuPDO.php';
+	include_once $GLOBALS['project_path'].'controller/setorautorizado.php';
+
+      
+    #--> Guardando Acesso as operacoes
     $menuPDO= new MenuPDO();
     $acoes=$menuPDO->listaMenu($user['id_usu'],"Acesso Empresa");
-
-    
-    # Informacoes da regra de negocio e acesso ao dados
-    include_once  "setorautorizado.php";
     
 ?>
-<div class="row">
-        <div class="col-sm-10" >
-                
-        <form action="" method="POST">
 
-            <div class="form-group">    
-                <label > Autorizado </label><br>
-                <?php
-                    $filtro="";
-                    if ( isset($_GET['filtroAut']) )	
-                    {
-                        $filtro= $_GET['filtroAut'];   
-                    }
-                ?>
-                <select id="codAut" name="codAut"  class="form-control" onchange="changecomboempresa(document.getElementById('codigo').value,'corredor')">
-                    <?php
-                    echo '<option value="">Todos Autorizados</option>';
-                    foreach ($tabelaAutorizado as $coluna){
-                        if ( isset($_GET['filtroAut']) && $coluna["CodAutorizado"]== $_GET['filtroAut'] )
-                        {
-                            $selecao="selected";
-                            
-                        }
-                        else 
-                        {
-                            $selecao="";
-                        }
 
-                        echo '<option '. $selecao. ' '. ' value='. $coluna["CodAutorizado"] .'>' .$coluna["Autorizado"] ."</option>";                     
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#table-manager').DataTable({
+            "language":{
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                },
+                "select": {
+                    "rows": {
+                        "_": "Selecionado %d linhas",
+                        "0": "Nenhuma linha selecionada",
+                        "1": "Selecionado 1 linha"
                     }
-                    ?>
-                    
-                </select>
-            </div>
-            
-            <?php
-            if ( $acoes['sta_inc']==1 )
-                {                                                         
-                echo '<a href="sisarq.php?option=cadsetorautorizado&codId=&codAut&codEmp=&codSet&status=i" class="btn btn-primary btn-xs"><i class="fa fa-file-text-o"
-                        aria-hidden="true"></i> Novo</a>';
                 }
-            ?>
-            <button class="btn btn-primary btn-xs"><i class="fa fa-search" aria-hidden="true"></i> Filtro </button>
-            
-            <h3>
-                <i class="fa fa-plus"></i>
-                Lista de Acesso a Empresas		
-            </h3>
-            <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
-                            style="width:100%" id="tbpadrao">
+            }
+        //"fixedHeader": true
+        });
+    });
+</script>
 
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+    <li class="breadcrumb-item active">Acesso Empresa</li>
+</ol>
+
+<h1 class="page-header">Listar Acesso as Empresas</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="box-body">
+        
+                      
+                        <div class="form-group">    
+                            <label >Autorizado </label><br>
+                            <?php
+                                $filtro=isset($_GET['filtroAut']) ? $_GET['filtroAut']:"";   
+                            ?>
+                            <select id="codAut" name="codAut"  class="form-control" onchange="changecomboempresa(document.getElementById('codigo').value,'corredor')">
+                                <?php
+                                echo '<option value="">Todos Autorizados</option>';
+                                foreach ($tabelaAutorizado as $coluna){
+                                    $selecao=( $filtro!="" && $coluna["CodAutorizado"]== $filtro )?"selected":"";
+                                    echo '<option '. $selecao. ' '. ' value='. $coluna["CodAutorizado"] .'>' .$coluna["Autorizado"] ."</option>";                     
+                                }
+                                ?>
+                                
+                            </select>
+                        </div>
+                      
+                        <table class="table table-hover table-bordered " id="table-manager">
                             <thead>
-                                    <tr>
-                                        <?php foreach ($dataTableColunas as $coluna)
+                                <tr>
+                                    <?php 
+                                        foreach ($dataTableColunas as $coluna)
+                                        {
+                                            if (substr($coluna,0,3)!="Cod" )
                                             {
-                                            echo "<th>". $coluna. "</th>";
+                                                echo "<th>". $coluna. "</th>";
                                             }
-                                            if ( count($dataTable)>0  )
-                                            {        
-                                                echo "<th>Ações</th>";
-                                            }
-                                            else
+                                        }
+                                    ?>
+                                    <th><i class="fa fa-gears"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php for ($i=0;$i < count($dataTable);$i++ ) {
+                                        echo "<tr>";
+                                        
+                                            foreach ($dataTable[$i] as $key=>$campo)
                                             {
-                                                echo "<th> </th>";
-                                            }
-                                        ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php for ($i=0;$i < count($dataTable);$i++ ) {
-                                            echo "<tr>";
-                                            
-                                                foreach ($dataTable[$i] as $campo){
+                                                if (substr($key,0,3)!="Cod" )
+                                                {
                                                     echo "<td>";
                                                         echo $campo;
                                                     echo "</td>";
-                                                }    
-                                                
-                                                echo "<td>";
+                                                }
+                                            }    
+                                            
+                                            echo "<td>";
                                                     
-                                                    if ( $acoes['sta_exc']==1 )
-                                                    {                 
-                                                        $link='href=sisarq.php?option=cadsetorautorizado&codId='. $dataTable[$i]['CodId']."&codAut=". $dataTable[$i]['CodAutorizado']."&codEmp=".$dataTable[$i]['CodEmpresa']."&codSet=".$dataTable[$i]['CodSetor']. '&status=e';
-                                                        echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
-                                                            echo '<i class="fa fa-trash"></i>';
-                                                        echo '</a> ';
-                                                    }
-                                                    if ( $acoes['sta_con']==1 )
-                                                    {                 
-                                                        $link='href=sisarq.php?option=cadsetorautorizado&codId='. $dataTable[$i]['CodId']."&codAut=". $dataTable[$i]['CodAutorizado']."&codEmp=".$dataTable[$i]['CodEmpresa']."&codSet=".$dataTable[$i]['CodSetor']. '&status=v';
-                                                        echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
-                                                            echo '<i class="fa fa-eye"></i>';
-                                                        echo '</a> ';
-                                                    }
+                                                if ( $acoes['sta_exc']==1 )
+                                                {                 
+                                                    $link='href=sisarq.php?option=cadsetorautorizado&codId='. $dataTable[$i]['CodId']."&codAut=". $dataTable[$i]['CodAutorizado']."&codEmp=".$dataTable[$i]['CodEmpresa']."&codSet=".$dataTable[$i]['CodSetor']. '&status=e';
+                                                    echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
+                                                        echo '<i class="fa fa-trash"></i>';
+                                                    echo '</a> ';
+                                                }
+                                                if ( $acoes['sta_con']==1 )
+                                                {                 
+                                                    $link='href=sisarq.php?option=cadsetorautorizado&codId='. $dataTable[$i]['CodId']."&codAut=". $dataTable[$i]['CodAutorizado']."&codEmp=".$dataTable[$i]['CodEmpresa']."&codSet=".$dataTable[$i]['CodSetor']. '&status=v';
+                                                    echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
+                                                        echo '<i class="fa fa-eye"></i>';
+                                                    echo '</a> ';
+                                                }
 
-                                               
-                                                echo '</td>';
-                                                              
-                                            echo "</tr>";
-                                        } 
-                
-                                    ?>
-                
-                </tbody>
+                                           
+                                            echo '</td>';
+                                                          
+                                        echo "</tr>";
+                                    } 
+            
+                                ?>
+            
 
-            </table>
-        
-        </form>
+                            </tbody>
+                            <tfoot>
+                                <a href="sisarq.php?option=cadsetorautorizado&codId=&codAut&codEmp=&codSet&status=i" class="btn btn-success">
+                                  <i class="fa fa-plus"></i> 
+                                  <b>Cadastrar novo Acesso Empresa</b>
+                                </a>
+                                <hr>
+                            </tfoot>
+
+                        </table>
+                        <hr />
+                        <div class="pull-right">
+                            <a href="?sisarq.php?option=cadsetorautorizado&codId=&codAut&codEmp=&codSet&status=i" class="btn btn-success"><i class="fa fa-plus"></i> <b>Cadastrar novo Acesso Empresa</b></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+

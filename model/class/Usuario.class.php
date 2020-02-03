@@ -1,14 +1,10 @@
 <?php
-/*
-* Classe: Usuario
-* Regras: Não deve permiter Login duplicados
-*         Codigo é um campo autoincremento no banco
-* Tabela: tb_usuarios
-*/
+
 Class Usuario
 {
 
     private $codigo;
+    private $nome;
     private $login;
     private $senha;
     private $status;
@@ -21,6 +17,15 @@ Class Usuario
     public function getCodigo()
     {
         return $this->codigo;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome=$nome;
+    }
+    public function getNome()
+    {
+        return $this->nome;
     }
 
     public function setLogin($login)

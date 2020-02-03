@@ -1,0 +1,112 @@
+<?php
+
+    
+    if ( !isset($_SESSION['user'])){
+        #header("location: index.php");
+    }
+
+    # Recuperando os dados da sessão
+    $user = $_SESSION['user'];
+    $perfil=($user['per_usuario']=="1"?"Admin":"Padrao");
+
+    
+    #--> Guardando Acesso as operacoes
+
+    include_once "menuPDO.php";
+    
+    $menuPDO= new MenuPDO();
+    $acoes=$menuPDO->listaMenu($user['id_usu'],"Empresas");
+    
+    # Informacoes da regra de negocios e acesso aos dados
+    include_once  "empresa.php";
+    
+?>
+<div class="row">
+        <div class="col-sm-10" >
+                
+        <form action="" method="POST">
+            
+            <?php
+                if ( $acoes['sta_inc']==1 )
+                { 
+                                                        
+                echo '<a href="sisarq.php?option=cadempresa&id=0&status=i" class="btn btn-primary btn-xs"><i class="fa fa-file-text-o"
+                        aria-hidden="true"></i> Novo</a>';
+                }
+            ?>
+
+            <button class="btn btn-primary btn-xs"><i class="fa fa-search" aria-hidden="true"></i> Filtro </button>
+            
+            <h3>
+                <i class="fa fa-plus"></i>
+                Lista de Empresas		
+            </h3>
+            
+            <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
+                            style="width:100%" id="tbpadrao">
+
+                <thead>
+                    <tr>
+                        <?php foreach ($nomeColunas as $coluna)
+                            {
+                            echo "<th>". $coluna. "</th>";
+                            }
+                            if ( count($empresas)>0  )
+                            {        
+                             echo "<th>Ações</th>";
+                            }
+                            else
+                            {
+                               echo "<th> </th>";
+                            }
+                        ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                         
+                        for ($i=0;$i < count($empresas);$i++ ) {
+                            echo "<tr>";
+                            
+                                foreach ($empresas[$i] as $campo){
+                                    echo "<td>";
+                                        echo $campo;
+                                    echo "</td>";
+                                }    
+                                
+                                echo "<td>";
+                                        if ( $acoes['sta_alt']==1 )
+                                        {
+                                            $link='href=sisarq.php?option=cadempresa&id='. $empresas[$i]['Codigo']. '&status=a';
+                                            echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
+                                                echo '<i class="fa fa-edit"></i>';
+                                            echo '</a> ';
+                                        }
+                                        if ( $acoes['sta_exc']==1 )
+                                        {
+                                            $link='href=sisarq.php?option=cadempresa&id='.$empresas[$i]['Codigo'] .'&status=e';
+                                            echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
+                                                echo '<i class="fa fa-trash"></i>';
+                                            echo '</a> ';
+                                        }
+                                        if ( $acoes['sta_con']==1 )
+                                        {
+                                            $link='href=sisarq.php?option=cadempresa&id='.$empresas[$i]['Codigo'] .'&status=v';
+                                            echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
+                                                echo '<i class="fa fa-eye"></i>';
+                                            echo '</a> ';
+                                        }
+
+                                echo '</td>';
+                                              
+                            echo "</tr>";
+                        } 
+
+                    ?>
+
+                </tbody>
+
+            </table>
+        </form>
+    </div>
+</div>

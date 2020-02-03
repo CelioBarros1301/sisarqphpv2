@@ -1,120 +1,144 @@
 <?php
 
-    
-    if ( !isset($_SESSION['user'])){
-        #header("location: index.php");
-    }
+# Verificar se sessão existe
+if ( !isset($_SESSION['user'])){
+    header("location: $project_index?error=");
+}
 
-    # Informacoes do banco
-    
-    include_once  "setorautorizado.php";
-    $selecao=$_GET["status"]!="i"?"selected":"";
-    $readonly=$_GET['status']!="i"?"readonly":"";
+# Incluindo as classes necessárias
+include_once $GLOBALS['project_path'].'controller/setorautorizado.php';
 
-    $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
- 
-    
-                                                            
+  
+$selecao=$_GET["status"]!="i"?"selected":"";
+$readonly=$_GET['status']!="i"?"readonly":"";
+
+$readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
+
 ?>
+<div class="content" id="content" style="margin: 0px;padding:0px;">
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="#">Início</a></li>
+        <li class="breadcrumb-item active">Novo Autorizado</li>
+        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Autorizados</a>
+        </li>
+    </ol>
+    <h1 class="page-header">Novo Autorizado</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                  <h4 class="panel-title">Informe abaixo os dados do Autorizado </h4>
+                </div>
+                <div class="panel-body">
+                  <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
+                  <!-- <div class="row"> -->
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/autorizado.php" method="post" enctype="multipart/form-data">
+                  
+                    <div class="row"> <!--Linha 01-->
 
- <div class="row">
-        <div class="col-md-8 offset-3 col-sm-12">
-            <div class="arquivo-form">
- 
-                <form action="setorautorizado.php" method="POST">
-                    
-                    <div class="row">
-                        <div class="form-group">    
-                            <label> Autorizado </label><br>	
-                            <select id="idAutorizado" name="codAut" <?=$readonly;?> class="form-control" >
-                                <?php
-                                if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
-                                { 
-                                    echo '<option disabled selected value=0>=>Selecionar Autorizado<=</option>';	
-                                }
-                                foreach ($tabelaAutorizado as $coluna){
-                                    $selecao = $_GET["codAut"]==$coluna["CodAutorizado"]?"selected":"";
-                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodAutorizado"] .'">' .$coluna["Autorizado"] ."</option>";                     
-                                }
-                                ?>
-                                 
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row"> 
-                        <div class="form-group">    
-                            <label> Empresa </label><br>	
-                            <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" onchange="changecomboempresa(document.getElementById('idEmpresa').value,'cadsetorautorizado')">
-                                <?php
-                                if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
-                                { 
-                                    echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
-                                }
-                                foreach ($tabelaEmpresa as $coluna){
-                                    $selecao = $_GET["codEmp"]==$coluna["Codigo"]?"selected":"";
-                                  
-                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
-                                }
-                                ?>
-                                 
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row"> 
-                        <div class="form-group">    
-                            <label> Setor </label><br>	
-                            <select id="idSetor" name="codSet" <?=$readonly;?> class="form-control" >
-                                <?php
-                                if ( $_GET["status"]=="i" && ( $_GET["codSet"]=="0" || $_GET["codSet"]=="") )
-                                { 
-                                    echo '<option disabled selected value=0>=>Selecionar Setor<=</option>';	
-                                }
-                                foreach ($tabelaSetor as $coluna){
-                                    $selecao = $_GET["codSet"]==$coluna["CodSetor"]?"selected":"";
-                                  
-                                    echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
-                                }
-                                ?>
-                                 
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label hidden >id</label>
-                                                            
-                        <input  type="hidden" name="codId"  value="<?=$_GET['status']!="i"?$registro["id_setaut"]:"";?> class="form-control"  required  >
-                    </div>
-                    
-
-                    <div class="form-group">
-                        <label hidden >Operacao</label>
-                        <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" class="form-control"  required  >
-                    </div>
-                                                          
-                    <button type="submit" class="btn btn-primary"  <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                        <div class="col-md-12">
+                            <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
                         
-                        <i class="fa fa-check-circle" style="font-size:24px;color:green;"></i>
-                        <?php 
-                            if ($_GET['status']=='e')
-                            {
-                                echo "Excluir";
-                            }
-                            else
-                            {
-                                echo "Salvar";
-                            }
-                        ?>
-                    </button>
-
-                    <button type="button" class="btn btn-primary" aria-pressed="true"  onclick="history.back();">
-                        <i class="fa fa-times " style="font-size:24px;color:red;"></i>
-                        Cancelar
-                    </button> 
+                            <div class="form-group ">
+                                <label> Autorizado </label><br>	
+                                <select id="idAutorizado" name="codAut" <?=$readonly;?> class="form-control" >
+                                    <?php
+                                    if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Autorizado<=</option>';	
+                                    }
+                                    foreach ($tabelaAutorizado as $coluna){
+                                        $selecao = $_GET["codAut"]==$coluna["CodAutorizado"]?"selected":"";
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodAutorizado"] .'">' .$coluna["Autorizado"] ."</option>";                     
+                                    }
+                                    ?>
+                                     
+                                </select> 
+                             </div>
+                        </div>
                     
-                </form>
+                    </div><!--Linha 01-->
+               
+                    <div class="row">  <!--Linha 02-->
+                    
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label> Empresa </label><br>	
+                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" onchange="changecomboempresa(document.getElementById('idEmpresa').value,'cadsetorautorizado')">
+                                    <?php
+                                    if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                                    }
+                                    foreach ($tabelaEmpresa as $coluna){
+                                        $selecao = $_GET["codEmp"]==$coluna["Codigo"]?"selected":"";
+                                    
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
+                                    }
+                                    ?>
+                                    
+                                </select>
+                            </div> 
+                        </div>
+                    
+               
+                    </div> <!--Linha 02-->   
+               
+
+                    <div class="row">  <!--Linha 03-->
+                    
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label> Setor </label><br>	
+                                <select id="idSetor" name="codSet" <?=$readonly;?> class="form-control" >
+                                    <?php
+                                    if ( $_GET["status"]=="i" && ( $_GET["codSet"]=="0" || $_GET["codSet"]=="") )
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Setor<=</option>';	
+                                    }
+                                    foreach ($tabelaSetor as $coluna){
+                                        $selecao = $_GET["codSet"]==$coluna["CodSetor"]?"selected":"";
+                                      
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
+                                    }
+                                    ?>
+                                     
+                                </select>        </div> 
+                        </div>
+
+               
+                    </div> <!--Linha 03-->
+                 
+
+                    <div class="row">  <!--Linha 04-->
+
+                      <div class="col-md-12">
+                        <p class="text-right">
+                          <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                            <i class="fa fa-check-circle" ></i> 
+                            <b>
+                              <?php 
+                                if ($_GET['status']=='e')
+                                {
+                                    echo "Excluir";
+                                }
+                                else
+                                {
+                                    echo "Salvar";
+                                }
+                              ?>
+                            </b>
+                          </button>
+                        </p>
+                      </div> 
+
+                    </div> <!--Linha 07-->
+                    
+                  </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
 

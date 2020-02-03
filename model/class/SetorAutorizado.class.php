@@ -1,11 +1,5 @@
 <?php
-/*
-* Classe: Usuario
-* Funçao: Realizar o controle de acesso ao sistema
-* Regras: Não deve permiter Login duplicados
-*         Codigo é um campo autoincremento no banco
-* Tabela: tb_usuarios
-*/
+
 Class SetorAutorizado
 {
 

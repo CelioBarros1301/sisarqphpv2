@@ -1,30 +1,38 @@
 <?php
     
-    require("empresaPDO.php");
-    require("referenciaPDO.php");
-    require("Referencia_Class.php");
-    
-    $empresaPDO = new EmpresaPDO();
+#
+    # Regras de Negocio para a Processo de Empresar
+    #
+   
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
 
-    $nomeColunas = array();
+    include_once $GLOBALS['project_path'].'/dao/empresaPDO.php';
+    
+    # Instaciando as classes necessarias
+    $empresaPDO = new EmpresaPDO();
+           
+    
+    # Array para guarda os nome das Colunas doa DataTable
+    $dataTableColunas = array(); 
+    $registro=array();
+
         
     # Preencher Formulario com os dados 
         
     if (isset($_GET['status'] ))
     {
         $acao=$_GET['status'];
-        $codigo=$_GET['id'];
+        $codigo=isset($_GET['id'])?$_GET['id']:"";
         $registro=$empresaPDO->busca($codigo);
         
     }
     else if( !isset($_GET['status']))
     {
-        # Preencher o DataTable
-        $nomeColunas=array();
-        $empresas=$empresaPDO->lista("");
-        if ( $empresas ) 
+        $dataTable=$empresaPDO->lista("");
+        if ( $dataTable ) 
         {
-            $nomeColunas = array_keys($empresas[0]);
+            $dataTableColunas = array_keys($dataTable[0]);
         }
     }
     
@@ -46,7 +54,7 @@
                 $registro=$empresaPDO->delete($codigo);
             break;
         }
-        header("location:sisarq.php?option=empresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=empresa");
     }
 
 ?>

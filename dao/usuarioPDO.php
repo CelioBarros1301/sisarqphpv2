@@ -5,7 +5,7 @@ ob_start();
 
 # Incluindo os arquivos Necessários
 include_once dirname(__DIR__)."/model/config.php";
-include_once $project_path."/model/class/Conexao.class.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
 
 
 
@@ -66,11 +66,12 @@ class UsuarioPDO
             $conexao=Conexao::getConnection();
             $sql='INSERT INTO tb_usuarios ( ';
             $sql.='`log_usuario`,' ;
+            $sql.='`nome_usuario`,' ;
             $sql.='`sen_usuario`,' ;
             $sql.='`sta_usuario`,' ;
             $sql.='`per_usuario`) ';
             
-            $sql.=' VALUES (?,?,?,?)';
+            $sql.=' VALUES (?,?,?,?,?)';
             
             
             $smtm=$conexao->prepare($sql);
@@ -98,18 +99,20 @@ class UsuarioPDO
     {
         $conexao=Conexao::getConnection();
         $sql="UPDATE  tb_usuarios SET ";
-        $sql.='`sen_usuario`=?,';
-        $sql.='`sta_usuario`=?,';
-        $sql.='`per_usuario`=? ';
+        $sql.='`nome_usuario`=?,';
+        $sql.='`sen_usuario` =?,';
+        $sql.='`sta_usuario` =?,';
+        $sql.='`per_usuario` =? ';
 
         $sql.= " WHERE id_usu=?";
 
         $smtm=$conexao->prepare($sql);
 
-        $smtm->bindValue(1,base64_encode($usuario->getSenha()));
-        $smtm->bindValue(2,$usuario->getStatus());
-        $smtm->bindValue(3,$usuario->getPerfil());
-        $smtm->bindValue(4,$usuario->getCodigo());
+        $smtm->bindValue(1,$usuario->getStatus());
+        $smtm->bindValue(2,base64_encode($usuario->getSenha()));
+        $smtm->bindValue(3,$usuario->getStatus());
+        $smtm->bindValue(4,$usuario->getPerfil());
+        $smtm->bindValue(5,$usuario->getCodigo());
 
         $result=$smtm->execute();
         ##$conexao->commit();
@@ -154,7 +157,7 @@ class UsuarioPDO
     {
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql="SELECT id_usu Codigo,log_usuario Login , ";
+        $sql="SELECT id_usu Codigo,log_usuario Login , nome_usuario Nome,";
         $sql.="CASE WHEN per_usuario ='1' THEN 'Administrador' ELSE 'Usuario Padrao' END as Perfil";
         $sql.=" FROM tb_usuarios ";
 
@@ -179,7 +182,7 @@ class UsuarioPDO
         $conexao=Conexao::getConnection();
         $result =array();
         
-        $sql="SELECT id_usu Codigo,log_usuario Login ,";
+        $sql="SELECT id_usu Codigo,log_usuario Login ,nome_usuario Nome,";
         $sql.="CASE WHEN per_usuario ='1' THEN 'Administrador' ELSE 'Usuario Padrao' END as Perfil";
         $sql.=" FROM tb_usuarios ";
         $sql.= " WHERE sta_usuario != ? AND ";

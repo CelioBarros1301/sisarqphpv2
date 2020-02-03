@@ -1,6 +1,4 @@
 <?php
-  
-
     #
     # Regras de Negocio para a Processo de Arquivo
     #
@@ -19,7 +17,7 @@
 
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
-    $registro=array();
+    $registro         = array();
 
 
     # Preencher Formulario com os dados 
@@ -37,8 +35,8 @@
         }
         else
         {
-            $tabelaEmpresa=$empresaPDO->lista($codEmpresa);
-            $registro=$arquivoPDO->busca($codEmpresa,$codArquivo);
+            $tabelaEmpresa= $empresaPDO->lista($codEmpresa);
+            $registro     = $arquivoPDO->busca($codEmpresa,$codArquivo);
         }
         
     }
@@ -74,15 +72,15 @@
             case 'i':
                 try 
                 {
-                    $conexao=Conexao::getConnection();
+                    $conexao =Conexao::getConnection();
                     $registro=$arquivoPDO->insert($arquivo);
-                    $conexao=null;
+                    $conexao =null;
                 }
                 catch (PDOExecption $e  )
                 {
-                    $mensagem = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
+                    $mensagem  = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
                     $mensagem .= "\nErro: " . $e->getMessage();
-                    $conexao=null;
+                    $conexao   = null;
                     throw new Exception($mensagem);
                     
                 }

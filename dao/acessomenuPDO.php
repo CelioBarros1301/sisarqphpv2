@@ -1,6 +1,11 @@
 <?php
 
-require_once("Conexao_Class.php");
+# Limpando o cache
+ob_start();
+
+# Incluindo os arquivos Necessários
+include_once dirname(__DIR__)."/model/config.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
 
 class AcessoMenuPDO
 {
@@ -141,7 +146,6 @@ class AcessoMenuPDO
         $sql.="            acesso.id_menu=menu.id_menu";
         $sql.=" WHERE acesso.id_usu=?";
         $sql.=" ORDER BY menu.seq_menu";
-        var_dump($sql);
         $smtm=$conexao->prepare($sql);
         $smtm->bindValue(1,$codUsuario);
         $smtm->execute();

@@ -1,14 +1,25 @@
 <?php
     
-    require("comandosqlPDO.php" );
+      
+    #
+    # Regras de Negocio para a Processo de  Comandos SQL
+    #
+    
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
 
+    include_once $GLOBALS['project_path'].'/dao/comandosqlPDO.php';
+   
+    
     $comandoPDO           = new ComandoSQLPDO();
                
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
     $dataTable        = array();
    
-   
+
+
+
     if ( isset($_POST['status'])  && ( $_POST['status']=="g"  ) )
     {
  

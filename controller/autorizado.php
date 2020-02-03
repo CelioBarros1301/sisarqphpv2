@@ -9,7 +9,7 @@
     include_once dirname(__DIR__).'/model/config.php';
 
     include_once $GLOBALS['project_path'].'/dao/autorizadoPDO.php';
-    include_once $GLOBALS['project_path'].'/model/class/Autorizado.cass.php';
+    include_once $GLOBALS['project_path'].'/model/class/Autorizado.class.php';
     include_once $GLOBALS['project_path'].'/dao/usuarioPDO.php';
     include_once $GLOBALS['project_path'].'/model/class/Usuario.class.php';
   
@@ -28,12 +28,7 @@
 
 
     # Preencher Formulario com os dados 
-        
-    if (isset($_GET['status'] ))
-    {
-        $acao=$_GET['status'];
-        $codEmpresa   = isset($_GET['codEmp'])?$_GET['codEmp']:"";
-        $codArquivo   = isset($_GET['codArq'])?$_GET['codArq']:"";
+       
         
     if (isset($_GET['status'] ))
     {
@@ -71,7 +66,7 @@
         $autorizado->setTelefone($_POST['telAut']);
         $autorizado->setLogin($_POST['logAut']);
         
-        $usuario->setLogin($_POST['logAut']);
+        $usuario->setLogin($_POST['emailAut']);
         $usuario->setSenha($_POST['senAut']);
         $usuario->setStatus("");
         $usuario->setPerfil("0");

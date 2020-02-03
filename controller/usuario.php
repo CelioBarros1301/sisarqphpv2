@@ -1,28 +1,32 @@
 <?php
   
-/*
-* Regras de Negocio para a Processo de Manutencoa de Usuario
-*  Objetos envolvidos: Usuario
-*  Regra: 
-*/
-    
-    require("usuarioPDO.php");
-    require("Usuario_Class.php");
+   #
+    # Regras de Negocio para a Processo de Usuario
+    #
+   
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
 
+    include_once $GLOBALS['project_path'].'/dao/usuarioPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Usuario.class.php';
     
+
+    # Instaciando as classes necessarias
     $usuarioPDO= new UsuarioPDO();
     $usuario=new Usuario();
    
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
+    $registro         = array();
 
-        
+
     # Preencher Formulario com os dados 
         
+      
     if (isset($_GET['status'] ))
     {
         $acao=$_GET['status'];
-        $codigo=$_GET['id'];
+        $codigo==isset($_GET['id'])?$_GET['id']:"";
         $registro=$usuarioPDO->busca($codigo);
         
     }
@@ -46,6 +50,7 @@
         
         # Gerando as informacoes do Objeto
         $usuario->setCodigo($_POST['id']);
+        $usuario->setNome($_POST['nomUsu']);
         $usuario->setLogin($_POST['logUsu']);
         $usuario->setSenha($_POST['senUsu']);
         if (isset($_POST['perfUsu']))
@@ -87,7 +92,7 @@
                 $registro=$usuarioPDO->delete($codigo);
             break;
         }
-        header("location:sisarq.php?option=usuario");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=usuario");
     }
      
 ?>

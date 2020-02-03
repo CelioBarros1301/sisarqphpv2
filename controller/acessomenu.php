@@ -1,29 +1,31 @@
 <?php
   
-/*
-* Regras de Negocio para a Processo de Manutencoa Arquivo
-*  Objetos envolvidos: Arquivo
-*  Regra: 
-*/
+    #
+    # Regras de Negocio para a Processo de Acesso Ao Sistema
+    #
+   
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
+
+    include_once $GLOBALS['project_path'].'/dao/acessomenuPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/AcessoMenu.class.php';
+    include_once $GLOBALS['project_path'].'/dao/menuPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/usuarioPDO.php';
     
-    require("acessomenuPDO.php");
-    require("AcessoMenu_Class.php");
-    include_once("menuPDO.php");
     
-    require("usuarioPDO.php");
-    
+    # Instaciando as classes necessarias
     $acessoPDO  = new AcessoMenuPDO();
     $acesso     = new AcessoMenu();
     
     $usuarioPDO = new UsuarioPDO();
     $menuPDO    = new MenuPDO();
 
-        
-    
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
-    $registro=Array();
-        
+    $registro         = array();
+
+
+    # Preencher Formulario com os dados 
         
     # Preencher Formulario com os dados 
         
@@ -41,12 +43,12 @@
         else
         {
             #$registro=$acessoPDO->busca($codAcesso);
-            $codUsuario=$registro['id_usu'];
-            $tabelaUsuario=$usuarioPDO->lista($codUsuario);
-            $tabelaMenu   =$menuPDO->menu($codAcesso);
-       
+            $codUsuario    = $registro['id_usu'];
+            $tabelaUsuario = $usuarioPDO->lista($codUsuario);
+            $tabelaMenu    = $menuPDO->menu($codAcesso);
         }
-        $registro=$acessoPDO->busca($codAcesso);
+        $registro      = $acessoPDO->busca($codAcesso);
+        
         
     }
     else if( !isset($_GET['status']))
@@ -110,7 +112,8 @@
                 $registro=$acessoPDO->delete($codAcesso);
             break;
         }
-       # header("location:sisarq.php?option=acesso");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=acesso");
+       
     }
      
 ?>

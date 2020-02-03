@@ -1,121 +1,182 @@
 <?php
-
     
+   
+    # Verificar se sessão existe
     if ( !isset($_SESSION['user'])){
-        #header("location: index.php");
+        header("location: $project_index?error=");
     }
+    $user=$_SESSION['user'];
 
-    # Informacoes da regra de negocios e acesso aos dados
-    include_once  "comandosql.php";
+	# Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
+    
+    include_once $GLOBALS['project_path'].'dao/menuPDO.php';
+	include_once $GLOBALS['project_path'].'controller/comandosql.php';
 
+      
+    #--> Guardando Acesso as operacoes
+    $menuPDO= new MenuPDO();
+    $acoes=$menuPDO->listaMenu($user['id_usu'],"SQL");
     
 ?>
-<div class="container">
-       
-        <div class="row">
-            <div class="col-md-12">  
-                <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#home">Comando SQL</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu1">Resultado SQL</a>
-                </li>
-                </ul>
-            </div>
-        </div>
-      
-        <!-- Tabs-->
-        <div class="tab-content">
-          <div id="home" class="container tab-pane active"><br><!-- Tab de Consulta-->
-            <form class="form" action="sisarq.php" method="POST" id="consultasql">
-                      
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#table-manager').DataTable({
+            "language":{
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                },
+                "select": {
+                    "rows": {
+                        "_": "Selecionado %d linhas",
+                        "0": "Nenhuma linha selecionada",
+                        "1": "Selecionado 1 linha"
+                    }
+                }
+            }
+        //"fixedHeader": true
+        });
+    });
+</script>
+
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+    <li class="breadcrumb-item active">Comandos SQL</li>
+</ol>
+
+<h1 class="page-header">Comandos SQL</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="box-body">
+               
+                        <!--<div class="container">-->
+
+                            <div class="row">
+                                <div class="col-md-12">  
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#home">Comando SQL</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#menu1">Resultado SQL</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tabs-->
+                            <div class="tab-content">
+                                
+                                <div id="home" class="container tab-pane active"><br><!-- Tab de Consulta-->
+                                    <form class="form" action="sisarq.php" method="POST" id="consultasql">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="CmdSQL">Comando SQL:</label>
+                                                    <textarea name ="CmdSQL"  Class="form-control" rows="10" id="CmdSQL" placeholder="Comando SQL"><?=isset($_POST['CmdSQL'])?$_POST['CmdSQL']:"";?> </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label hidden >status</label>
+                                            <input  type="hidden" name="status" value="g" required  >
+                                        </div>
+                                        <div class="form-group">
+                                            <label hidden >option</label>
+                                            <input  type="hidden" name="option" value="comandosql" required  >
+                                        </div>
+
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-primary"  aria-pressed="true">
+                                                <i class="fa fa-check-circle" ></i>
+                                                Consulta
+                                            </button>
+                                        </div>
                         
-                <div class="row">
-                
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="CmdSQL">Comando SQL:</label>
-                            <textarea name ="CmdSQL"  Class="form-control" rows="10" id="CmdSQL" placeholder="Comando SQL"><?=isset($_POST['CmdSQL'])?$_POST['CmdSQL']:"";?> </textarea>
-                        </div>
+
+                                    </form>    
+                                </div><!-- Tab de Consulta-->
+
+                                <div id="menu1" class="container tab-pane fade"><!-- Tab de Grid-->
+
+                                    <div class="row">
+                                        <div class="col-sm-10" >
+
+                                            <form action="" method="POST">
+
+                                                
+                                                <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
+                                                style="width:100%" id="table-manager">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <?php
+                                                                foreach ($dataTableColunas as $coluna)
+                                                                {
+                                                                    echo "<th>". $coluna. "</th>";
+                                                                }
+                                                            ?>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php 
+                                                            for ($i=0;$i < count($dataTable);$i++ )
+                                                            {
+                                                                echo "<tr>";
+
+                                                                foreach ($dataTable[$i] as $campo){
+                                                                    echo "<td>";
+                                                                        echo $campo;
+                                                                    echo "</td>";
+                                                                }    
+                                                                    
+                                                                echo "</tr>";
+                                                            } 
+                                                        ?>
+                                                    </tbody>
+
+                                                </table>
+
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div><!-- Tab de Grid-->
+
+                            </div>
+                        <!--</div>-->
+                        
                     </div>
                 </div>
-
-
-                <div class="form-group">
-                    <label hidden >status</label>
-                    <input  type="hidden" name="status" value="g" required  >
-                </div>
-                <div class="form-group">
-                    <label hidden >option</label>
-                    <input  type="hidden" name="option" value="comandosql" required  >
-                </div>
-               
-                <button type="submit" class="btn btn-primary"  aria-pressed="true">
-                            
-                    <i class="fa fa-search" style="font-size:24px;color:green;"></i>
-                    Consulta
-                </button>
-
-
-
-
-            </form>    
-
-          </div><!-- Tab de Consulta-->
-
-          <div id="menu1" class="container tab-pane fade"><!-- Tab de Grid-->
-            
-            
-            <div class="row">
-                <div class="col-sm-10" >
-                        
-                <form action="" method="POST">
-        
-                    
-                    
-                    <h3>
-                        <i class="fa fa-plus"></i>
-                        Resultado Comando SQL		
-                    </h3>
-                    <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
-                                    style="width:100%" id="tbpadrao">
-        
-                        <thead>
-                                <tr>
-                                    <?php
-                                        foreach ($dataTableColunas as $coluna)
-                                        {
-                                           echo "<th>". $coluna. "</th>";
-                                        }
-                                        
-                                    ?>
-                                </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                for ($i=0;$i < count($dataTable);$i++ )
-                                {
-                                    echo "<tr>";
-                                    
-                                        foreach ($dataTable[$i] as $campo){
-                                            echo "<td>";
-                                                echo $campo;
-                                            echo "</td>";
-                                        }    
-                                                    
-                                    echo "</tr>";
-                                } 
-                            ?>
-                        </tbody>
-        
-                    </table>
-                
-                </form>
             </div>
         </div>
-        
-          </div><!-- Tab de Grid-->
-        
-        </div>
-      </div>
+    </div>
+</div>
+
