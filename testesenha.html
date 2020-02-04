@@ -1,21 +1,15 @@
 
 
-<form name="form1" method="post">
-<input name="txtIndice" type="text" id="senha">
-<button  onclick="valida();" type="submit" > salva
-  </button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
-</form>
-
-<script>
-    function valida()
-    {
-       alert(document.getElementById('senha').value);
-    if (form1.txtIndice.value == "")
-    {
-    alert("Campos obrigatórios faltando!");
-    form1.txtIndice.focus();
-    return false;
-    }
-    }
+ <label>Telefone</label>
+ <input type="text" class="form-control" placeholder="Telefone" id="telefone" name="telefone" ><br>
+ <label>Celular</label>
+ <input type="text" class="form-control" placeholder="Celular" id="celular" name="celular" ><br>
+        
+    <script type="text/javascript">
+    $("#telefone, #celular").mask("(00) 0000-0000");
     </script>
+        
+    

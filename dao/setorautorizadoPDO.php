@@ -106,14 +106,16 @@ class SetorAutorizadoPDO
         $sql.="           setorautorizado.cod_empresa=setor.cod_empresa AND  ";
         $sql.="           setorautorizado.cod_setor  =setor.cod_setor        ";
         
-      
-
-        $smtm=$conexao -> prepare($sql);
         
-        if (isset($filtro))
+        if (isset($filtro) && $filtro!="")
         {
-            $sql.= " WHERE cod_autorizado=?";
+            $sql.= "and  setorautorizado.cod_autorizado=?";
+            $smtm=$conexao -> prepare($sql);
             $smtm->bindValue(1,$filtro);
+        }
+        else
+        {
+            $smtm=$conexao -> prepare($sql);
         }
         $smtm->execute();
         $result=$smtm->fetchAll(PDO::FETCH_ASSOC);

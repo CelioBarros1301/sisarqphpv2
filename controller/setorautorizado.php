@@ -109,7 +109,7 @@
                 $registro=$setorautorizadoPDO->delete($codId);
             break;
         }
-        header("location:sisarq.php?option=setorautorizado");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=setorautorizado");
     }
      
 ?>

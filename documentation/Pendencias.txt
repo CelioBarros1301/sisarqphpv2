@@ -2,11 +2,8 @@
 
 PRIORIDADES:
 
-10)addslashes incluir do $_GET E $_POST
-
-
-45) Verificar propriedade REQUIRED nos campos dos forms
-
+48) Cadastro de Acesso a Empresa, quando click no combo de
+empresa não esta deixando o Autorizado selecionado
 
 
 
@@ -18,7 +15,7 @@ RELAÇAO DO BACKLOG
 2) Incluir a formataçcao de campos no form de autorizados
 
 3) Validar de a Senha e confirmacao de senha no form de autorizados são iguais
-antes de submeter o form
+antes de submeter o form R E S O L V I D O
 
 4) Analiase a troca do login de acesso do sistema pelo email
 

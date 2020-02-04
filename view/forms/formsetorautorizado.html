@@ -19,20 +19,20 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="#">Início</a></li>
         <li class="breadcrumb-item active">Novo Autorizado</li>
-        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Autorizados</a>
+        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Acesso a Empresa</a>
         </li>
     </ol>
-    <h1 class="page-header">Novo Autorizado</h1>
+    <h1 class="page-header">Novo Acesso a Empresa</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                  <h4 class="panel-title">Informe abaixo os dados do Autorizado </h4>
+                  <h4 class="panel-title">Informe abaixo os dados de Acesso a Empresa </h4>
                 </div>
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/autorizado.php" method="post" enctype="multipart/form-data">
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/setorautorizado.php" method="post" enctype="multipart/form-data">
                   
                     <div class="row"> <!--Linha 01-->
 

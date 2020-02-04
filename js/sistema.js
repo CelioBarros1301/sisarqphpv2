@@ -160,3 +160,69 @@ function MostraSenha(strInput)
    document.getElementById(strInput).setAttribute("type", novoTipo);
 
 }
+
+/*
+ * Nome.....: changecomboempresa()
+ * Objetivo.: Atualizar combo dependente da Empresa
+ * Paramento:  
+ * Retorno..: retorna URL com filtro da Empresa
+ * Autor....: Celio Barros
+ * Data.....: 04/02/2019
+ * Alteracao:
+ */
+function changecomboempresa(filtroEmpresa,opcao)
+{
+    
+    var status= opcao.substr(0, 3)=="cad"?"&status=i":"";
+    var filtro= opcao.substr(0, 3)=="cad"?"&codEmp=" :"&filtroEmp=";
+    
+    window.location.href = "sisarq.php?option="+opcao+filtro+filtroEmpresa+status;
+}  
+
+/*
+ * Nome.....: changecomboautorizado()
+ * Objetivo.: Atualizar combo dependente do Usuario
+ * Paramento:  
+ * Retorno..: retorna URL com filtro da Empresa
+ * Autor....: Celio Barros
+ * Data.....: 04/02/2019
+ * Alteracao:
+ */
+function changecomboautorizado(filtroAutorizado,opcao)
+ {
+     window.location.href = "sisarq.php?option=setorautorizado&filtroAut="+filtroAutorizado;
+ 
+}
+
+
+
+
+/*
+ * Nome.....: changecombousuario()
+ * Objetivo.: Atualizar combo dependente do Usuario
+ * Paramento:  
+ * Retorno..: retorna URL com filtro da Empresa
+ * Autor....: Celio Barros
+ * Data.....: 04/02/2019
+ * Alteracao:
+ */
+function changecombousuario(filtroUsuario,opcao)
+ {
+    alert("usuario");
+    if ( opcao=="acesso" )
+    {
+        window.location.href = "sisarq.php?option=acesso&filtroUsu="+filtroUsuario;
+    } 
+    if ( opcao=="cadacesso" )
+    {
+        window.location.href = "sisarq.php?option=cadacesso&codUsu="+filtroUsuario+"&status=i";
+    } 
+      
+ 
+}
+
+
+
+
+
+
