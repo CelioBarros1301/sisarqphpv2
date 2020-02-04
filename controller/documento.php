@@ -1,25 +1,31 @@
 <?php
   
-/*
-* Regras de Negocio para a Processo de Manutencao do Corredor
-*  Objetos envolvidos: Arquivo
-*  Regra: 
-*/
-    
-    require("caixaPDO.php"          );
-    require("prateleiraPDO.php"     );
-    require("estantePDO.php"        );
-    require("corredorPDO.php"       );
-    require("arquivoPDO.php"        );
-    require("empresaPDO.php"        );
-    require("setorPDO.php"          );
-    require("setorautorizadoPDO.php");
-    require("autorizadoPDO.php"     );
-    require("tipodocumentoPDO.php"  );
-    require("statusPDO.php"         );
-    require("documentoPDO.php"      );
-    require("Documento_Class.php"   );
+#
+    # Regras de Negocio para a Processo de Documento
+    #
+   
+    # Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
 
+    include_once $GLOBALS['project_path'].'/dao/documentoPDO.php';
+    include_once $GLOBALS['project_path'].'/model/class/Documento.class.php';
+
+    include_once $GLOBALS['project_path'].'/dao/caixaPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/prateleiraPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/estantePDO.php';
+    include_once $GLOBALS['project_path'].'/dao/corredorPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/arquivoPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/empresaPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/setorPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/setorautorizadoPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/autorizadoPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/tipodocumentoPDO.php';
+    include_once $GLOBALS['project_path'].'/dao/statusPDO.php';
+    
+
+   
+    # Instaciando as classes necessarias
+    
    
     $caixaPDO           = new CaixaPDO();
     $prateleiraPDO      = new PrateleiraPDO();
@@ -45,8 +51,6 @@
     $codTipo        ="";
     $codStatus      ="";
     $codDocumento   ="";
-
-
 
                
     # Array para guarda os nome das Colunas doa DataTable
@@ -238,10 +242,6 @@
         $documento->setAnoCalendario($_POST['AnoCal']);
         $documento->setCodigoStatus('02');
         
-
-
-
-        #$corredor->setSigla($_POST['sigCor']);
         
         switch ($operacao)
         {
@@ -268,6 +268,7 @@
                 $registro=$documentoPDO->delete($_POST['CodDoc']);
             break;
         }
-        header("location:sisarq.php?option=documento&status=f");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=documento&status=f");
+ 
     }
 ?>

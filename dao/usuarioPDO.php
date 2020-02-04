@@ -77,10 +77,10 @@ class UsuarioPDO
             $smtm=$conexao->prepare($sql);
             
             $smtm->bindValue(1,$usuario->getLogin());
-            $smtm->bindValue(2,base64_encode($usuario->getSenha()));
-            $smtm->bindValue(3,$usuario->getStatus());
-            $smtm->bindValue(4,$usuario->getPerfil());
-            
+            $smtm->bindValue(2,$usuario->getNome());
+            $smtm->bindValue(3,base64_encode($usuario->getSenha()));
+            $smtm->bindValue(4,$usuario->getStatus());
+            $smtm->bindValue(5,$usuario->getPerfil());
             
             $result=$smtm->execute();
             
@@ -90,6 +90,14 @@ class UsuarioPDO
         {
             $mensagem = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
             $mensagem .= "\nErro: " . $e->getMessage();
+            echo $mensagem;
+            //throw new Exception($mensagem);
+        }
+        catch (Execption $e  )
+        {
+            $mensagem = "rivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
+            $mensagem .= "\nErro: " . $e->getMessage();
+            echo $mensagem;
             throw new Exception($mensagem);
         }
     }   

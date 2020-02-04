@@ -64,9 +64,9 @@
         $autorizado->setEmail($_POST['emailAut']);
         $autorizado->setCelular($_POST['celAut']);
         $autorizado->setTelefone($_POST['telAut']);
-        $autorizado->setLogin($_POST['logAut']);
         
         $usuario->setLogin($_POST['emailAut']);
+        $usuario->setNome($_POST['nomeAut']);
         $usuario->setSenha($_POST['senAut']);
         $usuario->setStatus("");
         $usuario->setPerfil("0");
@@ -74,7 +74,9 @@
         switch ($operacao)
         {
             case 'a':
+
                 $registro=$autorizadoPDO->update($autorizado);
+                var_dump($registro);
             break;
             case 'i':
                 try 
@@ -93,6 +95,7 @@
                     $mensagem .= "\nErro: " . $e->getMessage();
                     $conexao->rollback();
                     $conexao=null;
+                    echo $mensagem;
                     throw new Exception($mensagem);
                     
                 }

@@ -1,7 +1,14 @@
 <?php
 
-require_once("Conexao_Class.php");
-require_once("utilitarios.php");
+
+# Limpando o cache
+ob_start();
+
+# Incluindo os arquivos Necessários
+include_once dirname(__DIR__)."/model/config.php";
+include_once $GLOBALS['project_path']."model/class/Conexao.class.php";
+include_once $GLOBALS['project_path']."controller/utilitarios.php";
+
 
 class DocumentoPDO
 {

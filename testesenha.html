@@ -1,0 +1,21 @@
+
+
+<form name="form1" method="post">
+<input name="txtIndice" type="text" id="senha">
+<button  onclick="valida();" type="submit" > salva
+  </button>
+
+</form>
+
+<script>
+    function valida()
+    {
+       alert(document.getElementById('senha').value);
+    if (form1.txtIndice.value == "")
+    {
+    alert("Campos obrigatórios faltando!");
+    form1.txtIndice.focus();
+    return false;
+    }
+    }
+    </script>

@@ -1,442 +1,493 @@
 <?php
-
     
+   
+    # Verificar se sessão existe
     if ( !isset($_SESSION['user'])){
-        #header("location: index.php");
+        header("location: $project_index?error=");
     }
+    $user=$_SESSION['user'];
 
-    #--> Guardando Acesso as operacoes
-
-    include_once "menuPDO.php";
+	# Incluindo as classes necessárias
+    include_once dirname(__DIR__).'/model/config.php';
     
+    include_once $GLOBALS['project_path'].'dao/menuPDO.php';
+	include_once $GLOBALS['project_path'].'controller/documento.php';
+
+      
+    #--> Guardando Acesso as operacoes
     $menuPDO= new MenuPDO();
     $acoes=$menuPDO->listaMenu($user['id_usu'],"Documento");
-
-    
-    # Informacoes da regra de negocios e acesso aos dados
-    include_once  "documento.php";
-    
-    
     
 ?>
 
-<div class="container">
-       
-        <div class="row">
-            <div class="col-md-12">  
-                <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#home">Criterio Seleção</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu1">Documentos</a>
-                </li>
-                </ul>
-            </div>
-        </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#table-manager').DataTable({
+            "language":{
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                },
+                "select": {
+                    "rows": {
+                        "_": "Selecionado %d linhas",
+                        "0": "Nenhuma linha selecionada",
+                        "1": "Selecionado 1 linha"
+                    }
+                }
+            }
+        //"fixedHeader": true
+        });
+    });
+</script>
+
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+    <li class="breadcrumb-item active">Listar Documentos</li>
+</ol>
+
+<h1 class="page-header">Listar Documentos</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="box-body">
       
-        <!-- Tabs-->
-        <div class="tab-content">
-          <div id="home" class="container tab-pane active"><br><!-- Tab de Consulta-->
-            <form class="form" action="sisarq.php" method="GET" id="consultadocumento">
-                      
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Autorizado </label><br>
-                            <select id="idAutorizado" name="filCodAut" class="form-control" onchange="changedocumento('autorizado',document.getElementById('idAutorizado').value)">
-                                <?php
-                                    $filCodAut=isset($_GET["filCodAut"])?$_GET["filCodAut"]:"";
-                                    
-                                    if ( $_GET["status"]=="f" && $filCodAut=="" )
-                                    { 
-                                        echo '<option disabled selected value=0>=>Selecionar Autorizado<=</option>';	
-                                    }
-                                    foreach ($tabelaAutorizado as $coluna){
-                                        $selecao = $filCodAut==$coluna["CodAutorizado"]?"selected":"";
-                                        echo '<option '. $selecao. ' value="'. $coluna["CodAutorizado"] .'">' .$coluna["Autorizado"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>                   
-                         
+                        <div class="row">
+                            <div class="col-md-12">  
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#home">Criterio Seleção</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#menu1">Documentos</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Empresa</label><br>
-                            <select id="idEmpresa" name="filCodEmp"  class="form-control" onchange="changedocumento('empresa',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value)">
-                                <?php
-                                    $filCodEmp=isset($_GET["filCodEmp"])?$_GET["filCodEmp"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodEmp=="" )
-                                    { 
-                                        echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
-                                    }
-                                    foreach ($tabelaEmpresa as $coluna){
-                                        $selecao = $filCodEmp==$coluna["CodEmpresa"]?"selected":"";
-                                        echo '<option '. $selecao. '  value="'. $coluna["CodEmpresa"] .'">' .$coluna["Empresa"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Setor </label><br>
-                            <select id="idSetor" name="filCodSet"  class="form-control" onchange="changedocumento('setor',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value)">
-                                <?php
-                                    $filCodSet=isset($_GET["filCodSet"])?$_GET["filCodSet"]:"";
-                                    
-                                    if ( $_GET["status"]=="f" && $filCodSet=="" )
-                                    { 
-                                        echo '<option disabled selected value="">=>Selecionar Setor<=</option>';	
-                                    }
-                                    foreach ($tabelaSetor as $coluna){
-                                        $selecao = $filCodSet==$coluna["CodSetor"]?"selected":"";
-                                        echo '<option '. $selecao. ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <hr>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="text-center">Localização</p>
-                    </div>
-                    <div class="col-md-4">
-                        <hr>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Arquivo</label><br>
-                            <select id="idArquivo" name="filCodArq"  class="form-control" onchange="changedocumento('arquivo',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value)">
-                                <?php
-                                    $filCodArq=isset($_GET["filCodArq"])?$_GET["filCodArq"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodArq=="" )
-                                    {
-                                        echo '<option disabled selected value=0>=>Selecionar Arquivo<=</option>';	
-                                    }
-                                    foreach ($tabelaArquivo as $coluna){
-                                        $selecao = $filCodArq==$coluna["CodArquivo"]?"selected":"";
-                                        echo '<option '. $selecao. ' value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-                            
-                        </div>
-                    </div>
-
-                    
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Corredor </label><br>
-                             <select id="idCorredor" name="filCodCor"  class="form-control" onchange="changedocumento('corredor',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value,document.getElementById('idCorredor').value)">
-                                <?php
-                                    $filCodCor=isset($_GET["filCodCor"])?$_GET["filCodCor"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodCor=="" )
-                                    {
-                                        echo '<option disabled selected value=0>=>Selecionar Corredor<=</option>';	
-                                    }
-                                    foreach ($tabelaCorredor as $coluna){
-                                        $selecao = $filCodCor==$coluna["CodCorredor"]?"selected":"";
-                                        echo '<option '. $selecao. ' value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-                            
-                        </div>
-                    </div>
-                
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Estante</label><br>
-                            <select id="idEstante" name="filCodEst"  class="form-control" onchange="changedocumento('estante',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value,document.getElementById('idCorredor').value,document.getElementById('idEstante').value)">
-                                <?php
-                                    $filCodEst=isset($_GET["filCodEst"])?$_GET["filCodEst"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodEst=="" )
-                                    {
-                                        echo '<option disabled selected value=0>=>Selecionar Estante<=</option>';	
-                                    }
-                                    foreach ($tabelaEstante as $coluna){
-                                        $selecao = $filCodEst==$coluna["CodEstante"]?"selected":"";
-                                        echo '<option '. $selecao. ' value="'. $coluna["CodEstante"] .'">' .$coluna["Estante"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-      
-                        </div>
-                    </div>
-
-                    
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Prateleira </label><br>
-                            <select id="idPrateleira" name="filCodPra" class="form-control" >
-                                <?php
-                                    $filCodPra=isset($_GET["filCodPra"])?$_GET["filCodPra"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodPra=="" )
-                                    {
-                                        echo '<option disabled selected value=0>=>Selecionar Prateleira<=</option>';	
-                                    }
-                                    foreach ($tabelaPrateleira as $coluna){
-                                        $selecao = $filCodPra==$coluna["CodPrateleira"]?"selected":"";
-                                        echo '<option '. $selecao. ' value="'. $coluna["CodPrateleira"] .'">' .$coluna["Prateleira"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Caixa</label><br>
-                            <select id="idCaixa" name="filCodCai" class="form-control" >
-                                <?php
-                                    $filCodCai=isset($_GET["filCodCai"])?$_GET["filCodCai"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodCai=="" )
-                                    {
-                                        echo '<option disabled selected value=0>=>Selecionar Caixa<=</option>';	
-                                    }
-                                    foreach ($tabelaCaixa as $coluna){
-                                        $selecao = $filCodCai==$coluna["CodCaixa"]?"selected":"";
-                                        echo '<option '. $selecao. '  value="'. $coluna["CodCaixa"] .'">' .$coluna["Caixa"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-                          
-                        </div>
-                    </div>
-                </div>
-                
-         
-                <div class="row">
-                    <div class="col-md-4">
-                        <hr>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="text-center">Documento</p>
-                    </div>
-                    <div class="col-md-4">
-                        <hr>
-                    </div>
-                </div>            
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Tipo</label><br>
-                            <select id="idTipo" name="filCodTip"  class="form-control" >
-                                <?php
-                                    $filCodTip=isset($_GET["filCodTip"])?$_GET["filCodTip"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodTip=="" )
-                                    {
-                                        echo '<option disabled selected value=0>=>Selecionar Tipo Documento<=</option>';	
-                                    }
-                                    foreach ($tabelaTipo as $coluna){
-                                        $selecao = $filCodTip==$coluna["CodTipo"]?"selected":"";
-                                        echo '<option '. $selecao. '  value="'. $coluna["CodTipo"] .'">' .$coluna["Tipo"] ."</option>";                     
-                                    }
-                                ?>
-                            </select>
-        
-                        </div>
-                    </div>
-
-                
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Status</label><br>
-                            <select name="filCodSta"  class="form-control" id="filCodSta"  >
-                                <?php
-                                    $filCodSta=isset($_GET["filCodSta"])?$_GET["filCodSta"]:"";
-                                    if ( $_GET["status"]=="f" && $filCodSta=="" )
-                                    {
-                                        echo '<option disabled selected value=0>=>Selecionar Status Documento<=</option>';	
-                                    }
-                                    foreach ($tabelaStatus as $coluna){
-                                        $selecao = $filCodSta==$coluna["CodStatus"]?"selected":"";
-                                        echo '<option '. $selecao. '  value="'. $coluna["CodStatus"] .'">' .$coluna["Status"] ."</option>";                     
-                                    } 
-                                ?>                   
-                            </select> 
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Numero </label><br>
-                            <input  name="filNumDoc"  class="form-control" id="filNunDoc" placeholder="Numero documento" >
-                        </div>
-                    </div>
-                
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Emissão </label><br>
-                            <input  name="filEmiDoc"  class="form-control" id="filEmiDoc" placeholder="Emissao Documento" >
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="row">
-                    <div class="col-md-1">
-                        <hr>
-                    </div>
-                    <div class="col-md-2">
-                        <p class="text-center">Ano</p>
-                    </div>
-                    <div class="col-md-1">
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label>Exercicio </label><br>
-                            <input  name="filAnoExe"  class="form-control" id="filAnoExe" placeholder="Ano Exercicio" >
-                        </div>
-                    </div>
-
-                    
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label>Calendario </label><br>
-                            <input  name="filAnoCal"  class="form-control" id="filAnoCal" placeholder="Ano Calendario">
-                        </div>
-                    </div>
-                
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label>Texto </label><br>
-                            <input  name="filTexDoc"  class="form-control" id="filTextDoc" placeholder="Informar Texto do documento">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label hidden >status</label>
-                    <input  type="hidden" name="status" value="g" required  >
-                </div>
-                <div class="form-group">
-                    <label hidden >option</label>
-                    <input  type="hidden" name="option" value="documento" required  >
-                </div>
-                <button type="submit" class="btn btn-primary"  aria-pressed="true">
-                            
-                    <i class="fa fa-search" style="font-size:24px;color:green;"></i>
-                    Consulta
-                </button>
-
-
-
-
-            </form>    
-
-          </div><!-- Tab de Consulta-->
-
-          <div id="menu1" class="container tab-pane fade"><!-- Tab de Grid-->
-            
-            
-            <div class="row">
-                <div class="col-sm-10" >
                         
-                <form action="" method="POST">
-        
-                    <?php
-                        if ( $acoes['sta_inc']==1 )
-                        { 
-                                                                
-                        echo '<a href="sisarq.php?option=caddocumento&codDoc=&status=i" class="btn btn-primary btn-xs"><i class="fa fa-file-text-o"
-                                aria-hidden="true"></i> Novo</a>';
-                        }
-                    ?>
-                    <button class="btn btn-primary btn-xs"><i class="fa fa-search" aria-hidden="true"></i> Filtro </button>
+                        <!-- Tabs-->
+                        <div class="tab-content">
+                        
+                            <div id="home" class="container tab-pane active"><br><!-- Tab de Consulta-->
+                        
+                                <!-- Form-->
+                                    <form class="form" action="sisarq.php" method="GET" id="consultadocumento">
+                        
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Autorizado </label><br>
+                                                <select id="idAutorizado" name="filCodAut" class="form-control" onchange="changedocumento('autorizado',document.getElementById('idAutorizado').value)">
+                                                    <?php
+                                                        $filCodAut=isset($_GET["filCodAut"])?$_GET["filCodAut"]:"";
+                        
+                                                        if ( $_GET["status"]=="f" && $filCodAut=="" )
+                                                        { 
+                                                            echo '<option disabled selected value=0>=>Selecionar Autorizado<=</option>';	
+                                                        }
+                                                        foreach ($tabelaAutorizado as $coluna){
+                                                            $selecao = $filCodAut==$coluna["CodAutorizado"]?"selected":"";
+                                                            echo '<option '. $selecao. ' value="'. $coluna["CodAutorizado"] .'">' .$coluna["Autorizado"] ."</option>";                     
+                                                        }
+                                                    ?>
+                                                    </select>                   
+                        
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Empresa</label><br>
+                                                <select id="idEmpresa" name="filCodEmp"  class="form-control" onchange="changedocumento('empresa',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value)">
+                                                <?php
+                                                    $filCodEmp=isset($_GET["filCodEmp"])?$_GET["filCodEmp"]:"";
+                                                    if ( $_GET["status"]=="f" && $filCodEmp=="" )
+                                                    { 
+                                                        echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                                                    }
+                                                    foreach ($tabelaEmpresa as $coluna){
+                                                        $selecao = $filCodEmp==$coluna["CodEmpresa"]?"selected":"";
+                                                        echo '<option '. $selecao. '  value="'. $coluna["CodEmpresa"] .'">' .$coluna["Empresa"] ."</option>";                     
+                                                    }
+                                                ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                        
+                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Setor </label><br>
+                                                <select id="idSetor" name="filCodSet"  class="form-control" onchange="changedocumento('setor',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value)">
+                                                <?php
+                                                    $filCodSet=isset($_GET["filCodSet"])?$_GET["filCodSet"]:"";
+                        
+                                                    if ( $_GET["status"]=="f" && $filCodSet=="" )
+                                                    { 
+                                                        echo '<option disabled selected value="">=>Selecionar Setor<=</option>';	
+                                                    }
+                                                    foreach ($tabelaSetor as $coluna){
+                                                        $selecao = $filCodSet==$coluna["CodSetor"]?"selected":"";
+                                                        echo '<option '. $selecao. ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
+                                                    }
+                                                ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <hr>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="text-center">Localização</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <hr>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Arquivo</label><br>
+                                                <select id="idArquivo" name="filCodArq"  class="form-control" onchange="changedocumento('arquivo',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value)">
+                                                <?php
+                                                    $filCodArq=isset($_GET["filCodArq"])?$_GET["filCodArq"]:"";
+                                                    if ( $_GET["status"]=="f" && $filCodArq=="" )
+                                                    {
+                                                        echo '<option disabled selected value=0>=>Selecionar Arquivo<=</option>';	
+                                                    }
+                                                    foreach ($tabelaArquivo as $coluna){
+                                                        $selecao = $filCodArq==$coluna["CodArquivo"]?"selected":"";
+                                                        echo '<option '. $selecao. ' value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
+                                                    }
+                                                ?>
+                                                </select>
+                        
+                                            </div>
+                                        </div>
+                        
+                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Corredor </label><br>
+                                                <select id="idCorredor" name="filCodCor"  class="form-control" onchange="changedocumento('corredor',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value,document.getElementById('idCorredor').value)">
+                                                <?php
+                                                    $filCodCor=isset($_GET["filCodCor"])?$_GET["filCodCor"]:"";
+                                                    if ( $_GET["status"]=="f" && $filCodCor=="" )
+                                                    {
+                                                        echo '<option disabled selected value=0>=>Selecionar Corredor<=</option>';	
+                                                    }
+                                                    foreach ($tabelaCorredor as $coluna){
+                                                        $selecao = $filCodCor==$coluna["CodCorredor"]?"selected":"";
+                                                        echo '<option '. $selecao. ' value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
+                                                    }
+                                                ?>
+                                                </select>
+                        
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                            <label>Estante</label><br>
+                                            <select id="idEstante" name="filCodEst"  class="form-control" onchange="changedocumento('estante',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value,document.getElementById('idCorredor').value,document.getElementById('idEstante').value)">
+                                            <?php
+                                                $filCodEst=isset($_GET["filCodEst"])?$_GET["filCodEst"]:"";
+                                                if ( $_GET["status"]=="f" && $filCodEst=="" )
+                                                {
+                                                    echo '<option disabled selected value=0>=>Selecionar Estante<=</option>';	
+                                                }
+                                                foreach ($tabelaEstante as $coluna){
+                                                    $selecao = $filCodEst==$coluna["CodEstante"]?"selected":"";
+                                                    echo '<option '. $selecao. ' value="'. $coluna["CodEstante"] .'">' .$coluna["Estante"] ."</option>";                     
+                                                }
+                                            ?>
+                                            </select>
+                        
+                                            </div>
+                                        </div>
+                        
+                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                            <label>Prateleira </label><br>
+                                            <select id="idPrateleira" name="filCodPra" class="form-control" >
+                                            <?php
+                                                $filCodPra=isset($_GET["filCodPra"])?$_GET["filCodPra"]:"";
+                                                if ( $_GET["status"]=="f" && $filCodPra=="" )
+                                                {
+                                                    echo '<option disabled selected value=0>=>Selecionar Prateleira<=</option>';	
+                                                }
+                                                foreach ($tabelaPrateleira as $coluna){
+                                                    $selecao = $filCodPra==$coluna["CodPrateleira"]?"selected":"";
+                                                    echo '<option '. $selecao. ' value="'. $coluna["CodPrateleira"] .'">' .$coluna["Prateleira"] ."</option>";                     
+                                                }
+                                            ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                            <label>Caixa</label><br>
+                                            <select id="idCaixa" name="filCodCai" class="form-control" >
+                                            <?php
+                                                $filCodCai=isset($_GET["filCodCai"])?$_GET["filCodCai"]:"";
+                                                if ( $_GET["status"]=="f" && $filCodCai=="" )
+                                                {
+                                                    echo '<option disabled selected value=0>=>Selecionar Caixa<=</option>';	
+                                                }
+                                                foreach ($tabelaCaixa as $coluna){
+                                                    $selecao = $filCodCai==$coluna["CodCaixa"]?"selected":"";
+                                                    echo '<option '. $selecao. '  value="'. $coluna["CodCaixa"] .'">' .$coluna["Caixa"] ."</option>";                     
+                                                }
+                                            ?>
+                                            </select>
+                        
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                        
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <hr>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="text-center">Documento</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <hr>
+                                        </div>
+                                    </div>  
+                        
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                            <label>Tipo</label><br>
+                                            <select id="idTipo" name="filCodTip"  class="form-control" >
+                                            <?php
+                                                $filCodTip=isset($_GET["filCodTip"])?$_GET["filCodTip"]:"";
+                                                if ( $_GET["status"]=="f" && $filCodTip=="" )
+                                                {
+                                                    echo '<option disabled selected value=0>=>Selecionar Tipo Documento<=</option>';	
+                                                }
+                                                foreach ($tabelaTipo as $coluna){
+                                                    $selecao = $filCodTip==$coluna["CodTipo"]?"selected":"";
+                                                    echo '<option '. $selecao. '  value="'. $coluna["CodTipo"] .'">' .$coluna["Tipo"] ."</option>";                     
+                                                }
+                                            ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                        
+                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Status</label><br>
+                                                <select name="filCodSta"  class="form-control" id="filCodSta"  >
+                                                <?php
+                                                $filCodSta=isset($_GET["filCodSta"])?$_GET["filCodSta"]:"";
+                                                if ( $_GET["status"]=="f" && $filCodSta=="" )
+                                                {
+                                                    echo '<option disabled selected value=0>=>Selecionar Status Documento<=</option>';	
+                                                }
+                                                foreach ($tabelaStatus as $coluna){
+                                                    $selecao = $filCodSta==$coluna["CodStatus"]?"selected":"";
+                                                    echo '<option '. $selecao. '  value="'. $coluna["CodStatus"] .'">' .$coluna["Status"] ."</option>";                     
+                                                } 
+                                                ?>                   
+                                                </select> 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Numero </label><br>
+                                                <input  name="filNumDoc"  class="form-control" id="filNunDoc" placeholder="Numero documento" >
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Emissão </label><br>
+                                                <input  name="filEmiDoc"  class="form-control" id="filEmiDoc" placeholder="Emissao Documento" >
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <hr>
+                                        </div>
+                        
+                                        <div class="col-md-2">
+                                            <p class="text-center">Ano</p>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <hr>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Exercicio </label><br>
+                                                <input  name="filAnoExe"  class="form-control" id="filAnoExe" placeholder="Ano Exercicio" >
+                                            </div>
+                                        </div>
+                        
+                        
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Calendario </label><br>
+                                                <input  name="filAnoCal"  class="form-control" id="filAnoCal" placeholder="Ano Calendario">
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label>Texto </label><br>
+                                                <input  name="filTexDoc"  class="form-control" id="filTextDoc" placeholder="Informar Texto do documento">
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        <label hidden >status</label>
+                                        <input  type="hidden" name="status" value="g" required  >
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        <label hidden >option</label>
+                                        <input  type="hidden" name="option" value="documento" required  >
+                                    </div>
+                        
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-primary"  aria-pressed="true">
+                                            <i class="fa fa-check-circle" ></i>
+                                            Consulta
+                                        </button>
+                                    </div>
                     
-                    <h3>
-                        <i class="fa fa-plus"></i>
-                        Lista de Documentos		
-                    </h3>
-                    <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
-                                    style="width:100%" id="tbpadrao">
-        
-                        <thead>
-                                <tr>
-                                    <?php foreach ($dataTableColunas as $coluna)
-                                        {
-                                        echo "<th>". $coluna. "</th>";
-                                        }
-                                        if ( count($dataTable)>0  )
-                                        {        
-                                            echo "<th>Ações</th>";
-                                        }
-                                        else
-                                        {
-                                            echo "<th> </th>";
-                                        }
-                                    ?>
-                                </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                for ($i=0;$i < count($dataTable);$i++ )
-                                {
-                                    echo "<tr>";
-                                    
-                                        foreach ($dataTable[$i] as $campo){
-                                            echo "<td>";
-                                                echo $campo;
-                                            echo "</td>";
-                                        }    
-                                        
-                                        echo "<td>";
-                                            
-                                            if ( $acoes['sta_alt']==1 )
-                                            {                 
-                                                $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=a';
-                                                echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
-                                                        echo '<i class="fa fa-edit"></i>';
-                                                echo '</a> ';
-                                            }
-                                            if ( $acoes['sta_exc']==1 )
-                                            {                 
-                                                $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=e';
-                                                echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
-                                                    echo '<i class="fa fa-trash"></i>';
-                                                echo '</a> ';
-                                            }
-                                            if ( $acoes['sta_con']==1 )
-                                            {                 
-                                                $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=v';
-                                                echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
-                                                    echo '<i class="fa fa-eye"></i>';
-                                                echo '</a> ';
-                                            }    
-
-
-                                                    
-                                        echo '</td>';
-                                                    
-                                    echo "</tr>";
-                                } 
-                            ?>
-                        </tbody>
-        
-                    </table>
-                
-                </form>
+                        
+                        
+                                </form>    
+                            <!-- Form-->
+                            </div><!-- Tab de Consulta-->
+                        
+                        
+                            <div id="menu1" class="container tab-pane fade"><!-- Tab de Grid-->
+                        
+                                <div class="row">
+                                    <div class="col-sm-10" >
+                        
+                                        <form action="" method="POST">
+                        
+                                           
+                                            <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
+                                            style="width:100%" id="tbpadrao">
+                        
+                                                <thead>
+                                                    <tr>
+                                                        <?php foreach ($dataTableColunas as $coluna)
+                                                            {
+                                                                echo "<th>". $coluna. "</th>";
+                                                            }
+                                                            if ( count($dataTable)>0  )
+                                                            {        
+                                                                echo "<th>Ações</th>";
+                                                            }
+                                                            else
+                                                            {
+                                                                echo "<th> </th>";
+                                                            }
+                                                        ?>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                        for ($i=0;$i < count($dataTable);$i++ )
+                                                        {
+                                                            echo "<tr>";
+                        
+                                                            foreach ($dataTable[$i] as $campo){
+                                                                echo "<td>";
+                                                                echo $campo;
+                                                                echo "</td>";
+                                                            }    
+                        
+                                                        echo "<td>";
+                        
+                                                        if ( $acoes['sta_alt']==1 )
+                                                        {                 
+                                                            $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=a';
+                                                            echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
+                                                            echo '<i class="fa fa-edit"></i>';
+                                                            echo '</a> ';
+                                                        }
+                                                        if ( $acoes['sta_exc']==1 )
+                                                        {                 
+                                                            $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=e';
+                                                            echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
+                                                            echo '<i class="fa fa-trash"></i>';
+                                                            echo '</a> ';
+                                                        }
+                                                        if ( $acoes['sta_con']==1 )
+                                                        {                 
+                                                            $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=v';
+                                                            echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
+                                                            echo '<i class="fa fa-eye"></i>';
+                                                            echo '</a> ';
+                                                        }    
+                        
+                        
+                        
+                                                        echo '</td>';
+                        
+                                                        echo "</tr>";
+                                                        } 
+                                                    ?>
+                                                </tbody>
+                        
+                                            </table>
+                        
+                                        </form>
+                                    </div>
+                                </div>
+                        
+                            </div><!-- Tab de Grid-->
+                        
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
-        
-          </div><!-- Tab de Grid-->
-        
-        </div>
-      </div>
-
+    </div>
+</div>
 

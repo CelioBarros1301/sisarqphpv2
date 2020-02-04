@@ -15,6 +15,8 @@ $readonly=$_GET['status']!="i"?"readonly":"";
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
 ?>
+
+
 <div class="content" id="content" style="margin: 0px;padding:0px;">
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="#">Início</a></li>
@@ -32,11 +34,11 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/autorizado.php" method="post" enctype="multipart/form-data">
+                  <form onsubmit="return Valida(<?=$_GET['status'];?>);" action="<?php echo $GLOBALS['project_index']; ?>/controller/autorizado.php" method="post" enctype="multipart/form-data">
                   
                     <div class="row"> <!--Linha 01-->
 
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
                         
                             <div class="form-group ">
@@ -45,7 +47,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                             </div>
                         </div>
                     
-                        <div class="col-md-6" >
+                        <div class="col-md-10" >
                             <div class="form-group">    
                                 <label>Nome</label>
                                 <input type="text" name="nomeAut" maxlength="80" value="<?=$_GET['status']!="i"?$registro["nom_autorizado"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Nome do Autorizado" required  >
@@ -93,7 +95,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>e-Mail</label>
-                                <input type="text" name="emailAut" maxlength="80" value="<?=$_GET['status']!="i"?$registro["email_autorizado"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="e-Mail" required  >
+                                <input type="emailtext" name="emailAut" maxlength="80" value="<?=$_GET['status']!="i"?$registro["email_autorizado"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="e-Mail" required  >
                             </div> 
                         </div>
 
@@ -123,16 +125,34 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                     <div class="row">  <!--Linha 06-->
                     
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group" <?=$_GET['status']!="i"?"hidden":"";?> >
                                 <label>Senha</label>
-                                <input type="text" name="senAut" maxlength="80" value="<?=$_GET['status']!="i"?$registro["cel_autorizado"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha" required  >
+                                <div class="input-group">
+                                    <input  id="senha" type="password" name="senAut" maxlength="80"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha" <?=$_GET['status']=="i"?"required":"";?>  >
+                                    <div class="input-group-append">
+                                        <button onclick="MostraSenha('senha');" class="input-group-text"> 
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div> 
                         </div>
 
+                        
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group " <?=$_GET['status']!="i"?"hidden":"";?> >
                                 <label>Senha Confirmação</label>
-                                <input type="text" name="SenConAut" maxlength="80" value="<?=$_GET['status']!="i"?$registro["tel_autorizado"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha Confirmação" required  >
+                                <div class="input-group">
+                                    <input id="contrasenha" type="password" name="SenConAut" maxlength="80"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha Confirmação" <?=$_GET['status']=="i"?"required":"";?> <?=$_GET['status']!="i"?"hidden":"";?> >
+                                    <div class="input-group-append" >
+                                        <button onclick="MostraSenha('contrasenha');" class="input-group-text">
+                                             <i class="fa fa-eye"></i> 
+                                        </button>
+                                    </div>
+                                </div>
+                                <span>
+                                    <span id="errorsenha" class="text-danger"></span>
+                                </span>
                             </div> 
                         </div>
                
@@ -143,7 +163,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
                       <div class="col-md-12">
                         <p class="text-right">
-                          <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                          <button   type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
                             <i class="fa fa-check-circle" ></i> 
                             <b>
                               <?php 
@@ -169,5 +189,3 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
         </div>
     </div>
 </div>
-
-

@@ -1,0 +1,180 @@
+﻿Correções e Melhorias no Sistema
+
+PRIORIDADES:
+
+10)addslashes incluir do $_GET E $_POST
+
+
+45) Verificar propriedade REQUIRED nos campos dos forms
+
+
+
+
+
+RELAÇAO DO BACKLOG
+
+1) Verificar se tabela tem informação antes do preenchimendo da GRID R E S O L V I D O
+  
+2) Incluir a formataçcao de campos no form de autorizados
+
+3) Validar de a Senha e confirmacao de senha no form de autorizados são iguais
+antes de submeter o form
+
+4) Analiase a troca do login de acesso do sistema pelo email
+
+5) Configura o botao cancelar 0 redirecionar para a tela de GRID R E S O L V I D O
+
+6) Criar botao de atualizacao da tela de grid, para executar uma nova consulta para preenchimento 
+da grid- 
+
+7) Incluir campo na tabela de autorizados para HABILITAR/DESABILITAR autorizacao de acesso
+
+8) Incluir campo na tabela de empresaautorizadoas para HABILITAR/DESABILIAR autoizazao de acesso 
+aos dados da empresaautorizadoas
+
+9) URGENTE: Ver processo de TRANSACAO - NAO ESTA FUNCIONANDO - R E S O L V I D O 
+
+10)addslashes incluir do $_GET E $_POST
+
+11)Bloqueio de acesso a cadastro de Usuario e Sql so liberara para Administrador  R E S O L V I D O 
+
+12)Salvar a senha criptografada e quando for alterar descritografar a senha R E S O L V I D O 
+
+13)Alterar o acesso do sistema via banco retira o arquyivo txt R E S O L V I D O 
+
+14) Validar de a Senha e confirmacao de senha no form de USUARIO são iguais
+antes de submeter o form
+
+15)ver o tratamento de erro e enviar o erro para atela com tratamento
+
+16) Nao permitir o usuario exluir ele mesmo  R E S O L V I D O 
+
+17) Nao permitir o usuario se logar em mais de uma maquina simultaneamente. Usar o processo de 
+gravar o masaddress na tabela de Usuario- sta_usuario. Utilizar o IP . Quando usario for
+se logar verificar login e senha(ok) e depois verificar se o ip da tabela e igual ao da maquina
+e libera o acesso ou ip da tabela for branco. Mostra a mensagem usario logando em outra estação R E S O L V I D O
+
+18)Incluir o Icone de Consulta nas grid so apresentar quando o 
+usuario não tiver acesso a alteracao/delecao R E S O L V I D O
+
+19) Realizar o tratamento quando da alteracao do arquivo não seleciona a empresa correta. SOLUCAO:
+    alterar o script da tabela de empresa para selecionar somenete a empresa do registro a ser alterado
+R E S O L V I D O
+
+20) Realizar bloqueio do campo codigo da Empresa (Cadastro de arquivo ) R E S O L V I D O
+
+21)TESTE DE O REGISTRO NA EXISTIR APRESENTAR A MENSAGEM DE REGITRO NAO ENCONTRADO
+
+22)Para as opcoes Arquivo(R E S O L V I DO ),corredor( R E S O L V I D O),
+    estante ( R E S O L V I D O ) prateleira ,caixa implemnetar a
+cargo do combox conforme a seleçao do nivel superior  R E S O L V I D O
+
+23) Criar as chaves estrangeiras da tabelas R E S O L V I D O 
+
+24) Nao esta excluido corredor R E S O L V I D O
+
+25) Nao esta excluido Estante R E S O L V I D O
+
+26) Quando não tem registro na tabela o max esta retornando null R E S O L V I D O 
+
+27) Criar usuario Administrador e Supervisor com senha padrao e nao permitir excluir  R E S O L V I D O
+
+28) Quando da rotina de liberacao de login usario não pode liberar ele mesmo R E S O L V I D O 
+
+29) Formatacao dos forms ( ARQUIVO , CORREDOR ,ESTANTE ,PRATELEIRA, CAIXA )
+    ( Placeholder ) - R E S O L V I D O 
+
+30)Tipo de documento ver padrao do combo da empresa R E S O L V I D O 
+
+31)incluir spinner quando processando em background ( regras de negocios
+
+32)https://getbootstrap.com/docs/4.4/components/forms/ ( Size dos controle 
+propriedade form-control-lg form-control-sm)
+
+33) propriedade Tooltips/title ( incluir nos controle de Codigo para informar que informando zero ira gerar o proximo da sequencia)
+
+34) Alterar o processo quando for informado o codigo(Arquivo,corredor,estante,prateleira,caixa,empresa) mostrar
+os dadosdo registro igual ao botao EDITAR
+
+35) Incluir label flotoante -https://getbootstrap.com/docs/4.4/examples/floating-labels/
+
+36) Trocara as mensagem informando campo obrigatorio
+
+37) CRUD Autorizado empresa R E S O L V I D O 
+
+38) Dasboard - Qunatidade de Documento digitados por data(dia/mes/ano; Mes/Ano; Ano)
+    Quantidade de Documento em poder de terceiros
+    Quanidade de caixas por setor
+
+39) corregir esta dobrando a informação Selecionar nas  consultas da tabelas, incluir 
+o registro apos result final . o indice do array sera cont(result)
+
+40) REFATORAR parte de todas arquivo de regras para teste se
+o $_GET EXISTE e alterar a os parametros de envio da url qdo
+tiver valores 
+
+41) Quando do cadastro de empresa incluir linha na tabela tb_referencia  VERIFICAR SE NECESSARIO
+CRIADO A OPCAO DE GERAR O PROXIMO DOCUMENTO VIA SELECT MAX
+
+42)http://phpsqlbr.blogspot.com/2009/04/cookies-no-php.html (cookie) R E S O L V I D O
+
+43) Ver o cadastro de setores por empresa
+
+$codPrateleira =isset($_GET['codPra'])?$_GET['codPra']:"";
+
+44) incluir no formdocumento Data Destruicao R E S O L V I D O 
+
+45) Verificar propriedade REQUIRED nos campos dos forms
+
+46) Ativar a funcionalidade botao de consulta da grid R E S O L V I D O
+
+
+47) Tratamento de Erro 
+
+==========================
+infomacoes sobre tabs
+
+https://bootsnipp.com/snippets/5Moza
+
+
+https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-navs.php
+
+
+https://bootstrap-vue.js.org/docs/components/tabs/ ( muito bom)
+
+
+https://mdbootstrap.com/docs/jquery/components/tabs/
+
+
+https://getbootstrap.com.br/docs/4.1/utilities/borders/
+
+
+
+https://www.w3schools.com/bootstrap4/bootstrap_ref_js_tab.asp
+
+
+LOCK DE TABELA MYSQL:
+http://underpop.online.fr/m/mysql/manual/mysql-reference-lock-tables.html
+
+
+
+https://tryphp.w3schools.com/showphp.php?filename=demo_form_validation_complete 
+
+cookie:http://www.devwilliam.com.br/php/sistema-de-login-com-cookies-no-php
+LER:
+$email = (isset($_COOKIE['CookieEmail'])) ? base64_decode($_COOKIE['CookieEmail']) : '';
+$senha = (isset($_COOKIE['CookieSenha'])) ? base64_decode($_COOKIE['CookieSenha']) : '';
+$lembrete = (isset($_COOKIE['CookieLembrete'])) ? base64_decode($_COOKIE['CookieLembrete']) : '';
+$checked = ($lembrete == 'SIM') ? 'checked' : '';
+
+SETAR:
+           $expira = time() + 60*60*24*30; 
+		   setCookie('CookieLembrete', base64_encode('SIM'), $expira);
+		   setCookie('CookieEmail', base64_encode($email), $expira);
+		   setCookie('CookieSenha', base64_encode($senha), $expira);
+
+ZERAR:
+ $expira = time() + 60*60*24*30; 
+		   setCookie('CookieLembrete', base64_encode('SIM'), $expira);
+		   setCookie('CookieEmail', base64_encode($email), $expira);
+		   setCookie('CookieSenha', base64_encode($senha), $expira);
