@@ -64,8 +64,8 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label> Empresa </label><br>	
-                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" onclick="cargaAjax('<?php echo $GLOBALS['project_index'];?>/controller/ajax.php?codEmp=011', 'combosetor');">
-                                      <?php
+                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" onchange="changecomboempresa(document.getElementById('idEmpresa').value,'cadsetorautorizado')">
+                                    <?php
                                     if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
                                     { 
                                         echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
@@ -91,6 +91,17 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                             <div class="form-group">
                                 <label> Setor </label><br>	
                                 <select id="idSetor" name="codSet" <?=$readonly;?> class="form-control" >
+                                    <?php
+                                    if ( $_GET["status"]=="i" && ( $_GET["codSet"]=="0" || $_GET["codSet"]=="") )
+                                    { 
+                                        echo '<option disabled selected value=0>=>Selecionar Setor<=</option>';	
+                                    }
+                                    foreach ($tabelaSetor as $coluna){
+                                        $selecao = $_GET["codSet"]==$coluna["CodSetor"]?"selected":"";
+                                      
+                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
+                                    }
+                                    ?>
                                      
                                 </select>        </div> 
                         </div>

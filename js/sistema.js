@@ -195,8 +195,6 @@ function changecomboautorizado(filtroAutorizado,opcao)
 }
 
 
-
-
 /*
  * Nome.....: changecombousuario()
  * Objetivo.: Atualizar combo dependente do Usuario
@@ -221,8 +219,36 @@ function changecombousuario(filtroUsuario,opcao)
  
 }
 
+/*
+ * Nome.....: cargaAjax()
+ * Objetivo.: Ajax dos Combo
+ * Paramento:  
+ * Retorno..: Atualizacao Combo via Ajax
+ * Autor....: Celio Barros
+ * Data.....: 05/02/2020
+ * Alteracao:function cargaAjax(url, chave,cFunction)
+ */
+
+function cargaAjax(url, cFunction)
+{
+    var xhttp;
+    xhttp=new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("idSetor").innerHTML =xhttp.responseText;
+    }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
 
 
+function comboSetor(xhttp) 
+
+{
+    alert("setor");
+    document.getElementById("idSetor").innerHTML =xhttp.responseText;
+}
 
 
 

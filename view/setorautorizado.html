@@ -79,7 +79,7 @@
                             <?php
                                 $filtro=isset($_GET['filtroAut']) ? $_GET['filtroAut']:"";   
                             ?>
-                            <select id="codAut" name="codAut"  class="form-control" onchange="changecomboautorizado(document.getElementById('codAut').value,'setorautorizado')">
+                            <select id="codAut" name="codAut"  class="form-control"  onchange="changecomboautorizado(document.getElementById('codAut').value,'setorautorizado')">
                                 <?php
                                 echo '<option value="">Todos Autorizados</option>';
                                 foreach ($tabelaAutorizado as $coluna){
