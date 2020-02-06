@@ -39,8 +39,8 @@
     # Verificar operacoes de Banco
     if ( isset($_POST['operacao']))
     {
-        $operacao=$_POST['operacao'];
-        $codigo=$_POST['id'];
+        $operacao =$_POST['operacao'];
+        $codigo   =$_POST['id'];
         $descricao=$_POST['desEmp'];
         switch ($operacao)
         {
@@ -54,7 +54,7 @@
                 $registro=$empresaPDO->delete($codigo);
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=empresa");
+       header("location:".$GLOBALS['project_index']."sisarq.php?option=empresa");
     }
 
 ?>

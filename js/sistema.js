@@ -222,22 +222,40 @@ function changecombousuario(filtroUsuario,opcao)
 /*
  * Nome.....: cargaAjax()
  * Objetivo.: Ajax dos Combo
- * Paramento:  
+ * Paramento:  url-> Url para processar geracaodas informacoes
+ *             cFunction-> funcao para atualizar o DOM
+ *             cCombo-> Selecao do combo
  * Retorno..: Atualizacao Combo via Ajax
  * Autor....: Celio Barros
  * Data.....: 05/02/2020
  * Alteracao:function cargaAjax(url, chave,cFunction)
  */
 
-function cargaAjax(url, cFunction)
+function cargaAjax(url, cFunction,cCombo)
 {
     var xhttp;
     xhttp=new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("idSetor").innerHTML =xhttp.responseText;
-    }
+    if (this.readyState == 4 && this.status == 200)
+        {
+            cFunction(this);
+        }
     };
+    switch(cCombo)
+     {
+        case 'setor':
+            url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value;
+        break;
+
+        case 'menu':
+            url=url+"combo="+cCombo+"&codUsu="+document.getElementById('idUsuario').value;
+        break;
+
+        default:
+            url="";
+        break;
+    } 
+
     xhttp.open("GET", url, true);
     xhttp.send();
 }
@@ -246,9 +264,12 @@ function cargaAjax(url, cFunction)
 function comboSetor(xhttp) 
 
 {
-    alert("setor");
     document.getElementById("idSetor").innerHTML =xhttp.responseText;
 }
 
+function comboSetor(xhttp) 
 
+{
+    document.getElementById("idMenu").innerHTML =xhttp.responseText;
+}
 

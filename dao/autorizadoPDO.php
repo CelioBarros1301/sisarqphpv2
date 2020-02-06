@@ -149,12 +149,17 @@ class AutorizadoPDO
         $sql.="      emp_autorizado Empresa      ,";
         $sql.="      cel_autorizado Celular       ";
         $sql.=" FROM tb_autorizados ";
-        $smtm=$conexao -> prepare($sql);
         
         if ( isset($filtro) && $filtro!="" )
         {
             $sql.= " WHERE cod_autorizado=?";
+            $smtm=$conexao -> prepare($sql);
             $smtm->bindValue(1,$filtro);
+        }
+        else
+        {
+            $smtm=$conexao -> prepare($sql);
+   
         }
         $smtm->execute();
         $result=$smtm->fetchAll(PDO::FETCH_ASSOC);

@@ -14,11 +14,17 @@ $readonly=$_GET['status']!="i"?"readonly":"";
 
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
+$ajax="";
+$ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'setor');";
+$ajax ='onclick=' .'"'.$ajax.'"';
+$ajax =$_GET["status"]=="i"?$ajax:"";
+
+
 ?>
 <div class="content" id="content" style="margin: 0px;padding:0px;">
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="#">Início</a></li>
-        <li class="breadcrumb-item active">Novo Autorizado</li>
+        <li class="breadcrumb-item active">Novo Acesso a Empresa</li>
         <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Acesso a Empresa</a>
         </li>
     </ol>
@@ -64,7 +70,8 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label> Empresa </label><br>	
-                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" onclick="cargaAjax('<?php echo $GLOBALS['project_index'];?>/controller/ajax.php?codEmp=011', 'combosetor');">
+                               
+                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" <?=$ajax;?> >
                                       <?php
                                     if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
                                     { 
@@ -91,8 +98,19 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                             <div class="form-group">
                                 <label> Setor </label><br>	
                                 <select id="idSetor" name="codSet" <?=$readonly;?> class="form-control" >
-                                     
-                                </select>        </div> 
+                                    <?php
+                                        if ( $_GET["status"]!="i" )
+                                        { 
+                                            foreach ($tabelaSetor as $coluna)
+                                            {
+                                                $selecao = $_GET["codSet"]==$coluna["CodSetor"]?"selected":"";
+                                                echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
+                                            }
+                                        }
+                                    ?>
+                                  
+                                </select>     
+                            </div> 
                         </div>
 
                

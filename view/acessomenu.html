@@ -125,7 +125,7 @@
 
                                                 if ( $acoes['sta_alt']==1 )
                                                 {
-                                                    $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&status=a';
+                                                    $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&codUsu='. $dataTable[$i]['CodUsuario'].'&codMenu='. $dataTable[$i]['CodMenu'].'&status=a';
                                                     echo '<a name="edit" class="btn btn-warning btn-sm"' . $link .'>';
                                                             echo '<i class="fa fa-edit"></i>';
                                                     echo '</a> ';

@@ -14,13 +14,19 @@ $readonly=$_GET['status']!="i"?"readonly":"";
 
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
+$ajax="";
+$ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'setor');";
+$ajax ='onchange=' .'"'.$ajax.'"';
+$ajax =$_GET["status"]=="i"?$ajax:"";
+
+
 
 ?>
 <div class="content" id="content" style="margin: 0px;padding:0px;">
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="#">Início</a></li>
-        <li class="breadcrumb-item active">Novo Autorizado</li>
-        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Autorizados</a>
+        <li class="breadcrumb-item active">Novo Acesso ao Sistema</li>
+        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Acesso ao Sistema</a>
         </li>
     </ol>
     <h1 class="page-header">Novo Acesso ao Sistema</h1>
@@ -42,7 +48,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         
                             <div class="form-group ">
                                 <label> Usuario </label><br>	
-                                <select id="idUsuario" name="codUsu" <?=$readonly;?> class="form-control" onchange="changecombousuario(document.getElementById('idUsuario').value,'cadacesso')">
+                                <select id="idUsuario" name="codUsu" <?=$readonly;?> <?=$ajax;?> class="form-control" ">
                                     <?php
                                         $codUsu=isset($_GET["codUsu"])?$_GET["codUsu"]:"";
                                         if ( $_GET["status"]=="i" )
@@ -69,15 +75,14 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                                 <label> Menus </label><br>	
                                 <select id="idMenu" name="codMenu" class="form-control" <?=$readonly;?> >
                                     <?php
-                                    $codMenu=isset($_GET["codMenu"])?$_GET["codMenu"]:"";
-                                    if ( $_GET["status"]=="i" )
-                                    { 
-                                        echo '<option disabled selected value=0>=>Selecionar Menu<=</option>';	
-                                    }
-                                    foreach ($tabelaMenu as $coluna){
-                                        $selecao = $codMenu==$coluna["CodMenu"]?"selected":"";
-                                        echo '<option ' . $selecao . ' '. $readonly . ' value="'. $coluna["CodMenu"] . '">' .$coluna["Sequencia"]."-".$coluna["Opcao"] ."</option>";                     
-                                    }
+                                        if ( $_GET["status"]=="i" )
+                                        { 
+                                            foreach ($tabelaMenu as $key =>$coluna)
+                                            {
+                                                $selecao = $key==0?"selected":"";
+                                                echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodMenu"] .'">' .$coluna["Sequencia"]."-".$coluna["Opcao"] ."</option>";                     
+                                            }
+                                        }
                                     ?>
                                      
                                 </select>

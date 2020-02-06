@@ -9,10 +9,9 @@ if ( !isset($_SESSION['user'])){
 include_once $GLOBALS['project_path'].'controller/empresa.php';
 
   
-$selecao=$_GET["status"]!="i"?"selected":"";
-$readonly=$_GET['status']!="i"?"readonly":"";
-
-$readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
+$selecao       = $_GET["status"]!="i"?"selected":"";
+$readonly      = $_GET['status']!="i"?"readonly":"";
+$readonlyCampo = ($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
 ?>
 <div class="content" id="content" style="margin: 0px;padding:0px;">
@@ -32,7 +31,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/empresa.php" method="post" enctype="multipart/form-data">
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/empresa.php" method="POST" enctype="multipart/form-data">
                   
                     <div class="row"> <!--Linha 01-->
 
@@ -40,7 +39,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
                         <div class="form-group ">
                             <label>Codigo</label>
-                            <input type="text" name="id"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["id"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
+                            <input type="text" name="id"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["id"]:"";?>" <?=$readonly?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
                         </div>
                       </div>
 

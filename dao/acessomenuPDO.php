@@ -132,9 +132,11 @@ class AcessoMenuPDO
     {
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql ="SELECT acesso.id_menu_usuario CodAcesso , ";
-        $sql.="       menu.seq_menu          Ordem     , " ;
-        $sql.="       nome_menu              Opcao     , " ;
+        $sql ="SELECT acesso.id_menu_usuario CodAcesso  , ";
+        $sql.="       acesso.id_usu          CodUsuario , ";
+        $sql.="       menu.id_menu           CodMenu    , ";
+        $sql.="       menu.seq_menu          Ordem      , " ;
+        $sql.="       nome_menu              Opcao      , " ;
         $sql.="CASE WHEN acesso.sta_menu='1' THEN 'SIM' ELSE 'NÃO'  END AS Menu      , " ;
         $sql.="CASE WHEN acesso.sta_inc='1'  THEN 'SIM' ELSE 'NÃO'  END AS Incluir   , " ;
         $sql.="CASE WHEN acesso.sta_alt='1'  THEN 'SIM' ELSE 'NÃO'  END AS Alterar   , " ;
@@ -160,8 +162,9 @@ class AcessoMenuPDO
          {
              $conexao=Conexao::getConnection();
              $result=array();
-             $sql ="SELECT acesso.id_menu_usuario CodAcesso , ";
-             $sql.="       menu.id_menu          CodMenu    , ";
+             $sql ="SELECT acesso.id_menu_usuario CodAcesso  , ";
+             $sql.="       menu.id_menu           CodMenu    , ";
+             $sql.="       acesso.id_usu          CodUsuario , ";
              
              $sql.="       menu.seq_menu          Sequencia , " ;
              $sql.="       nome_menu              Opcao     , " ;

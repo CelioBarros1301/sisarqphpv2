@@ -48,10 +48,10 @@
         }
         else
         {
-            $tabelaAutorizado =$autorizadoPDO->lista($codAutorizado);
-            $tabelaEmpresa    =$empresaPDO->lista($codEmpresa);
-            $tabelaSetor      =$setorPDO->listaSetor($codEmpresa,$codSetor);
-            $registro=$setorautorizadoPDO->busca($codId);
+            $tabelaAutorizado = $autorizadoPDO->lista($codAutorizado);
+            $tabelaEmpresa    = $empresaPDO->lista($codEmpresa);
+            $tabelaSetor      = $setorPDO->listaSetor($codEmpresa,$codSetor);
+            $registro         = $setorautorizadoPDO->busca($codId);
             
       
         }
