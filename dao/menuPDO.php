@@ -22,7 +22,7 @@ class MenuPDO
 
         $sql = "SELECT   id_menu   CodMenu  , ";
         $sql.= "         seq_menu  Sequencia, ";
-        $sql.= "         nome_menu Menu       ";
+        $sql.= "         nome_menu Opcao      ";
         
         $sql.= "FROM tb_menus menu ";
         if ($codMenu!="")
@@ -37,6 +37,7 @@ class MenuPDO
         }
         $smtm->execute();
         $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+
         $conexao=null;
         return  $result;
     }

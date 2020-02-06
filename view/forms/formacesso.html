@@ -15,9 +15,15 @@ $readonly=$_GET['status']!="i"?"readonly":"";
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
 $ajax="";
-$ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'setor');";
-$ajax ='onchange=' .'"'.$ajax.'"';
+$ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", combomenu,'menu');";
+$ajax ='onclick=' .'"'.$ajax.'"';
 $ajax =$_GET["status"]=="i"?$ajax:"";
+
+$ajax="";
+$ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'menu');";
+$ajax ='onclick=' .'"'.$ajax.'"';
+$ajax =$_GET["status"]=="i"?$ajax:"";
+
 
 
 
@@ -48,7 +54,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         
                             <div class="form-group ">
                                 <label> Usuario </label><br>	
-                                <select id="idUsuario" name="codUsu" <?=$readonly;?> <?=$ajax;?> class="form-control" ">
+                                <select id="idUsuario"  required name="codUsu" <?=$readonly;?> class="form-control" <?=$ajax;?> >
                                     <?php
                                         $codUsu=isset($_GET["codUsu"])?$_GET["codUsu"]:"";
                                         if ( $_GET["status"]=="i" )
@@ -73,9 +79,9 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label> Menus </label><br>	
-                                <select id="idMenu" name="codMenu" class="form-control" <?=$readonly;?> >
+                                <select id="idMenu" name="codMenu" required class="form-control" <?=$readonly;?> >
                                     <?php
-                                        if ( $_GET["status"]=="i" )
+                                        if ( $_GET["status"]!="i" )
                                         { 
                                             foreach ($tabelaMenu as $key =>$coluna)
                                             {

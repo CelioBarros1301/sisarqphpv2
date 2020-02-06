@@ -91,7 +91,6 @@ class ajaxPDO
 
         $sql.=" WHERE acesso.id_menu_usuario IS NULL ";
         
-        var_dump($sql);
         $smtm=$conexao->prepare($sql);
         $smtm->bindValue(1,$codUsuario);
         $smtm->execute();
@@ -107,6 +106,66 @@ class ajaxPDO
    
          return $html;
    
+    }
+
+
+    # Ajax Preencher combo de Arquivo
+   
+    public function listaArquivo($codEmpresa,$codArquivo)
+    {
+        $conexao=Conexao::getConnection();
+        $result=array();
+        $sql ="SELECT '0' CodArquivo,'=>Selecionar Arquivo<='  Arquivo ";
+        $sql.="UNION ALL ";
+    
+        $sql.="SELECT    cod_arquivo CodArquivo,des_arquivo Arquivo ";
+        $sql.=" FROM tb_arquivos arquivo ";
+        
+        
+        if ($codArquivo!="")
+        { 
+            $sql.= " WHERE arquivo.cod_empresa=? and ";
+            $sql.= "       arquivo.cod_arquivo=?     ";
+            $sql.= " ORDER BY Arquivo";
+            
+        }
+        else if($codEmpresa!="")
+        {
+            $sql.= " WHERE arquivo.cod_empresa=?  ";
+            $sql.= " ORDER BY Arquivo";
+                   
+        }
+        var_dump($sql);        
+        $smtm=$conexao -> prepare($sql);
+        
+        if ($codArquivo!="")
+        {
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+            
+        }
+        else
+        {
+            $smtm->bindValue(1,$codEmpresa);
+        }
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+       
+        $conexao=null;
+        $html="";
+        foreach ($result as $key=>$coluna){
+
+            if ( $key=='0' )
+            {
+                $html.='<option  disabled selected value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
+            }
+            else
+            {
+                $html.='<option  value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
+            }
+        }
+        return $html;
+
     }
 
 }

@@ -233,29 +233,53 @@ function changecombousuario(filtroUsuario,opcao)
 
 function cargaAjax(url, cFunction,cCombo)
 {
+    alert(cCombo);
     var xhttp;
     xhttp=new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200)
         {
-            cFunction(this);
+            if ( cCombo=='menu' )
+            {
+           
+                document.getElementById("idMenu").innerHTML =xhttp.responseText;
+            }
+            
+            if ( cCombo=='setor' )
+            {
+                document.getElementById("idSetor").innerHTML =xhttp.responseText;
+                
+            }
+            if ( cCombo=='arquivo' )
+            {
+                document.getElementById("idArquivo").innerHTML =xhttp.responseText;
+                
+            }
+
+        
+
         }
     };
-    switch(cCombo)
-     {
-        case 'setor':
-            url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value;
-        break;
+    if ( cCombo=='setor' )
+    {
+        url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value;
+        
+    }
 
-        case 'menu':
-            url=url+"combo="+cCombo+"&codUsu="+document.getElementById('idUsuario').value;
-        break;
+    if ( cCombo=='menu' )
+    {
+   
+       url=url+"combo="+cCombo+"&codUsu="+document.getElementById('idUsuario').value;
+    }
 
-        default:
-            url="";
-        break;
-    } 
-
+    if ( cCombo=='arquivo' )
+    {
+        url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value;
+        
+    }
+ 
+    alert(url);
+   
     xhttp.open("GET", url, true);
     xhttp.send();
 }

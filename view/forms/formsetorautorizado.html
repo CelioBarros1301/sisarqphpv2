@@ -47,7 +47,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         
                             <div class="form-group ">
                                 <label> Autorizado </label><br>	
-                                <select id="idAutorizado" name="codAut" <?=$readonly;?> class="form-control" >
+                                <select id="idAutorizado" name="codAut" <?=$readonly;?> required class="form-control" >
                                     <?php
                                     if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
                                     { 
@@ -71,7 +71,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                             <div class="form-group">
                                 <label> Empresa </label><br>	
                                
-                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" <?=$ajax;?> >
+                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> required class="form-control" <?=$ajax;?> >
                                       <?php
                                     if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
                                     { 
@@ -97,7 +97,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label> Setor </label><br>	
-                                <select id="idSetor" name="codSet" <?=$readonly;?> class="form-control" >
+                                <select id="idSetor" name="codSet" <?=$readonly;?> class="form-control" required >
                                     <?php
                                         if ( $_GET["status"]!="i" )
                                         { 

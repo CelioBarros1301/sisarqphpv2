@@ -17,6 +17,8 @@
     $combo       = isset($_GET['combo'])?$_GET['combo']:"";
     $codEmpresa  = isset($_GET['codEmp'])?$_GET['codEmp']:"";
     $codSetor    = isset($_GET['codSet'])?$_GET['codSet']:"";
+    $codArquivo  = isset($_GET['codArq'])?$_GET['codArq']:"";
+    
     $codUsuario  = isset($_GET['codUsu'])?$_GET['codUsu']:"";
 
     # Selecionar a opcao de combo
@@ -29,6 +31,10 @@
         case "menu":				
             $html  =$ajaxPDO->listaMenu($codUsuario);
         break;
+        case "arquivo":				
+            $html  =$ajaxPDO->listaArquivo($codEmpresa,$codArquivo);
+        break;
+        
 
 
     }

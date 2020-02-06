@@ -83,8 +83,7 @@ class AcessoMenuPDO
     {
         $conexao=Conexao::getConnection();
         $sql="UPDATE  tb_menu_usuarios SET ";
-        $sql.='`id_menu` =?,';
-        $sql.='`id_usu`  =?,';
+        $sql.='`sta_menu`  =?,';
         $sql.='`sta_inc` =?,';
         $sql.='`sta_alt` =?,';
         $sql.='`sta_con` =?,';
@@ -96,15 +95,14 @@ class AcessoMenuPDO
         
         $smtm=$conexao->prepare($sql);
         
-        $smtm->bindValue(1,$acesso->getIdMenu());
-        $smtm->bindValue(2,$acesso->getIdUsuario());
-        $smtm->bindValue(3,$acesso->getStatusIncluir());
-        $smtm->bindValue(4,$acesso->getStatusAlterar());
-        $smtm->bindValue(5,$acesso->getStatusConsultar());
-        $smtm->bindValue(6,$acesso->getStatusExcluir());
-        $smtm->bindValue(7,$acesso->getStatusRelatorio());
+        $smtm->bindValue(1,$acesso->getStatusMenu());
+        $smtm->bindValue(2,$acesso->getStatusIncluir());
+        $smtm->bindValue(3,$acesso->getStatusAlterar());
+        $smtm->bindValue(4,$acesso->getStatusConsultar());
+        $smtm->bindValue(5,$acesso->getStatusExcluir());
+        $smtm->bindValue(6,$acesso->getStatusRelatorio());
        
-        $smtm->bindValue(8,$acesso->getIdAcesso());
+        $smtm->bindValue(7,$acesso->getIdAcesso());
         
         
         
@@ -183,7 +181,6 @@ class AcessoMenuPDO
 
              $sql.=" WHERE acesso.id_menu_usuario IS NULL ";
              
-             var_dump($sql);
              $smtm=$conexao->prepare($sql);
              $smtm->bindValue(1,$codUsuario);
              $smtm->execute();

@@ -169,7 +169,7 @@ class UsuarioPDO
         $sql.="CASE WHEN per_usuario ='1' THEN 'Administrador' ELSE 'Usuario Padrao' END as Perfil";
         $sql.=" FROM tb_usuarios ";
 
-        if (isset($Usuario) && $codUsuario!="")
+        if (isset($codUsuario) && $codUsuario!="")
         {
             $sql.= " WHERE id_usu= ? ";
             $smtm=$conexao -> prepare($sql);

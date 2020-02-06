@@ -23,9 +23,11 @@
     # Array para guarda os nome das Colunas doa DataTable
     $dataTableColunas = array(); 
     $registro         = array();
+    
+    # Lendo variavel de sessão
+    #$user=$_SESSION['user'];
 
 
-    # Preencher Formulario com os dados 
         
     # Preencher Formulario com os dados 
         
@@ -33,6 +35,7 @@
     {
         $acao=$_GET['status'];
         $codAcesso=isset($_GET['codAce'])?$_GET['codAce']:"";
+        $codMenu=isset($_GET['codMenu'])?$_GET['codMenu']:"";
         $codUsuario=isset($_GET['codUsu'])?$_GET['codUsu']:"";
         
         if ($acao=="i" ) 
@@ -43,9 +46,8 @@
         else
         {
             #$registro=$acessoPDO->busca($codAcesso);
-            $codUsuario    = $registro['id_usu'];
             $tabelaUsuario = $usuarioPDO->lista($codUsuario);
-            $tabelaMenu    = $menuPDO->menu($codAcesso);
+            $tabelaMenu    = $menuPDO->menu($codMenu);
         }
         $registro      = $acessoPDO->busca($codAcesso);
         
@@ -53,11 +55,12 @@
     }
     else if( !isset($_GET['status']))
     {
+    
+    
         # Preencher o DataTable
     
-        $user=$_SESSION['user'];
-    
-        $filtroUsuario=$user['id_usu'];
+        $filtroUsuario="" ;
+        #$user['id_usu'];
         $filtroUsuario=isset($_GET['filtroUsu'])?$_GET['filtroUsu']: $filtroUsuario;
         $tabelaUsuario=$usuarioPDO->lista("");
         $dataTable=$acessoPDO->listaAcesso($filtroUsuario);
@@ -72,9 +75,18 @@
     {
         $operacao=$_POST['operacao'];
         
-        
         # Gerando as informacoes do Objeto
-            
+        $_POST['codAce']=isset($_POST['codAce'])?$_POST['codAce']:"0";
+        $_POST['codMenu']=isset($_POST['codMenu'])?$_POST['codMenu']:"0";
+        $_POST['statMenu']=isset($_POST['statMenu'])?$_POST['statMenu']:"0";
+        $_POST['statInc']=isset($_POST['statInc'])?$_POST['statInc']:"0";
+        $_POST['statAlt']=isset($_POST['statAlt'])?$_POST['statAlt']:"0";
+        $_POST['statExc']=isset($_POST['statExc'])?$_POST['statExc']:"0";
+        $_POST['statCon']=isset($_POST['statCon'])?$_POST['statCon']:"0";
+        $_POST['statRel']=isset($_POST['statRel'])?$_POST['statRel']:"0";
+       
+        
+        $acesso->setIdAcesso($_POST['codAce']);
         $acesso->setIdMenu($_POST['codMenu']);
         $acesso->setIdUsuario($_POST['codUsu']);
         $acesso->setStatusMenu($_POST['statMenu']);
@@ -84,7 +96,7 @@
         $acesso->setStatusConsultar($_POST['statCon']);
         $acesso->setStatusRelatorio($_POST['statRel']);
       
-        
+        var_dump($acesso);
 
         switch ($operacao)
         {
@@ -112,7 +124,7 @@
                 $registro=$acessoPDO->delete($codAcesso);
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=acesso");
+        #header("location:".$GLOBALS['project_index']."sisarq.php?option=acesso");
        
     }
      
