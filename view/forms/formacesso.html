@@ -14,10 +14,6 @@ $readonly=$_GET['status']!="i"?"readonly":"";
 
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
-$ajax="";
-$ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", combomenu,'menu');";
-$ajax ='onclick=' .'"'.$ajax.'"';
-$ajax =$_GET["status"]=="i"?$ajax:"";
 
 $ajax="";
 $ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'menu');";
@@ -50,6 +46,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                     <div class="row"> <!--Linha 01-->
 
                         <div class="col-md-12">
+                            <input  type="hidden" name="codAce" value="<?=$_GET['status']!="i"?$_GET["codAce"]:"";?>" >
                             <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
                         
                             <div class="form-group ">
@@ -117,7 +114,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-1">
                             <div class="form-check">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" <?=$registro["sta_menu"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="menu" name="statMenu">
+                                    <input type="checkbox" <?=$registro["sta_menu"]=='1'?'checked':"";?> <?=$readonly;?> class="custom-control-input" value="1"  id="menu" name="statMenu">
                                     <label class="custom-control-label" for="menu">Menu</label>
                                 </div>
                             </div>
@@ -126,7 +123,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-1">
                             <div class="form-check">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" <?=$registro["sta_inc"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="incluir" name="statInc">
+                                    <input type="checkbox" <?=$registro["sta_inc"]=='1'?'checked':"";?> <?=$readonly;?> class="custom-control-input" value="1"  id="incluir" name="statInc">
                                     <label class="custom-control-label" for="incluir">Incluir</label>
                                 </div>
                             </div>
@@ -135,7 +132,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-1">
                             <div class="form-check">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" <?=$registro["sta_alt"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="alterar" name="statAlt">
+                                    <input type="checkbox" <?=$registro["sta_alt"]=='1'?'checked':"";?> <?=$readonly;?> class="custom-control-input" value="1"  id="alterar" name="statAlt">
                                     <label class="custom-control-label" for="alterar">Alterar</label>
                                 </div>
                             </div>
@@ -144,16 +141,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-1">
                             <div class="form-check">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" <?=$registro["sta_exc"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="excluir" name="statExc">
-                                    <label class="custom-control-label" for="excluir">Excluir</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-1">
-                            <div class="form-check">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" <?=$registro["sta_con"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="consultar" name="statCon">
+                                    <input type="checkbox" <?=$registro["sta_con"]=='1'?'checked':"";?> <?=$readonly;?> class="custom-control-input" value="1"  id="consultar" name="statCon">
                                     <label class="custom-control-label" for="consultar">Consultar</label>
                                 </div>
                             </div>
@@ -162,7 +150,17 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-1">
                             <div class="form-check">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" <?=$registro["sta_rel"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="relatorio" name="statRel">
+                                    <input type="checkbox" <?=$registro["sta_exc"]=='1'?'checked':"";?> <?=$readonly;?>  class="custom-control-input" value="1"  id="excluir" name="statExc">
+                                    <label class="custom-control-label" for="excluir">Excluir</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-1">
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["sta_rel"]=='1'?'checked':"";?> <?=$readonly;?> class="custom-control-input" value="1"  id="relatorio" name="statRel">
                                     <label class="custom-control-label" for="relatorio">Relatorio</label>
                                 </div>
                             </div>

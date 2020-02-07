@@ -3,9 +3,9 @@
 PRIORIDADES:
 
 48) Cadastro de Acesso a Empresa, quando click no combo de
-empresa não esta deixando o Autorizado selecionado
+empresa não esta deixando o Autorizado selecionado R E S O L V I D O
 
-
+49) Ver o bloqueio de acesso a opcao de INCLUIR como o acesso ao sistema
 
 
 RELAÇAO DO BACKLOG

@@ -168,6 +168,393 @@ class ajaxPDO
 
     }
 
+
+    # Ajax Preencher combo de Corredor
+   
+
+    public function listaCorredor($codEmpresa,$codArquivo,$codCorredor)
+    {
+        $conexao=Conexao::getConnection();
+        $result=array();
+   
+        $sql ="SELECT '0' CodCorredor,'=>Selecionar Corredor<='  Corredor ";
+        $sql.="UNION ALL ";
+        
+        $sql.="SELECT cod_corredor  CodCorredor,des_corredor Corredor ";
+        $sql.=" FROM tb_corredores ";
+        
+        
+        if ($codCorredor != "" )
+        {
+            $sql.= " WHERE cod_empresa =?  AND ";
+            $sql.= "       cod_arquivo =?  AND ";
+            $sql.= "       cod_corredor=?  ";
+        
+            
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+            $smtm->bindValue(3,$codCorredor);
+            
+        }
+        else if($codArquivo!="")
+        {
+        
+            $sql.= " WHERE cod_empresa=?  AND ";
+            $sql.= "       cod_arquivo=?      ";
+            
+       
+       
+       
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+           
+        }
+       
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $conexao=null;
+
+        $html="";
+        foreach ($result as $key=>$coluna){
+
+            if ( $key=='0' )
+            {
+                $html.='<option  disabled selected value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
+            }
+            else
+            {
+                $html.='<option  value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
+            }
+        }
+        return $html;
+
+    }
+
+    # Ajax Preencher combo de Estante
+   
+
+    public function listaEstante($codEmpresa,$codArquivo,$codCorredor,$codEstante)
+    {
+        $conexao=Conexao::getConnection();
+        $result=array();
+        $sql ="SELECT '0' CodEstante,'=>Selecionar Estante<='  Estante ";
+        $sql.="UNION ALL ";
+        
+         
+        $sql.="SELECT  cod_estante   CodEstante ,des_estante  Estante ";
+        $sql.="       FROM tb_estantes ";
+        
+        $smtm=$conexao -> prepare($sql);
+        
+        if ($codEstante != "" )
+        {
+            $sql.= " WHERE cod_empresa =?  AND ";
+            $sql.= "       cod_arquivo =?  AND ";
+            $sql.= "       cod_corredor=?  AND ";
+            $sql.= "       cod_estante =?      ";
+            
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+            $smtm->bindValue(3,$codCorredor);
+            $smtm->bindValue(4,$codEstante);
+            
+            
+        }
+        else if  ($codCorredor != "" )
+        {
+            $sql.= " WHERE cod_empresa =?  AND ";
+            $sql.= "       cod_arquivo =?  AND ";
+            $sql.= "       cod_corredor=?      ";
+            
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+            $smtm->bindValue(3,$codCorredor);
+            
+            
+        }
+        else if ($codArquivo != "" )
+        {
+        
+            $sql.= " WHERE cod_empresa =?  AND ";
+            $sql.= "       cod_arquivo =?      ";
+            
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+            
+            
+        } 
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $conexao=null;
+        $html="";
+        foreach ($result as $key=>$coluna){
+
+            if ( $key=='0' )
+            {
+                $html.='<option  disabled selected value="'. $coluna["CodEstante"] .'">' .$coluna["Estante"] ."</option>";                     
+            }
+            else
+            {
+                $html.='<option  value="'. $coluna["CodEstante"] .'">' .$coluna["Estante"] ."</option>";                     
+            }
+        }
+        return $html;
+    }
+
+    # Ajax Preencher combo de Estante
+    
+    public function listaEmpresa($autorizado,$empresa)
+    {
+        $conexao=Conexao::getConnection();
+        $result=array();
+        $sql ="SELECT '0' CodEmpresa,'=>Selecionar Empresa<='  Empresa ";
+        $sql.="UNION ALL ";
+       
+        $sql.="SELECT DISTINCT ";
+        $sql.="      empresa.cod_empresa       CodEmpresa   ,des_empresa    Empresa   ";
+        $sql.=" FROM tb_setores_autorizados setorautorizado ";
+        
+        $sql.="     inner join tb_empresas empresa on";
+        $sql.="           setorautorizado.cod_empresa=empresa.cod_empresa ";
+       
+        
+        if ($autorizado!="")
+        {
+            $sql.= " WHERE cod_autorizado=?";
+            $smtm=$conexao -> prepare($sql);
+  
+            $smtm->bindValue(1,$autorizado);
+      
+        }
+        elseif ($codEmpresa != "" )
+        {
+            $sql.= " WHERE cod_autorizado=? AND ";
+            $sql.= "       cod_empresa =?";
+            
+            $smtm=$conexao -> prepare($sql);
+  
+            $smtm->bindValue(1,$autorizado);
+            $smtm->bindValue(2,$empresa);
+            
+       }
+    
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $conexao=null;
+
+        $html="";
+        foreach ($result as $key=>$coluna){
+
+            if ( $key=='0' )
+            {
+                $html.='<option  disabled selected value="'. $coluna["CodEmpresa"] .'">' .$coluna["Empresa"] ."</option>";                     
+            }
+            else
+            {
+                $html.='<option  value="'. $coluna["CodEmpresa"] .'">' .$coluna["Empresa"] ."</option>";                     
+            }
+        }
+        return $html;
+
+    }
+
+
+    # Ajax Preencher combo de Prateleira
+   
+
+    public function listaPrateleira($codEmpresa,$codArquivo,$codCorredor,$codEstante,$codPrateleira)
+    {
+       
+        $conexao=Conexao::getConnection();
+        $result=array();
+        $sql ="SELECT '0' CodPrateleira,'=>Selecionar Prateleira<='  Prateleira ";
+        $sql.="UNION ALL ";
+       
+        $sql.="SELECT cod_prateleira CodPrateleira,des_prateleira Prateleira ";
+        $sql.=" FROM tb_prateleiras ";
+        
+        
+        if ($codPrateleira != "" )
+        {
+            $sql.= " WHERE cod_empresa   =? AND ";
+            $sql.= "       cod_arquivo   =? AND ";
+            $sql.= "       cod_corredor  =? AND ";
+            $sql.= "       cod_estante   =? AND ";
+            $sql.= "       cod_prateleira=?     ";
+            
+            
+            $smtm=$conexao->prepare($sql);           
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+            $smtm->bindValue(3,$codCorredor);
+            $smtm->bindValue(4,$codEstante);
+            $smtm->bindValue(5,$codPrateleira);
+
+        }
+        elseif ($codEstante != "" )
+        {
+            
+            $sql.= " WHERE cod_empresa   =? AND ";
+            $sql.= "       cod_arquivo   =? AND ";
+            $sql.= "       cod_corredor  =? AND ";
+            $sql.= "       cod_estante   =?     ";
+            
+            
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codArquivo);
+            $smtm->bindValue(3,$codCorredor);
+            $smtm->bindValue(4,$codEstante);
+        }
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $conexao=null;
+
+        $html="";
+        foreach ($result as $key=>$coluna){
+
+            if ( $key=='0' )
+            {
+                $html.='<option  disabled selected value="'. $coluna["CodPrateleira"] .'">' .$coluna["Prateleira"] ."</option>";                     
+            }
+            else
+            {
+                $html.='<option  value="'. $coluna["CodPrateleira"] .'">' .$coluna["Prateleira"] ."</option>";                     
+            }
+        }
+        return $html;
+
+    }
+
+
+    # Ajax Preencher combo de Caixa
+  
+
+    public function listaCaixa($codEmpresa,$codSetor,$codCaixa)
+    {
+        $conexao=Conexao::getConnection();
+        $result=array();
+        
+        $sql ="SELECT '0' CodCaixa,'=>Selecionar Caixa<='  Caixa ";
+        $sql.="UNION ALL ";
+       
+        $sql.="SELECT  cod_caixa  CodCaixa   ,des_caixa  Caixa  ";
+        $sql.=" FROM tb_caixas ";
+        
+        $smtm=$conexao -> prepare($sql);
+        
+        if ($codCaixa != "" )
+        {
+            $sql.= " WHERE cod_empresa =?  AND ";
+            $sql.= "       cod_setor   =?  AND ";
+            $sql.= "       cod_caixa   =?      ";
+            
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codSetor);
+            $smtm->bindValue(3,$codCaixa);
+            
+        }
+        elseif ($codSetor != "" )
+        {
+        
+            $sql.= " WHERE cod_empresa=? AND ";
+            $sql.= "       cod_setor  =?     ";
+            
+            $smtm=$conexao->prepare($sql);
+            
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codSetor);
+            
+        }
+     
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $conexao=null;
+
+        $html="";
+        foreach ($result as $key=>$coluna){
+
+            if ( $key=='0' )
+            {
+                $html.='<option  disabled selected value="'. $coluna["CodCaixa"] .'">' .$coluna["Caixa"] ."</option>";                     
+            }
+            else
+            {
+                $html.='<option  value="'. $coluna["CodCaixa"] .'">' .$coluna["Caixa"] ."</option>";                     
+            }
+        }
+        return $html;
+    }
+
+
+    # Ajax Preencher combo de Tipo Documento
+  
+    public function listaTipoDocumento($codEmpresa,$codDocumento)
+    {
+        $conexao=Conexao::getConnection();
+        $result =array();
+        $sql ="SELECT '0' CodTipo,'=>Selecionar Tipo<='  Tipo ";
+        $sql.="UNION ALL ";
+        $sql.="SELECT    cod_documento CodTipo,des_documento Tipo ";
+        $sql.=" FROM tb_tipo_documentos documento ";
+        
+        
+        if ($codDocumento!="")
+        { 
+            $sql.= " WHERE documento.cod_empresa  =? and ";
+            $sql.= "       documento.cod_documento=?     ";
+            
+        }
+        else
+        {
+            $sql.= " WHERE documento.cod_empresa=?  ";
+            
+        }
+        $smtm=$conexao -> prepare($sql);
+        
+        if ($codDocumento!="")
+        {
+            $smtm->bindValue(1,$codEmpresa);
+            $smtm->bindValue(2,$codDocumento);
+            
+        }
+        else
+        {
+            $smtm->bindValue(1,$codEmpresa);
+            
+        }
+        $smtm->execute();
+        $result =$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $conexao=null;
+        $html="";
+        foreach ($result as $key=>$coluna){
+
+            if ( $key=='0' )
+            {
+                $html.='<option  disabled selected value="'. $coluna["CodTipo"] .'">' .$coluna["Tipo"] ."</option>";                     
+            }
+            else
+            {
+                $html.='<option  value="'. $coluna["CodTipo"] .'">' .$coluna["Tipo"] ."</option>";                     
+            }
+        }
+        return $html;
+    }
+
+
 }
 ?>
     

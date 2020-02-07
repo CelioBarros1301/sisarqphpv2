@@ -25,7 +25,7 @@
     $registro         = array();
     
     # Lendo variavel de sessão
-    #$user=$_SESSION['user'];
+    $user=$_SESSION['user'];
 
 
         
@@ -59,9 +59,8 @@
     
         # Preencher o DataTable
     
-        $filtroUsuario="" ;
-        #$user['id_usu'];
-        $filtroUsuario=isset($_GET['filtroUsu'])?$_GET['filtroUsu']: $filtroUsuario;
+        $filtroUsuario=$user['id_usu'];
+        $filtroUsuario=(isset($_GET['filtroUsu']) && $_GET['filtroUsu']!="0")?$_GET['filtroUsu']: $filtroUsuario;
         $tabelaUsuario=$usuarioPDO->lista("");
         $dataTable=$acessoPDO->listaAcesso($filtroUsuario);
         if ( $dataTable ) 
@@ -73,8 +72,11 @@
     # Verificar operacoes de Banco
     if ( isset($_POST['operacao']))
     {
-        $operacao=$_POST['operacao'];
-        
+        $operacao   = $_POST['operacao'];
+        $codAcesso  = $_POST['codAce']=isset($_POST['codAce'])?$_POST['codAce']:"0";
+        $codUsuario = $_POST['codUsu']=isset($_POST['codUsu'])?$_POST['codUsu']:"0";
+       
+
         # Gerando as informacoes do Objeto
         $_POST['codAce']=isset($_POST['codAce'])?$_POST['codAce']:"0";
         $_POST['codMenu']=isset($_POST['codMenu'])?$_POST['codMenu']:"0";
@@ -124,7 +126,7 @@
                 $registro=$acessoPDO->delete($codAcesso);
             break;
         }
-        #header("location:".$GLOBALS['project_index']."sisarq.php?option=acesso");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=acesso&filtroUsu=$codUsuario");
        
     }
      

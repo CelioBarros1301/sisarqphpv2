@@ -128,7 +128,7 @@
                 $registro=$prateleiraPDO->delete($codEmpresa,$codArquivo,$codCorredor,$codEstante,$codPrateleira);
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=prateleira&filtroEmp=$filtroEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=prateleira&filtroEmp=$codEmpresa");
     }
      
 ?>

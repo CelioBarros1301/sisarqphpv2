@@ -14,6 +14,12 @@ $readonly=$_GET['status']!="i"?"readonly":"";
 
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
+$ajax="";
+$ajax ="cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'setor');";
+$ajax ='onclick=' .'"'.$ajax.'"';
+$ajax =$_GET["status"]=="i"?$ajax:"";
+
+
 ?>
 <div class="content" id="content" style="margin: 0px;padding:0px;">
     <ol class="breadcrumb pull-right">
@@ -32,7 +38,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/corredor.php" method="post" enctype="multipart/form-data">
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/caixa.php" method="post" enctype="multipart/form-data">
                   
                     <div class="row"> <!--Linha 01-->
 
@@ -41,7 +47,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         
                             <div class="form-group ">
                                 <label>Empresa</label>
-                                <select name="codEmp" <?=$readonly;?> required class="form-control">
+                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> <?=$ajax;?> required class="form-control">
                                     <?php
                                     if ( $_GET["status"]=="i")
                                     { 
@@ -60,17 +66,17 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                             <div class="form-group">    
                                 <label> Setor </label><br>	
                                 <select id="idSetor" name="codSet" <?=$readonly;?> class="form-control">
-                                    <?php
-                                    if ( $_GET["status"]=="i" && ( $_GET["codSet"]=="0"  || $_GET["codSet"]==""))
-                                    { 
-                                        echo '<option disabled selected value=0>=>Selecionar Setor<=</option>';	
-                                    }
-                                    foreach ($tabelaSetor as $coluna){
-                                        $selecao = $_GET["codSet"]==$coluna["CodSetor"]?"selected":"";
-                                        echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
-                                    }
-                                    ?>
-                                     
+                                  <?php
+                                  if ( $_GET["status"]!="i" )
+                                  { 
+                                      foreach ($tabelaSetor as $coluna)
+                                      {
+                                          $selecao = $_GET["codSet"]==$coluna["CodSetor"]?"selected":"";
+                                          echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
+                                      }
+                                  }
+                              ?>
+                               
                                 </select>
                             </div>
                         </div>
@@ -81,7 +87,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Codigo Caixa</label>
-                                <input type="text" name="codCai"  maxlength="5"  value="<?=$_GET['status']!="i"?$_GET["codCai"]:"";?>" <?=$readonlyCampo;?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,5)'>
+                                <input type="text" name="codCai" <?=$readonly;?> maxlength="5"  value="<?=$_GET['status']!="i"?$_GET["codCai"]:"";?>" <?=$readonlyCampo;?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,5)'>
                                            </div> 
                         </div>
                     

@@ -123,24 +123,27 @@
                                             
                                             echo "<td>";
 
-                                                if ( $acoes['sta_alt']==1 )
-                                                {
-                                                    $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&codUsu='. $dataTable[$i]['CodUsuario'].'&codMenu='. $dataTable[$i]['CodMenu'].'&status=a';
-                                                    echo '<a name="edit" class="btn btn-warning btn-sm"' . $link .'>';
-                                                            echo '<i class="fa fa-edit"></i>';
-                                                    echo '</a> ';
-                                                }
+                                                if ( $user['id_usu']!=$dataTable[$i]['CodUsuario']  ) 
+                                                {   
+                                                    if ( $acoes['sta_alt']==1 )
+                                                    {
+                                                        $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&codUsu='. $dataTable[$i]['CodUsuario'].'&codMenu='. $dataTable[$i]['CodMenu'].'&status=a';
+                                                        echo '<a name="edit" class="btn btn-warning btn-sm"' . $link .'>';
+                                                                echo '<i class="fa fa-edit"></i>';
+                                                        echo '</a> ';
+                                                    }
 
-                                                if ( $acoes['sta_exc']==1 )
-                                                {
-                                                    $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&status=e';
-                                                    echo '<a name="delete" class="btn btn-danger btn-sm"' . $link .'>';
-                                                        echo '<i class="fa fa-trash"></i>';
-                                                    echo '</a> ';
-                                                }        
+                                                    if ( $acoes['sta_exc']==1 )
+                                                    {
+                                                        $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&codUsu='. $dataTable[$i]['CodUsuario'].'&codMenu='. $dataTable[$i]['CodMenu'].'&status=e';
+                                                        echo '<a name="delete" class="btn btn-danger btn-sm"' . $link .'>';
+                                                            echo '<i class="fa fa-trash"></i>';
+                                                        echo '</a> ';
+                                                    }  
+                                                }
                                                 if ( $acoes['sta_con']==1 )
                                                 {
-                                                    $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&status=v';
+                                                    $link='href=sisarq.php?option=cadacesso&codAce='. $dataTable[$i]['CodAcesso'].'&codUsu='. $dataTable[$i]['CodUsuario'].'&codMenu='. $dataTable[$i]['CodMenu'].'&status=v';
                                                     echo '<a name="view" class="btn btn-primary btn-sm"' . $link . '>';
                                                         echo '<i class="fa fa-eye"></i>';
                                                     echo '</a> ';

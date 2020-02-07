@@ -53,12 +53,7 @@
     else if( !isset($_GET['status']))
     {
         # Preencher o DataTable
-        $filtroEmpresa="";
-        if (isset($_GET['filtroEmp']) ) 
-        {
-            $filtroEmpresa=$_GET['filtroEmp'];
-        }    
-       
+        $filtroEmpresa= (isset($_GET['filtroEmp']) && $_GET['filtroEmp']!="" )?$_GET['filtroEmp']:""; 
         $tabelaEmpresa=$empresaPDO->lista("");
             
         $dataTable=$corredorPDO->lista($filtroEmpresa);
@@ -111,7 +106,7 @@
             break;
         }
     
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=corredor&filtroEmp=$filtroEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=corredor&filtroEmp=$codEmpresa");
     }
      
 ?>

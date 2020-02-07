@@ -81,7 +81,7 @@
                                 $filtro=isset($_GET['filtroEmp'])?$_GET['filtroEmp']:"";
                                 echo '<option value=""> Todas Empresas</option>';
                                 foreach ($tabelaEmpresa as $coluna){
-                                    $selecao = ( $filtro=="" && $coluna["Codigo"]== $filtro )?"selected":"";
+                                    $selecao = ( $filtro!="" && $coluna["Codigo"]== $filtro )?"selected":"";
                                     echo '<option '. $selecao. ' '. ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
                                 }
                                 ?>
@@ -123,26 +123,28 @@
 
                                                 if ( $acoes['sta_alt']==1 )
                                                 {
-                                                    $link='href=sisarq.php?option=cadarquivo&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo']. '&status=a';
+                                                    $link='href=sisarq.php?option=cadcorredor&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'].'&codCor='. $dataTable[$i]['CodCorredor']. '&status=a';
                                                     echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
                                                             echo '<i class="fa fa-edit"></i>';
                                                     echo '</a> ';
                                                 }
-
                                                 if ( $acoes['sta_exc']==1 )
                                                 {
-                                                    $link='href=sisarq.php?option=cadarquivo&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'] .'&status=e';
+                                                    $link='href=sisarq.php?option=cadcorredor&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'] .'&codCor='. $dataTable[$i]['CodCorredor'].'&status=e';
                                                     echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
                                                         echo '<i class="fa fa-trash"></i>';
                                                     echo '</a> ';
-                                                }        
+                                                }
                                                 if ( $acoes['sta_con']==1 )
                                                 {
-                                                    $link='href=sisarq.php?option=cadarquivo&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'] .'&status=v';
+                                                    $link='href=sisarq.php?option=cadcorredor&codEmp='. $dataTable[$i]['CodEmpresa'].'&codArq='. $dataTable[$i]['CodArquivo'] .'&codCor='. $dataTable[$i]['CodCorredor'].'&status=v';
                                                     echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
                                                         echo '<i class="fa fa-eye"></i>';
                                                     echo '</a> ';
                                                 }
+                                            
+
+ 
                                            
                                                 echo '</td>';
                                                           

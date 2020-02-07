@@ -139,7 +139,7 @@ class SetorPDO
 
         if (isset($filtro) && $filtro!="" )
         {
-            $sql.= " WHERE ?";
+            $sql.= " and empresa.cod_empresa=?";
             $smtm=$conexao -> prepare($sql);
             $smtm->bindValue(1,$filtro);
         }

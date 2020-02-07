@@ -80,12 +80,12 @@
 
                         <div class="form-group">    
                             <label >Empresa </label>
-                            <select id="codigo" name="codEmp"  class="form-control" onchange="changecomboempresa(document.getElementById('codigo').value,'corredor')">
+                            <select id="codigo" name="codEmp"  class="form-control" onchange="changecomboempresa(document.getElementById('codigo').value,'estante')">
                                 <?php
                                 $filtro=isset($_GET['filtroEmp'])?$_GET['filtroEmp']:"";
                                 echo '<option value=""> Todas Empresas</option>';
                                 foreach ($tabelaEmpresa as $coluna){
-                                    $selecao = ( $filtro=="" && $coluna["Codigo"]== $filtro )?"selected":"";
+                                    $selecao = ( $filtro!="" && $coluna["Codigo"]== $filtro )?"selected":"";
                                     echo '<option '. $selecao. ' '. ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
                                 }
                                 ?>

@@ -72,6 +72,22 @@
             <div class="panel-body">
                 <div class="table-responsive">
                     <div class="box-body">
+
+                        <div class="form-group">    
+                            <label >Empresa </label>
+                            <select id="codigo" name="codEmp"  class="form-control" onchange="changecomboempresa(document.getElementById('codigo').value,'caixa')">
+                                <?php
+                                $filtro=isset($_GET['filtroEmp'])?$_GET['filtroEmp']:"";
+                                echo '<option value=""> Todas Empresas</option>';
+                                foreach ($tabelaEmpresa as $coluna){
+                                    $selecao = ( $filtro!="" && $coluna["Codigo"]== $filtro )?"selected":"";
+                                    echo '<option '. $selecao. ' '. ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     
+                                }
+                                ?>
+                                
+                            </select>
+                        </div>
+
                         <table class="table table-hover table-bordered " id="table-manager">
                             <thead>
                                 <tr>

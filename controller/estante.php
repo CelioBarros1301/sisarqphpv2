@@ -61,13 +61,9 @@
     }
     else if( !isset($_GET['status']))
     {
-        # Preencher o DataTable
-        $filtroEmpresa="";
-        if (isset($_GET['filtroEmp']) ) 
-        {
-            $filtroEmpresa=$_GET['filtroEmp'];
-        }    
        
+        # Preencher o DataTable
+        $filtroEmpresa= (isset($_GET['filtroEmp']) && $_GET['filtroEmp']!="" )?$_GET['filtroEmp']:""; 
         $tabelaEmpresa=$empresaPDO->lista("");
             
         $dataTable=$estantePDO->lista($filtroEmpresa);
@@ -75,6 +71,7 @@
         {
             $dataTableColunas = array_keys($dataTable[0]);
         }
+     
     }
     
     # Verificar operacoes de Banco
@@ -124,7 +121,7 @@
                 $registro=$estantePDO->delete($codEmpresa,$codArquivo,$codCorredor,$codEstante);
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=estante&filtroEmp=$filtroEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=estante&filtroEmp=$codEmpresa");
     }
      
 ?>

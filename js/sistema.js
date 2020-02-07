@@ -233,7 +233,7 @@ function changecombousuario(filtroUsuario,opcao)
 
 function cargaAjax(url, cFunction,cCombo)
 {
-    alert(cCombo);
+   
     var xhttp;
     xhttp=new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -255,15 +255,45 @@ function cargaAjax(url, cFunction,cCombo)
                 document.getElementById("idArquivo").innerHTML =xhttp.responseText;
                 
             }
+            if ( cCombo=='corredor' )
+            {
+                document.getElementById("idCorredor").innerHTML =xhttp.responseText;
+                
+            }
+            if ( cCombo=='estante' )
+            {
+                document.getElementById("idEstante").innerHTML =xhttp.responseText;
+                
+            }
+            if ( cCombo=='prateleira' )
+            {
+                document.getElementById("idPrateleira").innerHTML =xhttp.responseText;
+                
+            }
+   
+            if ( cCombo=='empresa' )
+            {
+                document.getElementById("idEmpresa").innerHTML =xhttp.responseText;
+                
+            }
 
-        
+            if ( cCombo=='caixa' )
+            {
+                document.getElementById("idCaixa").innerHTML =xhttp.responseText;
+                
+            }
+
+            if ( cCombo=='tipodocumento' )
+            {
+                document.getElementById("idTipo").innerHTML =xhttp.responseText;
+                
+            }
 
         }
     };
     if ( cCombo=='setor' )
     {
         url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value;
-        
     }
 
     if ( cCombo=='menu' )
@@ -277,9 +307,39 @@ function cargaAjax(url, cFunction,cCombo)
         url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value;
         
     }
+    if ( cCombo=='corredor' )
+    {
+        url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value+"&codArq="+document.getElementById('idArquivo').value;
+        
+    }
+    if ( cCombo=='estante' )
+    {
+        url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value+"&codArq="+document.getElementById('idArquivo').value+"&codCor="+document.getElementById('idCorredor').value;
+        
+    }
+    if ( cCombo=='prateleira' )
+    {
+        url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value+"&codArq="+document.getElementById('idArquivo').value+"&codCor="+document.getElementById('idCorredor').value+"&codEst="+document.getElementById('idEstante').value;
+         
+    }
+    if ( cCombo=='empresa' )
+    {
+        url=url+"combo="+cCombo+"&codAut="+document.getElementById('idAutorizado').value;
+        
+    }
+
+    if ( cCombo=='caixa' )
+    {
+        url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value+"&codSet="+document.getElementById('idSetor').value;
+         alert(url);
+    }
+
+    if ( cCombo=='tipodocumento' )
+    {
+        url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value;
+         
+    }
  
-    alert(url);
-   
     xhttp.open("GET", url, true);
     xhttp.send();
 }

@@ -17,6 +17,50 @@
     #--> Guardando Acesso as operacoes
     $menuPDO= new MenuPDO();
     $acoes=$menuPDO->listaMenu($user['id_usu'],"Documento");
+
+    $ajaxEmpresa = "";
+    $ajaxEmpresa = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'empresa');";
+    $ajaxEmpresa = 'onclick=' .'"'.$ajaxEmpresa.'"';
+    $ajaxEmpresa = $_GET["status"]=="f"?$ajaxEmpresa:"";
+    
+    $ajaxSetor  = "";
+    $ajaxSetor  = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'setor');";
+    $ajaxSetor  = 'onclick=' .'"'.$ajaxSetor.'"';
+    $ajaxSetor  = $_GET["status"]=="f"?$ajaxSetor:"";
+    
+    $ajaxCaixa  = "";
+    $ajaxCaixa  = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'caixa');";
+    $ajaxCaixa  = 'onclick=' .'"'.$ajaxCaixa.'"';
+    $ajaxCaixa  = $_GET["status"]=="f"?$ajaxCaixa:"";
+  
+    
+    $ajaxArquivo = "";
+    $ajaxArquivo = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'arquivo');";
+    $ajaxArquivo = 'onchange=' .'"'.$ajaxArquivo.'"';
+    $ajaxArquivo = $_GET["status"]=="f"?$ajaxArquivo:"";
+
+    $ajaxCorredor = "";
+    $ajaxCorredor = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'corredor');";
+    $ajaxCorredor = 'onclick=' .'"'.$ajaxCorredor.'"';
+    $ajaxCorredor = $_GET["status"]=="f"?$ajaxCorredor:"";
+
+
+    $ajaxEstante = "";
+    $ajaxEstante = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'estante');";
+    $ajaxEstante = 'onclick=' .'"'.$ajaxEstante.'"';
+    $ajaxEstante = $_GET["status"]=="f"?$ajaxEstante:"";
+
+    $ajaxPrateleira = "";
+    $ajaxPrateleira = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'prateleira');";
+    $ajaxPrateleira = 'onclick=' .'"'.$ajaxPrateleira.'"';
+    $ajaxPrateleira = $_GET["status"]=="f"?$ajaxPrateleira:"";
+
+    $ajaxTipoDocumento = "";
+    $ajaxTipoDocumento = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'tipodocumento');";
+    $ajaxTipoDocumento = 'onmouseout=' .'"'.$ajaxTipoDocumento.'"';
+    $ajaxTipoDocumento = $_GET["status"]=="f"?$ajaxTipoDocumento:"";
+
+
     
 ?>
 
@@ -98,9 +142,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Autorizado </label><br>
-                                                <select id="idAutorizado" name="filCodAut" class="form-control" onchange="changedocumento('autorizado',document.getElementById('idAutorizado').value)">
+                                                <select id="idAutorizado" <?=$ajaxEmpresa;?> name="CodAut" class="form-control" >
                                                     <?php
-                                                        $filCodAut=isset($_GET["filCodAut"])?$_GET["filCodAut"]:"";
+                                                        $filCodAut=isset($_GET["CodAut"])?$_GET["filCodAut"]:"";
                         
                                                         if ( $_GET["status"]=="f" && $filCodAut=="" )
                                                         { 
@@ -118,8 +162,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Empresa</label><br>
-                                                <select id="idEmpresa" name="filCodEmp"  class="form-control" onchange="changedocumento('empresa',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value)">
+                                                <select id="idEmpresa" <?=$ajaxSetor;?> <?=$ajaxTipoDocumento;?> <?=$ajaxArquivo;?> name="CodEmp"  class="form-control" >
                                                 <?php
+                                                   /*
                                                     $filCodEmp=isset($_GET["filCodEmp"])?$_GET["filCodEmp"]:"";
                                                     if ( $_GET["status"]=="f" && $filCodEmp=="" )
                                                     { 
@@ -129,6 +174,7 @@
                                                         $selecao = $filCodEmp==$coluna["CodEmpresa"]?"selected":"";
                                                         echo '<option '. $selecao. '  value="'. $coluna["CodEmpresa"] .'">' .$coluna["Empresa"] ."</option>";                     
                                                     }
+                                                    */
                                                 ?>
                                                 </select>
                                             </div>
@@ -138,8 +184,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Setor </label><br>
-                                                <select id="idSetor" name="filCodSet"  class="form-control" onchange="changedocumento('setor',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value)">
+                                                <select id="idSetor" <?=$ajaxCaixa;?> name="filCodSet"  class="form-control" >
                                                 <?php
+                                                    /*
                                                     $filCodSet=isset($_GET["filCodSet"])?$_GET["filCodSet"]:"";
                         
                                                     if ( $_GET["status"]=="f" && $filCodSet=="" )
@@ -150,6 +197,7 @@
                                                         $selecao = $filCodSet==$coluna["CodSetor"]?"selected":"";
                                                         echo '<option '. $selecao. ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
                                                     }
+                                                    */
                                                 ?>
                                                 </select>
                                             </div>
@@ -172,8 +220,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Arquivo</label><br>
-                                                <select id="idArquivo" name="filCodArq"  class="form-control" onchange="changedocumento('arquivo',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value)">
+                                                <select id="idArquivo" <?=$ajaxCorredor;?> name="filCodArq"  class="form-control" >
                                                 <?php
+                                                    /*
                                                     $filCodArq=isset($_GET["filCodArq"])?$_GET["filCodArq"]:"";
                                                     if ( $_GET["status"]=="f" && $filCodArq=="" )
                                                     {
@@ -183,6 +232,7 @@
                                                         $selecao = $filCodArq==$coluna["CodArquivo"]?"selected":"";
                                                         echo '<option '. $selecao. ' value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
                                                     }
+                                                    */
                                                 ?>
                                                 </select>
                         
@@ -193,8 +243,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Corredor </label><br>
-                                                <select id="idCorredor" name="filCodCor"  class="form-control" onchange="changedocumento('corredor',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value,document.getElementById('idCorredor').value)">
+                                                <select id="idCorredor" <?=$ajaxEstante;?> name="filCodCor"  class="form-control" >
                                                 <?php
+                                                    /*
                                                     $filCodCor=isset($_GET["filCodCor"])?$_GET["filCodCor"]:"";
                                                     if ( $_GET["status"]=="f" && $filCodCor=="" )
                                                     {
@@ -204,6 +255,7 @@
                                                         $selecao = $filCodCor==$coluna["CodCorredor"]?"selected":"";
                                                         echo '<option '. $selecao. ' value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
                                                     }
+                                                    */
                                                 ?>
                                                 </select>
                         
@@ -213,8 +265,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                             <label>Estante</label><br>
-                                            <select id="idEstante" name="filCodEst"  class="form-control" onchange="changedocumento('estante',document.getElementById('idAutorizado').value,document.getElementById('idEmpresa').value,document.getElementById('idSetor').value,document.getElementById('idArquivo').value,document.getElementById('idCorredor').value,document.getElementById('idEstante').value)">
+                                            <select id="idEstante" <?=$ajaxPrateleira;?> name="filCodEst"  class="form-control" >
                                             <?php
+                                                /*
                                                 $filCodEst=isset($_GET["filCodEst"])?$_GET["filCodEst"]:"";
                                                 if ( $_GET["status"]=="f" && $filCodEst=="" )
                                                 {
@@ -224,6 +277,7 @@
                                                     $selecao = $filCodEst==$coluna["CodEstante"]?"selected":"";
                                                     echo '<option '. $selecao. ' value="'. $coluna["CodEstante"] .'">' .$coluna["Estante"] ."</option>";                     
                                                 }
+                                                */
                                             ?>
                                             </select>
                         
@@ -236,6 +290,7 @@
                                             <label>Prateleira </label><br>
                                             <select id="idPrateleira" name="filCodPra" class="form-control" >
                                             <?php
+                                                /*
                                                 $filCodPra=isset($_GET["filCodPra"])?$_GET["filCodPra"]:"";
                                                 if ( $_GET["status"]=="f" && $filCodPra=="" )
                                                 {
@@ -245,6 +300,7 @@
                                                     $selecao = $filCodPra==$coluna["CodPrateleira"]?"selected":"";
                                                     echo '<option '. $selecao. ' value="'. $coluna["CodPrateleira"] .'">' .$coluna["Prateleira"] ."</option>";                     
                                                 }
+                                                */
                                             ?>
                                             </select>
                                             </div>
@@ -257,6 +313,7 @@
                                             <label>Caixa</label><br>
                                             <select id="idCaixa" name="filCodCai" class="form-control" >
                                             <?php
+                                            /*
                                                 $filCodCai=isset($_GET["filCodCai"])?$_GET["filCodCai"]:"";
                                                 if ( $_GET["status"]=="f" && $filCodCai=="" )
                                                 {
@@ -266,6 +323,7 @@
                                                     $selecao = $filCodCai==$coluna["CodCaixa"]?"selected":"";
                                                     echo '<option '. $selecao. '  value="'. $coluna["CodCaixa"] .'">' .$coluna["Caixa"] ."</option>";                     
                                                 }
+                                            */
                                             ?>
                                             </select>
                         
@@ -292,6 +350,7 @@
                                             <label>Tipo</label><br>
                                             <select id="idTipo" name="filCodTip"  class="form-control" >
                                             <?php
+                                            /*
                                                 $filCodTip=isset($_GET["filCodTip"])?$_GET["filCodTip"]:"";
                                                 if ( $_GET["status"]=="f" && $filCodTip=="" )
                                                 {
@@ -301,6 +360,7 @@
                                                     $selecao = $filCodTip==$coluna["CodTipo"]?"selected":"";
                                                     echo '<option '. $selecao. '  value="'. $coluna["CodTipo"] .'">' .$coluna["Tipo"] ."</option>";                     
                                                 }
+                                                */
                                             ?>
                                             </select>
                                             </div>

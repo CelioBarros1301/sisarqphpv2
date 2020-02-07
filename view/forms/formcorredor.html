@@ -89,7 +89,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Codigo Corredor</label>
-                                <input type="text" name="codCor"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codCor"]:"";?>" <?=$readonlyCampo;?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
+                                <input type="text" name="codCor" <?=$readonly;?> maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codCor"]:"";?>"   class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,3)'>
                             </div> 
                         </div>
                     

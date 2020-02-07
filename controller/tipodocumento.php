@@ -44,11 +44,16 @@
     else if( !isset($_GET['status']))
     {
         # Preencher o DataTable
-        $dataTable=$tipodocumentoPDO->lista("");
+        # Preencher o DataTable
+        $filtroEmpresa= (isset($_GET['filtroEmp']) && $_GET['filtroEmp']!="" )?$_GET['filtroEmp']:""; 
+        $tabelaEmpresa=$empresaPDO->lista("");
+            
+        $dataTable=$tipodocumentoPDO->lista($filtroEmpresa);
         if ( $dataTable ) 
         {
             $dataTableColunas = array_keys($dataTable[0]);
         }
+       
     }
     
     # Verificar operacoes de Banco
@@ -93,7 +98,7 @@
                 $registro=$tipodocumentoPDO->delete($codEmpresa,$codDocumento);
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=tipodocumento");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=tipodocumento&filtroEmp=$codEmpresa");
  
     }
      
