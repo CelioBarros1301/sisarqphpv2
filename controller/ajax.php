@@ -24,6 +24,8 @@
     $codTipoDocumento   = isset($_GET['codTipo'])?$_GET['codTipo']:"";
     $codAutorizado      = isset($_GET['codAut'])?$_GET['codAut']:"";
     $codUsuario         = isset($_GET['codUsu'])?$_GET['codUsu']:"";
+    $codCaixa           = isset($_GET['codCai'])?$_GET['codCai']:"";
+    
 
     # Selecionar a opcao de combo
     $html="";

@@ -331,7 +331,6 @@ function cargaAjax(url, cFunction,cCombo)
     if ( cCombo=='caixa' )
     {
         url=url+"combo="+cCombo+"&codEmp="+document.getElementById('idEmpresa').value+"&codSet="+document.getElementById('idSetor').value;
-         alert(url);
     }
 
     if ( cCombo=='tipodocumento' )

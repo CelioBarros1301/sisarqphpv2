@@ -7,6 +7,14 @@ empresa não esta deixando o Autorizado selecionado R E S O L V I D O
 
 49) Ver o bloqueio de acesso a opcao de INCLUIR como o acesso ao sistema
 
+50) FormDocumento:
+     Vericar Documento Final > Documento Inicial
+     verificar data final > data Inical
+     Vaerificar data destruicao > data Final
+
+51) Criar Campo no tipo de Documento para controle para apresentar
+Ano: Calendario Ano: Exercicio
+
 
 RELAÇAO DO BACKLOG
 

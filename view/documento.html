@@ -21,44 +21,44 @@
     $ajaxEmpresa = "";
     $ajaxEmpresa = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'empresa');";
     $ajaxEmpresa = 'onclick=' .'"'.$ajaxEmpresa.'"';
-    $ajaxEmpresa = $_GET["status"]=="f"?$ajaxEmpresa:"";
+    #$ajaxEmpresa = $_GET["status"]=="f"?$ajaxEmpresa:"";
     
     $ajaxSetor  = "";
     $ajaxSetor  = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'setor');";
     $ajaxSetor  = 'onclick=' .'"'.$ajaxSetor.'"';
-    $ajaxSetor  = $_GET["status"]=="f"?$ajaxSetor:"";
+    #$ajaxSetor  = $_GET["status"]=="f"?$ajaxSetor:"";
     
     $ajaxCaixa  = "";
     $ajaxCaixa  = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'caixa');";
     $ajaxCaixa  = 'onclick=' .'"'.$ajaxCaixa.'"';
-    $ajaxCaixa  = $_GET["status"]=="f"?$ajaxCaixa:"";
+    #$ajaxCaixa  = $_GET["status"]=="f"?$ajaxCaixa:"";
   
     
     $ajaxArquivo = "";
     $ajaxArquivo = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'arquivo');";
     $ajaxArquivo = 'onchange=' .'"'.$ajaxArquivo.'"';
-    $ajaxArquivo = $_GET["status"]=="f"?$ajaxArquivo:"";
+    #$ajaxArquivo = $_GET["status"]=="f"?$ajaxArquivo:"";
 
     $ajaxCorredor = "";
     $ajaxCorredor = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'corredor');";
     $ajaxCorredor = 'onclick=' .'"'.$ajaxCorredor.'"';
-    $ajaxCorredor = $_GET["status"]=="f"?$ajaxCorredor:"";
+    #$ajaxCorredor = $_GET["status"]=="f"?$ajaxCorredor:"";
 
 
     $ajaxEstante = "";
     $ajaxEstante = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'estante');";
     $ajaxEstante = 'onclick=' .'"'.$ajaxEstante.'"';
-    $ajaxEstante = $_GET["status"]=="f"?$ajaxEstante:"";
+    #$ajaxEstante = $_GET["status"]=="f"?$ajaxEstante:"";
 
     $ajaxPrateleira = "";
     $ajaxPrateleira = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'prateleira');";
     $ajaxPrateleira = 'onclick=' .'"'.$ajaxPrateleira.'"';
-    $ajaxPrateleira = $_GET["status"]=="f"?$ajaxPrateleira:"";
+    #$ajaxPrateleira = $_GET["status"]=="f"?$ajaxPrateleira:"";
 
     $ajaxTipoDocumento = "";
     $ajaxTipoDocumento = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'tipodocumento');";
     $ajaxTipoDocumento = 'onmouseout=' .'"'.$ajaxTipoDocumento.'"';
-    $ajaxTipoDocumento = $_GET["status"]=="f"?$ajaxTipoDocumento:"";
+    #$ajaxTipoDocumento = $_GET["status"]=="f"?$ajaxTipoDocumento:"";
 
 
     
@@ -142,7 +142,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Autorizado </label><br>
-                                                <select id="idAutorizado" <?=$ajaxEmpresa;?> name="CodAut" class="form-control" >
+                                                <select id="idAutorizado" <?=$ajaxEmpresa;?> name="filCodAut" class="form-control" >
                                                     <?php
                                                         $filCodAut=isset($_GET["CodAut"])?$_GET["filCodAut"]:"";
                         
@@ -162,7 +162,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Empresa</label><br>
-                                                <select id="idEmpresa" <?=$ajaxSetor;?> <?=$ajaxTipoDocumento;?> <?=$ajaxArquivo;?> name="CodEmp"  class="form-control" >
+                                                <select id="idEmpresa" <?=$ajaxSetor;?> <?=$ajaxTipoDocumento;?> <?=$ajaxArquivo;?> name="filCodEmp"  class="form-control" >
                                                 <?php
                                                    /*
                                                     $filCodEmp=isset($_GET["filCodEmp"])?$_GET["filCodEmp"]:"";
@@ -470,72 +470,84 @@
                         
                                            
                                             <table class="table compact table-fixed table-striped table-bordered table-hover table-sm dt-responsive nowrap"
-                                            style="width:100%" id="tbpadrao">
+                                            style="width:100%" id="table-manager">
                         
                                                 <thead>
                                                     <tr>
-                                                        <?php foreach ($dataTableColunas as $coluna)
+                                                        <?php 
+                                                            foreach ($dataTableColunas as $coluna)
                                                             {
-                                                                echo "<th>". $coluna. "</th>";
-                                                            }
-                                                            if ( count($dataTable)>0  )
-                                                            {        
-                                                                echo "<th>Ações</th>";
-                                                            }
-                                                            else
-                                                            {
-                                                                echo "<th> </th>";
+                                                                if (substr($coluna,0,3)!="Cod" )
+                                                                {
+                                                                    echo "<th>". $coluna. "</th>";
+                                                                }
                                                             }
                                                         ?>
+                                                        <th><i class="fa fa-gears"></i></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php 
-                                                        for ($i=0;$i < count($dataTable);$i++ )
-                                                        {
-                                                            echo "<tr>";
-                        
-                                                            foreach ($dataTable[$i] as $campo){
-                                                                echo "<td>";
-                                                                echo $campo;
-                                                                echo "</td>";
+                                                    for ($i=0;$i < count($dataTable);$i++ ) 
+                                                    {
+                                                        echo "<tr>";
+                                                        
+                                                            foreach ($dataTable[$i] as $key=>$campo)
+                                                            {
+                                                                if (substr($key,0,3)!="Cod" )
+                                                                {
+                                                                    echo "<td>";
+                                                                        echo $campo;
+                                                                    echo "</td>";
+                                                                }
+                                                           
                                                             }    
+                                               
+                                                            echo "<td>";
                         
-                                                        echo "<td>";
-                        
-                                                        if ( $acoes['sta_alt']==1 )
-                                                        {                 
-                                                            $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=a';
-                                                            echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
-                                                            echo '<i class="fa fa-edit"></i>';
-                                                            echo '</a> ';
-                                                        }
-                                                        if ( $acoes['sta_exc']==1 )
-                                                        {                 
-                                                            $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=e';
-                                                            echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
-                                                            echo '<i class="fa fa-trash"></i>';
-                                                            echo '</a> ';
-                                                        }
-                                                        if ( $acoes['sta_con']==1 )
-                                                        {                 
-                                                            $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=v';
-                                                            echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
-                                                            echo '<i class="fa fa-eye"></i>';
-                                                            echo '</a> ';
-                                                        }    
-                        
-                        
-                        
-                                                        echo '</td>';
+                                                                if ( $acoes['sta_alt']==1 )
+                                                                {                 
+                                                                    $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=a';
+                                                                    echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
+                                                                    echo '<i class="fa fa-edit"></i>';
+                                                                    echo '</a> ';
+                                                                }
+                                                                if ( $acoes['sta_exc']==1 )
+                                                                {                 
+                                                                    $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=e';
+                                                                    echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
+                                                                    echo '<i class="fa fa-trash"></i>';
+                                                                    echo '</a> ';
+                                                    
+                                                                }
+                                                                if ( $acoes['sta_con']==1 )
+                                                                {                 
+                                                                    $link='href=sisarq.php?option=caddocumento&codDoc='. $dataTable[$i]['Identificador'].'&status=v';
+                                                                    echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
+                                                                    echo '<i class="fa fa-eye"></i>';
+                                                                    echo '</a> ';
+                                                                }    
+                            
+                                                            echo '</td>';
                         
                                                         echo "</tr>";
-                                                        } 
+                                                    }     
                                                     ?>
                                                 </tbody>
+                                                <tfoot>
+                                                    <a href="sisarq.php?option=caddocumento&status=i"" class="btn btn-success">
+                                                      <i class="fa fa-plus"></i> 
+                                                      <b>Cadastrar novo Documento</b>
+                                                    </a>
+                                                    <hr>
+                                                </tfoot>
+                    
                         
                                             </table>
-                        
+                                            <hr />
+                                            <div class="pull-right">
+                                                <a href="?sisarq.php?option=caddocumento&status=i" class="btn btn-success"><i class="fa fa-plus"></i> <b>Cadastrar novo Corredor</b></a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -550,4 +562,3 @@
         </div>
     </div>
 </div>
-

@@ -116,6 +116,7 @@
         {
             $dataTableColunas = array_keys($dataTable[0]);
         }
+        var_dump($filtro);
        # header("location:sisarq.php?option=documento");
    
     }
@@ -197,49 +198,49 @@
     {
         $operacao=$_POST['operacao'];
         
-        $codDocumento   =$_POST['CodDoc'];
-        $codEmpresa     =$_POST['CodEmp'];
-        $codSetor       =$_POST['CodSet'];
-        $codArquivo     =$_POST['CodArq'];
-        $codCorredor    =$_POST['CodCor'];
-        $codEstante     =$_POST['CodEst'];
-        $codPrateleira  =$_POST['CodPra'];
-        $codCaixa       =$_POST['CodCai'];
-        $codTipo        =$_POST['CodTip'];
-        $numeroInicial  =$_POST['NumIniDoc'];
-        $numeroFinal    =$_POST['NumFinDoc'];
-        $anoExercicio   =$_POST['AnoExe'];
-        $anoCalendario  =$_POST['AnoCal'];
-        $emissaoInicial =$_POST['EmiIniDoc'];
-        $emissaoFinal   =$_POST['EmiFinDoc'];
-        $dataDestruicao =$_POST['DesDoc'];
-        $detalhe        =$_POST['TexDoc'];
+        $codDocumento   =$_POST['codDoc'];
+        $codEmpresa     =$_POST['codEmp'];
+        $codSetor       =$_POST['codSet'];
+        $codArquivo     =$_POST['codArq'];
+        $codCorredor    =$_POST['codCor'];
+        $codEstante     =$_POST['codEst'];
+        $codPrateleira  =$_POST['codPra'];
+        $codCaixa       =$_POST['codCai'];
+        $codTipo        =$_POST['codTip'];
+        $numeroInicial  =$_POST['numIniDoc'];
+        $numeroFinal    =$_POST['numFinDoc'];
+        $anoExercicio   =$_POST['anoExe'];
+        $anoCalendario  =$_POST['anoCal'];
+        $emissaoInicial =$_POST['emiIniDoc'];
+        $emissaoFinal   =$_POST['emiFinDoc'];
+        $dataDestruicao =$_POST['desDoc'];
+        $detalhe        =$_POST['texDoc'];
 
 
         $documento=new Documento();        
        
         # Gerando as informacoes do Objeto
         
-        $documento->setIdDocumento   ($_POST['CodDoc']);
-        $documento->setCodigoEmpresa ($_POST['CodEmp']);
-        $documento->setCodigoSetor   ($_POST['CodSet']);
-        $documento->setCodigoArquivo($_POST['CodArq']);
-        $documento->setCodigoCorredor($_POST['CodCor']);
-        $documento->setCodigoEstante($_POST['CodEst']);
-        $documento->setCodigoPrateleira($_POST['CodPra']);
-        $documento->setCodigoCaixa($_POST['CodCai']);
-        $documento->setTipoDocumento($_POST['CodTip']);
+        $documento->setIdDocumento   ($_POST['codDoc']);
+        $documento->setCodigoEmpresa ($_POST['codEmp']);
+        $documento->setCodigoSetor   ($_POST['codSet']);
+        $documento->setCodigoArquivo($_POST['codArq']);
+        $documento->setCodigoCorredor($_POST['codCor']);
+        $documento->setCodigoEstante($_POST['codEst']);
+        $documento->setCodigoPrateleira($_POST['codPra']);
+        $documento->setCodigoCaixa($_POST['codCai']);
+        $documento->setTipoDocumento($_POST['codTip']);
 
-        $documento->setNumeroInicial($_POST['NumIniDoc']);
-        $documento->setNumeroFinal($_POST['NumFinDoc']);
+        $documento->setNumeroInicial($_POST['numIniDoc']);
+        $documento->setNumeroFinal($_POST['numFinDoc']);
 
-        $documento->setDataInicial($_POST['EmiIniDoc']);
-        $documento->setDataFinal($_POST['EmiFinDoc']);
-        $documento->setDataDestruicao($_POST['DesDoc']);
-        $documento->setDescricao($_POST['TexDoc']);
+        $documento->setDataInicial($_POST['emiIniDoc']);
+        $documento->setDataFinal($_POST['emiFinDoc']);
+        $documento->setDataDestruicao($_POST['desDoc']);
+        $documento->setDescricao($_POST['texDoc']);
 
-        $documento->setAnoExercicio($_POST['AnoExe']);
-        $documento->setAnoCalendario($_POST['AnoCal']);
+        $documento->setAnoExercicio($_POST['anoExe']);
+        $documento->setAnoCalendario($_POST['anoCal']);
         $documento->setCodigoStatus('02');
         
         
@@ -268,7 +269,7 @@
                 $registro=$documentoPDO->delete($_POST['CodDoc']);
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=documento&status=f");
+       # header("location:".$GLOBALS['project_index']."sisarq.php?option=documento&status=f");
  
     }
 ?>
