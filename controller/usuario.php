@@ -25,9 +25,9 @@
       
     if (isset($_GET['status'] ))
     {
-        $acao=$_GET['status'];
-        $codigo==isset($_GET['id'])?$_GET['id']:"";
-        $registro=$usuarioPDO->busca($codigo);
+        $acao    = $_GET['status'];
+        $codigo  = isset($_GET['codUsu'])?$_GET['codUsu']:"";
+        $registro= $usuarioPDO->busca($codigo);
         
     }
     else if( !isset($_GET['status']))
@@ -45,11 +45,11 @@
     {
         $operacao=$_POST['operacao'];
         
-        $codigo=$_POST['id'];
+        $codigo=$_POST['codUsu'];
         
         
         # Gerando as informacoes do Objeto
-        $usuario->setCodigo($_POST['id']);
+        $usuario->setCodigo($_POST['codUsu']);
         $usuario->setNome($_POST['nomUsu']);
         $usuario->setLogin($_POST['logUsu']);
         $usuario->setSenha($_POST['senUsu']);
@@ -71,15 +71,15 @@
             case 'i':
                 try 
                 {
-                    $conexao=Conexao::getConnection();
-                    $registro=$usuarioPDO->insert($usuario);
-                    $conexao=null;
+                    $conexao = Conexao::getConnection();
+                    $registro= $usuarioPDO->insert($usuario);
+                    $conexao = null;
                 }
                 catch (PDOExecption $e  )
                 {
                     $mensagem = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
-                    $mensagem .= "\nErro: " . $e->getMessage();
-                    $conexao=null;
+                    $mensagem.= "\nErro: " . $e->getMessage();
+                    $conexao  =null;
                     throw new Exception($mensagem);
                     
                 }

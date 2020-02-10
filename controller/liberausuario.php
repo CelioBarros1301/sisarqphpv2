@@ -1,6 +1,6 @@
 <?php
   
-  #
+    #
     # Regras de Negocio para a Processo de Autorizaos
     #
    

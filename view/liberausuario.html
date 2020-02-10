@@ -103,7 +103,7 @@
                                             }    
                                             
                                             echo "<td>";
-                                                if ( $user['log_usuario']!=$dataTable[$i]['Login'] )
+                                                if ( $user['id_usu']!=$dataTable[$i]['Codigo'] )
                                                     {
                                                         $link='href=sisarq.php?option=liberausuario&id='.$dataTable[$i]['Codigo'] .'&status=l';
                                                         echo '<a name="libera" class="btn btn-warning btn-sm"'.$link.'>';

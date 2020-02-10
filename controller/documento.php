@@ -1,6 +1,6 @@
 <?php
   
-#
+    #
     # Regras de Negocio para a Processo de Documento
     #
    
@@ -23,7 +23,6 @@
     include_once $GLOBALS['project_path'].'/dao/statusPDO.php';
     
 
-   
     # Instaciando as classes necessarias
     
    
@@ -34,10 +33,8 @@
     $arquivoPDO         = new ArquivoPDO();
     $setorautorizadoPDO = new SetorAutorizadoPDO();
     $autorizadoPDO      = new AutorizadoPDO();
-
     $tipodocumentoPDO   = new TipoDocumentoPDO();
     $statusPDO          = new StatusPDO();
-
     $documentoPDO       = new DocumentoPDO();
    
     $codAutorizado  ="";
@@ -57,34 +54,16 @@
         
     $dataTableColunas = array(); 
     $dataTable        = array();
+    $registro         = array();
+    $debug=array();
+
    
     # Array dados do filtro - Tab de Filro
    
-    if ( isset($_GET['status'])  && ( $_GET['status']=="f" || $_GET['status']=="g"  ) )
+    if ( isset($_GET['status'])  && ( $_GET['status']=="f" ) )
     {
- 
-    
-        $codAutorizado  =isset($_GET['filCodAut'])?$_GET['filCodAut']:"";
-        $codEmpresa     =isset($_GET['filCodEmp'])?$_GET['filCodEmp']:"";
-        $codSetor       =isset($_GET['filCodSet'])?$_GET['filCodSet']:"";
-        $codArquivo     =isset($_GET['filCodArq'])?$_GET['filCodArq']:"";
-        $codCorredor    =isset($_GET['filCodCor'])?$_GET['filCodCor']:"";
-        $codEstante     =isset($_GET['filCodEst'])?$_GET['filCodEst']:"";
-        $codPrateleira  =isset($_GET['filCodPra'])?$_GET['filCodPra']:"";
-        $codCaixa       =isset($_GET['filCodCai'])?$_GET['filCodCai']:"";
-        $codTipo        =isset($_GET['filCodTip'])?$_GET['filCodTip']:"";
-        $codStatus      =isset($_GET['filCodSta'])?$_GET['filCodSta']:"";
- 
-       
+     
         $tabelaAutorizado =$autorizadoPDO->lista("");
-        #$tabelaEmpresa    =$setorautorizadoPDO->listaEmpresa($codAutorizado,$codEmpresa);
-        #$tabelaSetor      =$setorautorizadoPDO->listaSetor  ($codAutorizado,$codEmpresa,$codSetor);
-        #$tabelaArquivo    =$arquivoPDO->listaArquivo($codEmpresa,$codArquivo);
-        #$tabelaCorredor   =$corredorPDO->listaCorredor($codEmpresa,$codArquivo,$codCorredor);
-        #$tabelaEstante    =$estantePDO->listaEstante($codEmpresa,$codArquivo,$codCorredor,$codEstante);
-        #$tabelaPrateleira =$prateleiraPDO->listaPrateleira($codEmpresa,$codArquivo,$codCorredor,$codEstante,$codPrateleira);
-        #$tabelaCaixa      =$caixaPDO->listaCaixa($codEmpresa,$codSetor,$codCaixa);
-        #$tabelaTipo       =$tipodocumentoPDO->listaTipoDocumento($codEmpresa,$codTipo);
         $tabelaStatus     =$statusPDO->lista("");
     }
 
@@ -92,8 +71,6 @@
     if ( isset($_GET['status'])  && $_GET['status']=="g"  )
     {
         $filtro=Array();
-    
-        
         $filtro['codAutorizado'] =isset($_GET['filCodAut'])?$_GET['filCodAut']:"";
         $filtro['codEmpresa']    =isset($_GET['filCodEmp'])?$_GET['filCodEmp']:"";
         $filtro['codSetor']      =isset($_GET['filCodSet'])?$_GET['filCodSet']:"";
@@ -104,7 +81,6 @@
         $filtro['codCaixa']      =isset($_GET['filCodCai'])?$_GET['filCodCai']:"";
         $filtro['codTipo']       =isset($_GET['filCodTip'])?$_GET['filCodTip']:"";
         $filtro['codStatus']     =isset($_GET['filCodSta'])?$_GET['filCodSta']:"";
- 
         $filtro['numDocumento']  =isset($_GET['filNumDoc'])?$_GET['filNumDoc']:"";
         $filtro['emiDocumento']  =isset($_GET['filEmiDoc'])?$_GET['filEmiDoc']:"";
         $filtro['exeDocumento']  =isset($_GET['filAnoExe'])?$_GET['filAnoExe']:"";
@@ -116,18 +92,17 @@
         {
             $dataTableColunas = array_keys($dataTable[0]);
         }
-        var_dump($filtro);
+        $_GET['filCodAut']="";
        # header("location:sisarq.php?option=documento");
    
     }
 
     # Preencher Formulario com os dados 
-    $codDocumento   =isset($_GET['codDoc'])?$_GET['codDoc']:"";
         
-        
-    if (isset($_GET['status']) && ( $_GET['status']=="i" || $_GET['status']=="a" || $_GET['status']=="e" ) )
+    if (isset($_GET['status']) && ( $_GET['status']=="i" || $_GET['status']=="a" || $_GET['status']=="e" || $_GET['status']=="v") )
     {
        
+        $codDocumento   =isset($_GET['codDoc'])?$_GET['codDoc']:"";
         $empresaPDO    = new EmpresaPDO();
         $setorPDO      = new SetorPDO();
         
@@ -135,6 +110,7 @@
         
         if ($_GET['status']!='i')
         {
+            
             $registro       =$documentoPDO->busca($codDocumento);
             $codEmpresa     =$registro["cod_empresa"];
             $codSetor       =$registro['cod_setor'];
@@ -145,29 +121,13 @@
             $codCaixa       =$registro['cod_caixa'];
             $codTipo        =$registro['tip_documento'];
         
-
         }
         else
         {
-            $codEmpresa     =isset($_GET['CodEmp'])?$_GET['CodEmp']:"";
-            $codSetor       =isset($_GET['CodSet'])?$_GET['CodSet']:"";
-            $codArquivo     =isset($_GET['CodArq'])?$_GET['CodArq']:"";
-            $codCorredor    =isset($_GET['CodCor'])?$_GET['CodCor']:"";
-            $codEstante     =isset($_GET['CodEst'])?$_GET['CodEst']:"";
-            $codPrateleira  =isset($_GET['CodPra'])?$_GET['CodPra']:"";
-            $codCaixa       =isset($_GET['CodCai'])?$_GET['CodCai']:"";
-        
-            #$tabelaEmpresa    =$empresaPDO->lista("");
-            #$tabelaSetor      =$setorPDO->listaSetor  ($codEmpresa,"");
-            #$tabelaArquivo    =$arquivoPDO->listaArquivo($codEmpresa,"");
-            #$tabelaCorredor   =$corredorPDO->listaCorredor($codEmpresa,$codArquivo,"");
-            #$tabelaEstante    =$estantePDO->listaEstante($codEmpresa,$codArquivo,$codCorredor,"");
-            #$tabelaPrateleira =$prateleiraPDO->listaPrateleira($codEmpresa,$codArquivo,$codCorredor,$codEstante,"");
-            #$tabelaCaixa      =$caixaPDO->listaCaixa($codEmpresa,$codSetor,"");
-            #$tabelaTipo       =$tipodocumentoPDO->listaTipoDocumento($codEmpresa,"");
-            #$tabelaStatus     =$statusPDO->lista("");
+            $tabelaEmpresa    =$empresaPDO->lista("");
         }
-        if ( $_GET['status']=='e' )
+        # Preenchimento dos Combobox so com o Dados do Documento
+        if ( $_GET['status']=='e' || $_GET['status']=='v' )
         {
             $tabelaEmpresa    =$empresaPDO->lista($codEmpresa);
             $tabelaSetor      =$setorPDO->listaSetor  ($codEmpresa,$codSetor);
@@ -178,9 +138,11 @@
             $tabelaCaixa      =$caixaPDO->listaCaixa($codEmpresa,$codSetor,$codCaixa);
             $tabelaTipo       =$tipodocumentoPDO->listaTipoDocumento($codEmpresa,$codTipo);
         }
-        else
+        # Preenchimenton dos Combobox para selecionar com o dados do Documento
+        
+        elseif ($_GET['status']=='a' )
         {
-            $tabelaEmpresa    =$empresaPDO->lista("");
+            $tabelaEmpresa    =$empresaPDO->lista($codEmpresa);
             $tabelaSetor      =$setorPDO->listaSetor  ($codEmpresa,"");
             $tabelaArquivo    =$arquivoPDO->listaArquivo($codEmpresa,"");
             $tabelaCorredor   =$corredorPDO->listaCorredor($codEmpresa,$codArquivo,"");
@@ -196,26 +158,25 @@
         # Verificar operacoes de Banco
     if ( isset($_POST['operacao']))
     {
-        $operacao=$_POST['operacao'];
+        $operacao       = $_POST['operacao'];
         
-        $codDocumento   =$_POST['codDoc'];
-        $codEmpresa     =$_POST['codEmp'];
-        $codSetor       =$_POST['codSet'];
-        $codArquivo     =$_POST['codArq'];
-        $codCorredor    =$_POST['codCor'];
-        $codEstante     =$_POST['codEst'];
-        $codPrateleira  =$_POST['codPra'];
-        $codCaixa       =$_POST['codCai'];
-        $codTipo        =$_POST['codTip'];
-        $numeroInicial  =$_POST['numIniDoc'];
-        $numeroFinal    =$_POST['numFinDoc'];
-        $anoExercicio   =$_POST['anoExe'];
-        $anoCalendario  =$_POST['anoCal'];
-        $emissaoInicial =$_POST['emiIniDoc'];
-        $emissaoFinal   =$_POST['emiFinDoc'];
-        $dataDestruicao =$_POST['desDoc'];
-        $detalhe        =$_POST['texDoc'];
-
+        $codDocumento   = $_POST['codDoc'];
+        $codEmpresa     = $_POST['codEmp'];
+        $codSetor       = $_POST['codSet'];
+        $codArquivo     = $_POST['codArq'];
+        $codCorredor    = $_POST['codCor'];
+        $codEstante     = $_POST['codEst'];
+        $codPrateleira  = $_POST['codPra'];
+        $codCaixa       = $_POST['codCai'];
+        $codTipo        = $_POST['codTip'];
+        $numeroInicial  = $_POST['numIniDoc'];
+        $numeroFinal    = $_POST['numFinDoc'];
+        $anoExercicio   = $_POST['anoExe'];
+        $anoCalendario  = $_POST['anoCal'];
+        $emissaoInicial = $_POST['emiIniDoc'];
+        $emissaoFinal   = $_POST['emiFinDoc'];
+        $dataDestruicao = $_POST['desDoc'];
+        $detalhe        = $_POST['texDoc'];
 
         $documento=new Documento();        
        
@@ -266,10 +227,12 @@
                
             break;
             case 'e':
-                $registro=$documentoPDO->delete($_POST['CodDoc']);
+                $registro=$documentoPDO->delete($_POST['codDoc']);
             break;
         }
-       # header("location:".$GLOBALS['project_index']."sisarq.php?option=documento&status=f");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=documento&status=f");
  
     }
+ 
+
 ?>

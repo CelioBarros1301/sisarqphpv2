@@ -109,7 +109,7 @@
                                                     
                                                 if ( $acoes['sta_alt']==1 )
                                                 {
-                                                    $link='href=sisarq.php?option=cadusuario&id='. $dataTable[$i]['Codigo']. '&status=a';
+                                                    $link='href=sisarq.php?option=cadusuario&codUsu='. $dataTable[$i]['Codigo']. '&status=a';
                                                     echo '<a name="edit" class="btn btn-warning btn-sm"'.$link.'>';
                                                             echo '<i class="fa fa-edit"></i>';
                                                     echo '</a> ';
@@ -118,7 +118,7 @@
                                                 { 
                                                     if ( $user['log_usuario']!=$dataTable[$i]['Login'] && ( $dataTable[$i]['Codigo']!=1  && $dataTable[$i]['Codigo']!=2 ) )
                                                         {
-                                                        $link='href=sisarq.php?option=cadusuario&id='.$dataTable[$i]['Codigo'] .'&status=e';
+                                                        $link='href=sisarq.php?option=cadusuario&codUsu='.$dataTable[$i]['Codigo'] .'&status=e';
                                                             echo '<a name="delete" class="btn btn-danger btn-sm"'.$link.'>';
                                                                 echo '<i class="fa fa-trash"></i>';
                                                             echo '</a> ';
@@ -127,7 +127,7 @@
                                                 }
                                                 if ( $acoes['sta_con']==1 )
                                                 { 
-                                                    $link='href=sisarq.php?option=cadusuario&id='.$dataTable[$i]['Codigo'] .'&status=v';
+                                                    $link='href=sisarq.php?option=cadusuario&codUsu='.$dataTable[$i]['Codigo'] .'&status=v';
                                                     echo '<a name="view" class="btn btn-primary btn-sm"'.$link.'>';
                                                         echo '<i class="fa fa-eye"></i>';
                                                     echo '</a> ';

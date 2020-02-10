@@ -6,7 +6,7 @@
     }
 
     # Incluindo as classes necessárias
-    include_once $GLOBALS['project_path'].'controller/corredor.php';
+    include_once $GLOBALS['project_path'].'controller/documento.php';
 
     
     $selecao=$_GET["status"]!="i"?"selected":"";
@@ -18,46 +18,45 @@
     $ajaxEmpresa = "";
     $ajaxEmpresa = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'empresa');";
     $ajaxEmpresa = 'onclick=' .'"'.$ajaxEmpresa.'"';
-    #$ajaxEmpresa = $_GET["status"]=="f"?$ajaxEmpresa:"";
+    $ajaxEmpresa = ($_GET["status"]=="i" || $_GET["status"]=="a") ?$ajaxEmpresa:"";
     
     $ajaxSetor  = "";
     $ajaxSetor  = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'setor');";
     $ajaxSetor  = 'onclick=' .'"'.$ajaxSetor.'"';
-    #$ajaxSetor  = $_GET["status"]=="f"?$ajaxSetor:"";
+    $ajaxSetor  = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxSetor:"";
     
     $ajaxCaixa  = "";
     $ajaxCaixa  = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'caixa');";
     $ajaxCaixa  = 'onclick=' .'"'.$ajaxCaixa.'"';
-    #$ajaxCaixa  = $_GET["status"]=="f"?$ajaxCaixa:"";
+    $ajaxCaixa  = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxCaixa:"";
   
     
     $ajaxArquivo = "";
     $ajaxArquivo = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'arquivo');";
     $ajaxArquivo = 'onchange=' .'"'.$ajaxArquivo.'"';
-    #$ajaxArquivo = $_GET["status"]=="f"?$ajaxArquivo:"";
+    $ajaxArquivo = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxArquivo:"";
 
     $ajaxCorredor = "";
     $ajaxCorredor = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'corredor');";
     $ajaxCorredor = 'onclick=' .'"'.$ajaxCorredor.'"';
-    #$ajaxCorredor = $_GET["status"]=="f"?$ajaxCorredor:"";
+    $ajaxCorredor = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxCorredor:"";
 
 
     $ajaxEstante = "";
     $ajaxEstante = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'estante');";
     $ajaxEstante = 'onclick=' .'"'.$ajaxEstante.'"';
-    #$ajaxEstante = $_GET["status"]=="f"?$ajaxEstante:"";
+    $ajaxEstante = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxEstante:"";
 
     $ajaxPrateleira = "";
     $ajaxPrateleira = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'prateleira');";
     $ajaxPrateleira = 'onclick=' .'"'.$ajaxPrateleira.'"';
-    #$ajaxPrateleira = $_GET["status"]=="f"?$ajaxPrateleira:"";
+    $ajaxPrateleira = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxPrateleira:"";
 
     $ajaxTipoDocumento = "";
     $ajaxTipoDocumento = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'tipodocumento');";
     $ajaxTipoDocumento = 'onmouseout=' .'"'.$ajaxTipoDocumento.'"';
-    #$ajaxTipoDocumento = $_GET["status"]=="f"?$ajaxTipoDocumento:"";
-
-
+    $ajaxTipoDocumento = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxTipoDocumento:"";
+ 
 ?>
 <div class="content" id="content" style="margin: 0px;padding:0px;">
     <ol class="breadcrumb pull-right">
@@ -121,7 +120,7 @@
                                     <?php
                                       if ( $_GET["status"]!="i" )
                                       { 
-                                        foreach ($tabelaArquivo as $coluna)
+                                        foreach ($tabelaSetor as $coluna)
                                         {
                                             $selecao = $_GET["codSet"]==$coluna["CodSetor"]?"selected":"";
                                             echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     

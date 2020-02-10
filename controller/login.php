@@ -70,6 +70,7 @@
         # Gravando a informação usuario logado
         $usuario->setCodigo($registro['id_usu']);
         $usuario->setLogin($registro['log_usuario']);
+        $usuario->setNome($registro['nome_usuario']);
         $usuario->setSenha(base64_decode($registro['sen_usuario']));
         $usuario->setPerfil($registro['per_usuario']);
         $usuario->setStatus($hora);

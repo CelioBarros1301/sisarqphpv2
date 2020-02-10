@@ -294,8 +294,6 @@ class DocumentoPDO
 
         $sql.= " ORDER BY CodCaixa" ;
 
-        var_dump($sql);
-
         $smtm=$conexao -> prepare($sql);
 
         $smtm->bindValue(1,$filtro['codEmpresa']);

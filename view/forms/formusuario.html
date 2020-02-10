@@ -1,89 +1,135 @@
 <?php
 
-    
-    if ( !isset($_SESSION['user'])){
-        #header("location: index.php");
-    }
+# Verificar se sessão existe
+if ( !isset($_SESSION['user'])){
+    header("location: $project_index?error=");
+}
 
-    # Informacoes do banco
-    
-    include_once  "usuario.php";
-    $readonly=( $registro["id_usu"]==1 || $registro["id_usu"]==2 )?"readonly":""; 
-    
-    $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
- 
+# Incluindo as classes necessárias
+include_once $GLOBALS['project_path'].'controller/usuario.php';
+
+  
+$disabled=($_GET['status']=="e" || $_GET['status']=="v")?"disabled":"";
+$readonly=$_GET['status']!="i"?"readonly":"";
+
+$readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
+
+
 ?>
+<div class="content" id="content" style="margin: 0px;padding:0px;">
+    <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="#">Início</a></li>
+        <li class="breadcrumb-item active">Novo Usuario</li>
+        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Usuario</a>
+        </li>
+    </ol>
+    <h1 class="page-header">Novo Usuario</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                  <h4 class="panel-title">Informe abaixo os dados do Usuario </h4>
+                </div>
+                <div class="panel-body">
+                  <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
+                  <!-- <div class="row"> -->
+                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/usuario.php" method="post" enctype="multipart/form-data">
+                  
+                    
+                    <div class="row"> <!--Linha 01-->
 
- <div class="row">
-        <div class="col-md-8 offset-1 col-sm-12">
-            <div class="empresa-form">
- 
-                <form action="usuario.php" method="POST">
-                    
-                    <div class="form-group">
-                        <label hidden >Codigo</label>
-                        <input  type="hidden" name="id" class="form-control" value="<?=$_GET['status']!="i"?$registro["id_usu"]:"";?>" placeholder="Codigo" required  >
-                    </div>
-                    
-                    <div class="row">
-                            <div class="col-md-4"> 
-                                <div class="form-group">
-                                    <label>Login</label>
-                                    <input type="text" <?=$readonly;?> name="logUsu" maxlength="80" value="<?=$_GET['status']!="i"?$registro["log_usuario"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Login do Usuario" required  >
-                                </div>
-                            </div>
-                            <div class="col-md-4"> 
-                                <div class="form-group">
-                                    <label>Senha</label>
-                                    <input type="text" name="senUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha do usuario" required  >
-                                </div>
-                            </div>
-                            <div class="col-md-4"> 
-                                    <div class="form-group">
-                                        <label>Confirmacao Senha</label>
-                                        <input type="text" name="consenUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Confirmacao Senha do usuario" required  >
-                                    </div>
-                                </div>    
-                    </div>  
-                    
-                    <div class="form-check">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" <?=$registro["per_usuario"]=='1'?'checked':"";?> <?=$_GET['status']=="e"?"disabled":"";?> class="custom-control-input" value="1"  id="perfil" name="perfUsu">
-                            <label class="custom-control-label" for="perfil">Perfil Administrador</label>
-                        </div>
-                    </div>
-                    
-                        
-                   
-                    <div class="form-group">
-                        <label hidden >Operacao</label>
-                        <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" class="form-control" placeholder="Nome da Empresa" required  >
-                    </div>
-                                                          
-                    <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
-                        
-                        <i class="fa fa-check-circle" style="font-size:24px;color:green;"></i>
-                        <?php 
-                            if ($_GET['status']=='e')
-                            {
-                                echo "Excluir";
-                            }
-                            else
-                            {
-                                echo "Salvar";
-                            }
+                        <div class="col-md-6">
+                            <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
+                            <input  type="hidden" name="codUsu"  value="<?=$_GET['status']!="i"?$registro["id_usu"]:"";?>" required  >
                             
-                        ?>
-                        
-                    </button>
-                      
-                    <button type="button" class="btn btn-primary" aria-pressed="true"  onclick="history.back();">
-                        <i class="fa fa-times " style="font-size:24px;color:red;"></i>
-                         Cancelar
-                    </button>  
+                            <div class="form-group">
+                                <label>Login</label>
+                                <input type="text" <?=$readonly;?> name="logUsu" maxlength="80" value="<?=$_GET['status']!="i"?$registro["log_usuario"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Login do Usuario" required  >
+                            </div>
+                        </div>
+
+                        <div class="col-md-4"> 
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text"  name="nomUsu" maxlength="80" value="<?=$_GET['status']!="i"?$registro["nome_usuario"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Nome do Usuario" required  >
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--Linha 01-->
+
+                    <!--Linha 02-->
+                    <div class="row">
+                        <div class="col-md-4"> 
+                            <div class="form-group">
+                                <label>Senha</label>
+                                <div class="input-group">
+                                    <input type="password" name="senUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha do usuario" required  >
+                                    <div class="input-group-append" >
+                                        <button onclick="MostraSenha('contrasenha');" class="input-group-text">
+                                            <i class="fa fa-eye"></i> 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4"> 
+                            <div class="form-group">
+                                <label>Confirmacao Senha</label>
+                                <div class="input-group">
+                                    <input type="password" name="consenUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Confirmacao Senha do usuario" required  >
+                                    <div class="input-group-append" >
+                                        <button onclick="MostraSenha('contrasenha');" class="input-group-text">
+                                            <i class="fa fa-eye"></i> 
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4"> 
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["per_usuario"]=='1'?'checked':"";?> <?=$disabled;?> class="custom-control-input" value="1"  id="perfil" name="perfUsu">
+                                    <label class="custom-control-label" for="perfil">Perfil Administrador</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--Linha 02-->
+                           
+                    <!--Linha 03-->
+                   
+                    <div class="row">  
+
+                      <div class="col-md-12">
+                        <p class="text-right">
+                          <button type="submit" class="btn btn-primary" <?=$_GET['status']=='v'?'hidden':'';?> aria-pressed="true">
+                            <i class="fa fa-check-circle" ></i> 
+                            <b>
+                              <?php 
+                                if ($_GET['status']=='e')
+                                {
+                                    echo "Excluir";
+                                }
+                                else
+                                {
+                                    echo "Salvar";
+                                }
+                              ?>
+                            </b>
+                          </button>
+                        </p>
+                      </div> 
+
+                    </div> <!--Linha 03-->
                     
-                </form>
+                  </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
 

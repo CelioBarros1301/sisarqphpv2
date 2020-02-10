@@ -116,7 +116,7 @@ class UsuarioPDO
 
         $smtm=$conexao->prepare($sql);
 
-        $smtm->bindValue(1,$usuario->getStatus());
+        $smtm->bindValue(1,$usuario->getNome());
         $smtm->bindValue(2,base64_encode($usuario->getSenha()));
         $smtm->bindValue(3,$usuario->getStatus());
         $smtm->bindValue(4,$usuario->getPerfil());
@@ -128,21 +128,21 @@ class UsuarioPDO
         return $result;
     }
 
-    public function delete($login)
+    public function delete($codigo)
     {
         $conexao=Conexao::getConnection();
         $sql="DELETE  FROM  tb_usuarios ";
-        $sql.= " WHERE log_usuario   =? ";
+        $sql.= " WHERE id_usu   =? ";
 
         $smtm=$conexao->prepare($sql);
-        $smtm->bindValue(1,$login);
+        $smtm->bindValue(1,$codigo);
         $result=$smtm->execute();
         ##$conexao->commit();
         $conexao=null;
         return $result;
     }
 
-    public function libera($login)
+    public function libera($codigo)
     {
         $conexao=Conexao::getConnection();
         $sql="UPDATE  tb_usuarios SET ";
@@ -152,7 +152,7 @@ class UsuarioPDO
 
         $smtm=$conexao->prepare($sql);
 
-        $smtm->bindValue(1,$login);
+        $smtm->bindValue(1,$codigo);
 
         $result=$smtm->execute();
         ##$conexao->commit();
@@ -185,7 +185,7 @@ class UsuarioPDO
         return  $result;
     }
 
-    public function listalibera($login)
+    public function listalibera($codigo)
     {
         $conexao=Conexao::getConnection();
         $result =array();
@@ -198,7 +198,7 @@ class UsuarioPDO
 
         $smtm=$conexao -> prepare($sql);
         $smtm->bindValue(1,"");
-        $smtm->bindValue(2,$login);
+        $smtm->bindValue(2,$codigo);
         $smtm->execute();
         $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
         $conexao=null;

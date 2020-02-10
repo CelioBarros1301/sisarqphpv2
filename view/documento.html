@@ -121,6 +121,7 @@
                             <div class="col-md-12">  
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
+                                   
                                         <a class="nav-link active" data-toggle="tab" href="#home">Criterio Seleção</a>
                                     </li>
                                     <li class="nav-item">
@@ -474,6 +475,8 @@
                         
                                                 <thead>
                                                     <tr>
+                                                        <th><i class="fa fa-gears"></i></th>
+                        
                                                         <?php 
                                                             foreach ($dataTableColunas as $coluna)
                                                             {
@@ -483,7 +486,6 @@
                                                                 }
                                                             }
                                                         ?>
-                                                        <th><i class="fa fa-gears"></i></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -491,18 +493,7 @@
                                                     for ($i=0;$i < count($dataTable);$i++ ) 
                                                     {
                                                         echo "<tr>";
-                                                        
-                                                            foreach ($dataTable[$i] as $key=>$campo)
-                                                            {
-                                                                if (substr($key,0,3)!="Cod" )
-                                                                {
-                                                                    echo "<td>";
-                                                                        echo $campo;
-                                                                    echo "</td>";
-                                                                }
-                                                           
-                                                            }    
-                                               
+
                                                             echo "<td>";
                         
                                                                 if ( $acoes['sta_alt']==1 )
@@ -530,6 +521,19 @@
                             
                                                             echo '</td>';
                         
+                                                        
+                                                            foreach ($dataTable[$i] as $key=>$campo)
+                                                            {
+                                                                if (substr($key,0,3)!="Cod" )
+                                                                {
+                                                                    echo "<td>";
+                                                                        echo $campo;
+                                                                    echo "</td>";
+                                                                }
+                                                           
+                                                            }    
+                                               
+                            
                                                         echo "</tr>";
                                                     }     
                                                     ?>

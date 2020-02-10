@@ -1,4 +1,9 @@
 <?php  
+
+  # Incluindo as classes necessárias
+  include_once dirname(__DIR__).'/model/config.php';
+
+  include_once $GLOBALS['project_path'].'/dao/usuarioPDO.php';
 	
 	
 	
@@ -165,6 +170,21 @@ function validate_options(){
 		case 'caddocumento':
 			include_once $GLOBALS['project_path'].'/view/forms/formdocumento.html';
 		break;
+
+		# sair
+		case 'sair':
+			
+			$usuarioPDO= new UsuarioPDO();
+			$registro=$_SESSION['user'];
+			$codigo=$registro['id_usu'];
+			$registro=$usuarioPDO->libera($codigo);
+			
+			# Destruindo a sessão
+			session_destroy();
+
+			header("location: sisarq.php");
+        
+    	break;
 
 
 		default:
