@@ -25,5 +25,3 @@
 	include_once 'view/template2.html';
 
 ?>
-
-

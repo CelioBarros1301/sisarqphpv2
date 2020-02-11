@@ -19,9 +19,4 @@
 	$GLOBALS['project_index'] = $project_index;
 	$GLOBALS['project_path'] = $project_path;
 
-
-
-
 ?>
-
-
