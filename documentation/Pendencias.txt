@@ -15,6 +15,8 @@ empresa não esta deixando o Autorizado selecionado R E S O L V I D O
 51) Criar Campo no tipo de Documento para controle para apresentar
 Ano: Calendario Ano: Exercicio
 
+52)alteracao de novo autorizado bloqueio de codigo
+
 
 RELAÇAO DO BACKLOG
 

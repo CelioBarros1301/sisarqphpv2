@@ -59,7 +59,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <img src="https://images.vexels.com/media/users/3/144205/isolated/lists/039f3a81b340e8ad1b6a1f2f228385d1-icone-de-acidente-vascular-cerebral.png" alt="logo" height="120" width="180">
+    <img src="imagem/documents.png" alt="logo" height="120" width="180">
    <!--  <a href="#" class="text-white"><b>Prefeitura de </b> Pacatuba</a> -->
   </div>
   <!-- /.login-logo -->
