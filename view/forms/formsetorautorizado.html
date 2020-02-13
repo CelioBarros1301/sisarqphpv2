@@ -44,7 +44,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
 
                         <div class="col-md-12">
                             <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
-                        
+                            <input  type="hidden" name="codId" value="<?=$_GET['status']!="i"?$registro["id_setaut"]:"";?>" >
                             <div class="form-group ">
                                 <label> Autorizado </label><br>	
                                 <select id="idAutorizado" name="codAut" <?=$readonly;?> required class="form-control" >

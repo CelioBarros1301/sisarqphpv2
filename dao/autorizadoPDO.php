@@ -55,15 +55,15 @@ class AutorizadoPDO
         $sql.=' VALUES ( ';
         
         if ($codigo=="0000")
+
         {
-            $sql.='(SELECT right(concat("0000",max(autorizado.cod_autorizado)+1),4) from tb_autorizados autorizado),';
+            $sql.='(SELECT ifnull(right(concat("0000",max(autorizado.cod_autorizado)+1),4),"0001") from tb_autorizados autorizado),';
             $sql.='?,?,?,?,?,?,?,?)';
         }
         else
         {
             $sql.='?,?,?,?,?,?,?,?,?)';
         }
-
         $smtm=$conexao->prepare($sql);
         if ($codigo=="0000")
         {

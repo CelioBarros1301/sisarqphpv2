@@ -43,7 +43,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                         
                             <div class="form-group ">
                                 <label>Codigo</label>
-                                <input type="text" name="id"  maxlength="4"  value="<?=$_GET['status']!="i"?$_GET["id"]:"";?>" <?=$readonlyCampo;?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,4)'>
+                                <input type="text" name="id"  maxlength="4"  value="<?=$_GET['status']!="i"?$_GET["id"]:"";?>" <?=$readonly;?>  class="form-control " placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,4)'>
                             </div>
                         </div>
                     

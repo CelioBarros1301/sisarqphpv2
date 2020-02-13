@@ -135,7 +135,7 @@ $ajaxCorredor = $_GET["status"]=="i"?$ajaxCorredor:"";
                       <div class="col-md-4">
                         <div class="form-group">
                             <label>Sigla Estante</label>
-                            <input type="text" name="sigEst" maxlength="80" value="<?=$_GET['status']!="i"?$registro["sig_estante"]:"";?>"  <?=$_GET['status']=="e"?"readonly":"";?> class="form-control" placeholder="Sigla da Estante" required  >
+                            <input type="text" name="sigEst" maxlength="80" value="<?=$_GET['status']!="i"?$registro["sig_estante"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Sigla da Estante" required  >
                         </div>
                       </div>
         

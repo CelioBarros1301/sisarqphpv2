@@ -152,14 +152,14 @@ $ajaxEstante = $_GET["status"]=="i"?$ajaxEstante:"";
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Codigo Prateleira</label>
-                                <input type="text" name="codPra"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codPra"]:"";?>" <?=$_GET['status']!="i"?"readonly":"";?>  class="form-control" placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,2)'>
+                                <input type="text" name="codPra"  maxlength="3"  value="<?=$_GET['status']!="i"?$_GET["codPra"]:"";?>" <?=$readonly;?> class="form-control" placeholder="Codigo" required  onkeypress='return SomenteNumero(event)' onblur='ZerosEsquerda(this,2)'>
                             </div> 
                         </div>
                     
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Descricao</label>
-                                <input type="text" name="desPra" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_prateleira"]:"";?>"  <?=$_GET['status']=="e"?"readonly":"";?> class="form-control" placeholder="Descricao da Prateleira" required  >
+                                <input type="text" name="desPra" maxlength="80" value="<?=$_GET['status']!="i"?$registro["des_prateleira"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Descricao da Prateleira" required  >
                             </div>
                         </div>
       

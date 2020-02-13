@@ -179,7 +179,7 @@ class AcessoMenuPDO
              $sql.="            menu.id_menu  = acesso.id_menu ";
              $sql.="            and  acesso.id_usu=?";
 
-             $sql.=" WHERE acesso.id_menu_usuario IS NULL ";
+             #$sql.=" WHERE acesso.id_menu_usuario IS NULL ";
              
              $smtm=$conexao->prepare($sql);
              $smtm->bindValue(1,$codUsuario);

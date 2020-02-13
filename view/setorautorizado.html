@@ -148,18 +148,28 @@
 
                             </tbody>
                             <tfoot>
-                                <a href="sisarq.php?option=cadsetorautorizado&codId=&codAut&codEmp=&codSet&status=i" class="btn btn-success">
-                                  <i class="fa fa-plus"></i> 
-                                  <b>Cadastrar novo Acesso Empresa</b>
-                                </a>
+                                <?php
+                                if ( $acoes['sta_inc']==1 )
+                                {
+                                    echo '<a href="sisarq.php?option=cadsetorautorizado&status=i" class="btn btn-success">';
+                                    echo '<i class="fa fa-plus"></i>';
+                                    echo '<b>Cadastrar novo Acesso Empresa</b>';
+                                    echo '</a>';
+                                }
+                                ?>
                                 <hr>
                             </tfoot>
 
                         </table>
                         <hr />
-                        <div class="pull-right">
-                            <a href="?sisarq.php?option=cadsetorautorizado&codId=&codAut&codEmp=&codSet&status=i" class="btn btn-success"><i class="fa fa-plus"></i> <b>Cadastrar novo Acesso Empresa</b></a>
-                        </div>
+                        <?php
+                        if ( $acoes['sta_inc']==1 )
+                        {
+                            echo '<div class="pull-right">';
+                            echo '<a href="sisarq.php?option=cadsetorautorizado&status=i" class="btn btn-success"><i class="fa fa-plus"></i> <b>Cadastrar novo Acesso Empresa</b></a>';
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

@@ -17,6 +17,9 @@ Ano: Calendario Ano: Exercicio
 
 52)alteracao de novo autorizado bloqueio de codigo
 
+53) Qunando da Incluir acesso a empresa nao mostra no combo 
+os setores ja incluidos para o autorizado/empresa
+
 
 RELAÇAO DO BACKLOG
 

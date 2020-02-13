@@ -150,18 +150,28 @@
 
                             </tbody>
                             <tfoot>
-                                <a href="sisarq.php?option=cadsetor&status=i"" class="btn btn-success">
-                                  <i class="fa fa-plus"></i> 
-                                  <b>Cadastrar novo Setor</b>
-                                </a>
+                                <?php
+                                if ( $acoes['sta_inc']==1 )
+                                {
+                                    echo '<a href="sisarq.php?option=cadsetor&status=i"" class="btn btn-success">';
+                                    echo '<i class="fa fa-plus"></i>';
+                                    echo '<b>Cadastrar novo Setor</b>';
+                                    echo '</a>';
+                                }
+                                ?>
                                 <hr>
                             </tfoot>
 
                         </table>
                         <hr />
-                        <div class="pull-right">
-                            <a href="?sisarq.php?option=cadsetor&status=i"" class="btn btn-success"><i class="fa fa-plus"></i> <b>Cadastrar um novo Setor</b></a>
-                        </div>
+                        <?php
+                        if ( $acoes['sta_inc']==1 )
+                        {
+                            echo '<div class="pull-right">';
+                            echo '<a href="sisarq.php?option=cadsetor&status=i"" class="btn btn-success"><i class="fa fa-plus"></i> <b>Cadastrar um novo Setor</b></a>';
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
