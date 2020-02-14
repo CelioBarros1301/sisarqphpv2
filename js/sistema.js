@@ -129,7 +129,7 @@ function Right(str, n){
 
 function Valida(strStatus)
 {
-   if ( strStatus!='i') {
+   if ( strStatus=='e' || strStatus=='v' ) {
        return true;
    }
     var senha=document.getElementById('senha').value;
@@ -206,7 +206,6 @@ function changecomboautorizado(filtroAutorizado,opcao)
  */
 function changecombousuario(filtroUsuario,opcao)
  {
-    alert("usuario");
     if ( opcao=="acesso" )
     {
         window.location.href = "sisarq.php?option=acesso&filtroUsu="+filtroUsuario;

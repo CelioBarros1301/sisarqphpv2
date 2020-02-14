@@ -14,6 +14,7 @@ $readonly=$_GET['status']!="i"?"readonly":"";
 
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
+$status= ($_GET['status']=="e" || $_GET['status']=="v")? "v":"'i'"; 
 
 ?>
 <div class="content" id="content" style="margin: 0px;padding:0px;">
@@ -33,7 +34,8 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <form action="<?php echo $GLOBALS['project_index']; ?>/controller/usuario.php" method="post" enctype="multipart/form-data">
+
+                  <form onsubmit="return Valida(<?= $status;?>);" action="<?php echo $GLOBALS['project_index']; ?>/controller/usuario.php" method="post" enctype="multipart/form-data">
                   
                     
                     <div class="row"> <!--Linha 01-->
@@ -64,12 +66,17 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                             <div class="form-group">
                                 <label>Senha</label>
                                 <div class="input-group">
-                                    <input type="password" name="senUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha do usuario" required  >
-                                    <div class="input-group-append" >
-                                        <button onclick="MostraSenha('contrasenha');" class="input-group-text">
-                                            <i class="fa fa-eye"></i> 
-                                        </button>
-                                    </div>
+                                    <input type="password" id="senha" name="senUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Senha do usuario" required  >
+                                    <?php
+                                    if ( $_GET['status']=="i" || $_GET['status']=="a" )
+                                    {
+                                        echo '<div class="input-group-append" >';
+                                        echo '<button blur="'. "MostraSenha('senha')" . ';" class="input-group-text">';
+                                            echo '<i class="fa fa-eye"></i>'; 
+                                        echo '</button>';
+                                        echo '</div>';                          
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -77,13 +84,22 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                             <div class="form-group">
                                 <label>Confirmacao Senha</label>
                                 <div class="input-group">
-                                    <input type="password" name="consenUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Confirmacao Senha do usuario" required  >
-                                    <div class="input-group-append" >
-                                        <button onclick="MostraSenha('contrasenha');" class="input-group-text">
-                                            <i class="fa fa-eye"></i> 
-                                        </button>
-                                    </div>
+                                    <input type="password" id="contrasenha" name="consenUsu" maxlength="80" value="<?=$_GET['status']!="i"?base64_decode($registro["sen_usuario"]):"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Confirmacao Senha do usuario" required  >
+                                    <?php
+                                    if ( $_GET['status']=="i" || $_GET['status']=="a" )
+                                    {
+                                    
+                                        echo '<div class="input-group-append" >';
+                                        echo '<button onclick="' . "MostraSenha('contrasenha')" . ';" class="input-group-text">';
+                                            echo '<i class="fa fa-eye"></i>'; 
+                                        echo '</button>';
+                                        echo '</div>';
+                                    }
+                                    ?>
                                 </div>
+                                <span>
+                                    <span id="errorsenha" class="text-danger"></span>
+                                </span>
                             </div>
                         </div>
 

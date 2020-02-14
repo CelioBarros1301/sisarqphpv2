@@ -5,7 +5,7 @@ PRIORIDADES:
 48) Cadastro de Acesso a Empresa, quando click no combo de
 empresa não esta deixando o Autorizado selecionado R E S O L V I D O
 
-49) Ver o bloqueio de acesso a opcao de INCLUIR como o acesso ao sistema
+49) Ver o bloqueio de acesso a opcao de INCLUIR como o acesso ao sistema R E S O L V I D O
 
 50) FormDocumento:
      Vericar Documento Final > Documento Inicial
@@ -20,17 +20,20 @@ Ano: Calendario Ano: Exercicio
 53) Qunando da Incluir acesso a empresa nao mostra no combo 
 os setores ja incluidos para o autorizado/empresa
 
+54) Criar campo na tb_documento com o id_usuario logado no sistema
+
+55) Criar agendamento para liberar usuarios logados . agendar para 11:00 todo dias 
 
 RELAÇAO DO BACKLOG
 
 1) Verificar se tabela tem informação antes do preenchimendo da GRID R E S O L V I D O
   
-2) Incluir a formataçcao de campos no form de autorizados
+2) Incluir a formataçcao de campos no form de autorizados R E S O L V I D O 
 
 3) Validar de a Senha e confirmacao de senha no form de autorizados são iguais
 antes de submeter o form R E S O L V I D O
 
-4) Analiase a troca do login de acesso do sistema pelo email
+4) Analiase a troca do login de acesso do sistema pelo email R E S O L V I D O 
 
 5) Configura o botao cancelar 0 redirecionar para a tela de GRID R E S O L V I D O
 
@@ -53,7 +56,7 @@ aos dados da empresaautorizadoas
 13)Alterar o acesso do sistema via banco retira o arquyivo txt R E S O L V I D O 
 
 14) Validar de a Senha e confirmacao de senha no form de USUARIO são iguais
-antes de submeter o form
+antes de submeter o form R E S O L V I D O 
 
 15)ver o tratamento de erro e enviar o erro para atela com tratamento
 
@@ -104,7 +107,7 @@ propriedade form-control-lg form-control-sm)
 33) propriedade Tooltips/title ( incluir nos controle de Codigo para informar que informando zero ira gerar o proximo da sequencia)
 
 34) Alterar o processo quando for informado o codigo(Arquivo,corredor,estante,prateleira,caixa,empresa) mostrar
-os dadosdo registro igual ao botao EDITAR
+os dadosdo registro igual ao botao EDITAR R E S O L V I D O 
 
 35) Incluir label flotoante -https://getbootstrap.com/docs/4.4/examples/floating-labels/
 
@@ -121,20 +124,20 @@ o registro apos result final . o indice do array sera cont(result)
 
 40) REFATORAR parte de todas arquivo de regras para teste se
 o $_GET EXISTE e alterar a os parametros de envio da url qdo
-tiver valores 
+tiver valores  R E S O L V I D O 
 
 41) Quando do cadastro de empresa incluir linha na tabela tb_referencia  VERIFICAR SE NECESSARIO
 CRIADO A OPCAO DE GERAR O PROXIMO DOCUMENTO VIA SELECT MAX
 
 42)http://phpsqlbr.blogspot.com/2009/04/cookies-no-php.html (cookie) R E S O L V I D O
 
-43) Ver o cadastro de setores por empresa
+43) Ver o cadastro de setores por empresa R E S O L V I D O 
 
 $codPrateleira =isset($_GET['codPra'])?$_GET['codPra']:"";
 
 44) incluir no formdocumento Data Destruicao R E S O L V I D O 
 
-45) Verificar propriedade REQUIRED nos campos dos forms
+45) Verificar propriedade REQUIRED nos campos dos forms R E S O L V I D O 
 
 46) Ativar a funcionalidade botao de consulta da grid R E S O L V I D O
 

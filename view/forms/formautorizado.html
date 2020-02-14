@@ -13,6 +13,8 @@ $selecao=$_GET["status"]!="i"?"selected":"";
 $readonly=$_GET['status']!="i"?"readonly":"";
 
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
+$status= ($_GET['status']=="e" || $_GET['status']=="v")? "v":"'i'"; 
+
 
 ?>
 
@@ -34,7 +36,7 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
                 <div class="panel-body">
                   <!-- MEET FORM CONTROL HERE .class="simple_form new_bae" id="new_bae" data-parsley-validate="true" novalidate="novalidate" -->
                   <!-- <div class="row"> -->
-                  <form onsubmit="return Valida(<?=$_GET['status'];?>);" action="<?php echo $GLOBALS['project_index']; ?>/controller/autorizado.php" method="post" enctype="multipart/form-data">
+                  <form onsubmit="return Valida(<?=$status;?>);" action="<?php echo $GLOBALS['project_index']; ?>/controller/autorizado.php" method="post" enctype="multipart/form-data">
                   
                     <div class="row"> <!--Linha 01-->
 

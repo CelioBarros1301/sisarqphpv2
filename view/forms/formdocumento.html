@@ -54,7 +54,7 @@
 
     $ajaxTipoDocumento = "";
     $ajaxTipoDocumento = "cargaAjax('" . $GLOBALS['project_index'] . "/controller/ajax.php?'" . ", comboSetor,'tipodocumento');";
-    $ajaxTipoDocumento = 'onmouseout=' .'"'.$ajaxTipoDocumento.'"';
+    $ajaxTipoDocumento = 'onblur=' .'"'.$ajaxTipoDocumento.'"';
     $ajaxTipoDocumento = ($_GET["status"]=="i" || $_GET["status"]=="a")?$ajaxTipoDocumento:"";
  
 ?>
@@ -62,7 +62,7 @@
     <ol class="breadcrumb pull-right">
         <li class="breadcrumb-item"><a href="#">Início</a></li>
         <li class="breadcrumb-item active">Novo Documento</li>
-        <li class="breadcrumb-item active" onclick="history.back();"><a href="#">Listar Documentos</a>
+        <li class="breadcrumb-item active" ><a href="sisarq.php?option=documento&status=f">Listar Documentos</a>
         </li>
     </ol>
     <h1 class="page-header">Novo Documento</h1>
@@ -93,7 +93,7 @@
                             
                             <div class="form-group ">
                                 <label>Empresa</label>
-                                <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" <?=$ajaxSetor;?> <?=$ajaxTipoDocumento;?> <?=$ajaxArquivo;?> >
+                                <select id="idEmpresa" required name="codEmp" <?=$readonly;?> class="form-control" <?=$ajaxSetor;?> <?=$ajaxTipoDocumento;?> <?=$ajaxArquivo;?> >
                                  <?php
                                     if ( $_GET["status"]=="i")
                                     { 
@@ -116,7 +116,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Setor </label><br>
-                                <select id="idSetor" name="codSet"  <?=$ajaxCaixa;?> class="form-control"  <?=$readonlyCampo;?>>
+                                <select id="idSetor" required name="codSet"  <?=$ajaxCaixa;?> class="form-control"  <?=$readonlyCampo;?>>
                                     <?php
                                       if ( $_GET["status"]!="i" )
                                       { 
@@ -134,7 +134,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Caixa</label><br>
-                                <select id="idCaixa" name="codCai" class="form-control" <?=$readonlyCampo;?>>
+                                <select id="idCaixa" required  name="codCai" class="form-control" <?=$readonlyCampo;?>>
                                     <?php
                                     if ( $_GET["status"]!="i" )
                                     { 
@@ -173,7 +173,7 @@
                         <div class="col-md-3" >
                             <div class="form-group">    
                                 <label> Arquivo </label><br>	
-                                <select id="idArquivo" <?=$ajaxCorredor;?> name="codArq" <?=$readonly;?> class="form-control" >
+                                <select id="idArquivo" required <?=$ajaxCorredor;?> name="codArq" <?=$readonly;?> class="form-control" >
                                     <?php
                                     if ( $_GET["status"]!="i" )
                                     { 
@@ -192,7 +192,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Corredor </label><br>
-                                 <select id="idCorredor" <?=$ajaxEstante;?> name="codCor"  class="form-control" <?=$readonlyCampo;?> >
+                                 <select id="idCorredor" required  <?=$ajaxEstante;?> name="codCor"  class="form-control" <?=$readonlyCampo;?> >
                                     <?php
                   
                                     if ( $_GET["status"]!="i" )
@@ -213,7 +213,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Estante</label><br>
-                                <select id="idEstante" <?=$ajaxPrateleira;?> name="codEst"  class="form-control" <?=$readonlyCampo;?> >
+                                <select id="idEstante"  required <?=$ajaxPrateleira;?> name="codEst"  class="form-control" <?=$readonlyCampo;?> >
                                     <?php
                   
                                     if ( $_GET["status"]!="i" )
@@ -234,7 +234,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Prateleira </label><br>
-                                <select id="idPrateleira" name="codPra"  <?=$readonlyCampo;?>  class="form-control" >
+                                <select id="idPrateleira" required name="codPra"  <?=$readonlyCampo;?>  class="form-control" >
                                     <?php
                                         $CodPra=isset($_GET["codPra"])?$_GET["codPra"]:"";
                                         if ( $_GET["status"]=="i" && $CodPra=="" )
@@ -277,7 +277,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Tipo</label><br>
-                                <select id="idTipo" name="codTip"  <?=$readonlyCampo;?> class="form-control" >
+                                <select id="idTipo" required name="codTip"  <?=$readonlyCampo;?> class="form-control" >
                                     <?php
                                         $CodTip=isset($_GET["codTip"])?$_GET["codTip"]:"";
                                         if ( $_GET["status"]=="i" && $CodTip=="" )
@@ -337,21 +337,21 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Emissão Inicial</label><br>
-                                <input type="date"  name="emiIniDoc"  <?=$readonlyCampo;?> class="form-control" id="EmiIniDoc" placeholder="Emissao Inicial" value="<?=$_GET['status']!="i"?$registro["dt_ini_documento"]:"";?>" >
+                                <input type="date"  required name="emiIniDoc"  <?=$readonlyCampo;?> class="form-control" id="EmiIniDoc" placeholder="Emissao Inicial" value="<?=$_GET['status']!="i"?$registro["dt_ini_documento"]:"";?>" >
                             </div>
                         </div>
     
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Emissão Final</label><br>
-                                <input  type="date" name="emiFinDoc" <?=$readonlyCampo;?>  class="form-control" id="EmiFinDoc" placeholder="Emissao Final" value="<?=$_GET['status']!="i"?$registro["dt_fin_documento"]:"";?>" >
+                                <input  type="date" required name="emiFinDoc" <?=$readonlyCampo;?>  class="form-control" id="EmiFinDoc" placeholder="Emissao Final" value="<?=$_GET['status']!="i"?$registro["dt_fin_documento"]:"";?>" >
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Data Destruicao</label><br>
-                                <input  type="date" name="desDoc"  <?=$readonlyCampo;?> class="form-control" id="DesDoc" placeholder="Destruicao" value="<?=$_GET['status']!="i"?$registro["dt_des_documento"]:"";?>" >
+                                <input  type="date" required name="desDoc"  <?=$readonlyCampo;?> class="form-control" id="DesDoc" placeholder="Destruicao" value="<?=$_GET['status']!="i"?$registro["dt_des_documento"]:"";?>" >
                             </div>
                         </div>
                         
@@ -364,7 +364,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="texDoc">Detalhe Documento:</label>
-                                <textarea name ="texDoc" <?=$readonlyCampo;?> Class="form-control" rows="3" id="TexDoc" placeholder="Detalhar Documento"> <?=$_GET['status']!="i"?$registro["des_documento"]:"";?></textarea>
+                                <textarea required name ="texDoc" <?=$readonlyCampo;?> Class="form-control" rows="3" id="TexDoc" placeholder="Detalhar Documento"> <?=$_GET['status']!="i"?$registro["des_documento"]:"";?></textarea>
                             </div>
                         </div>
                     </div>

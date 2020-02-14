@@ -159,6 +159,7 @@
     if ( isset($_POST['operacao']))
     {
         $operacao       = $_POST['operacao'];
+        var_dump($_POST);
         
         $codDocumento   = $_POST['codDoc'];
         $codEmpresa     = $_POST['codEmp'];
@@ -182,9 +183,9 @@
        
         # Gerando as informacoes do Objeto
         
-        $documento->setIdDocumento   ($_POST['codDoc']);
-        $documento->setCodigoEmpresa ($_POST['codEmp']);
-        $documento->setCodigoSetor   ($_POST['codSet']);
+        $documento->setIdDocumento($_POST['codDoc']);
+        $documento->setCodigoEmpresa($_POST['codEmp']);
+        $documento->setCodigoSetor($_POST['codSet']);
         $documento->setCodigoArquivo($_POST['codArq']);
         $documento->setCodigoCorredor($_POST['codCor']);
         $documento->setCodigoEstante($_POST['codEst']);
