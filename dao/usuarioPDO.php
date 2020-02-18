@@ -147,13 +147,15 @@ class UsuarioPDO
         $conexao=Conexao::getConnection();
         $sql="UPDATE  tb_usuarios SET ";
         $sql.='`sta_usuario`=""';
-
-        $sql.= " WHERE id_usu=?";
-
+        if ( isset($codUsuario)  && $codigo!="") 
+        {
+            $sql.= " WHERE id_usu=?";
+        }
         $smtm=$conexao->prepare($sql);
-
-        $smtm->bindValue(1,$codigo);
-
+        if ( $codigo!="")
+        { 
+            $smtm->bindValue(1,$codigo);
+        }
         $result=$smtm->execute();
         ##$conexao->commit();
         $conexao=null;
