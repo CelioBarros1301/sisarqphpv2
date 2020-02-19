@@ -3,6 +3,7 @@
 
 
 require_once 'model/class/dompdf/autoload.inc.php';
+
 use Dompdf\Dompdf;
 
 // instanciando o dompdf
@@ -70,8 +71,12 @@ $html='<table border=2 cellpadding=3 style="max-width: 300px">';
                                                         $dompdf->loadHtml($html);
 
 //Definindo o tipo de fonte padrão
+ob_start();
+require_once 'modeloCaixa.html';
+$pdf=ob_get_clean();
 
-$dompdf->set_option('defaultFont', 'Times New Roman’');
+##$dompdf->set_option('defaultFont', 'Times New Roman’');
+$dompdf->loadhtml($pdf);
 
 // Definindo o papel e a orientação
 
@@ -84,5 +89,6 @@ $dompdf->render();
 // Enviando o PDF para o browser
 
 $dompdf->stream();
+// File
 
 ?>

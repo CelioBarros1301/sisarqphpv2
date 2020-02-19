@@ -140,6 +140,13 @@
                                                         echo '<i class="fa fa-eye"></i>';
                                                     echo '</a> ';
                                                 }
+                                                if ( $acoes['sta_rel']==1 )
+                                                {
+                                                    $link='href=sisarq.php?option=relcaixa&codEmp='. $dataTable[$i]['CodEmpresa'].'&codCai='. $dataTable[$i]['CodCaixa'].'&status=r';
+                                                    echo '<a name="report" class="btn btn-sucess btn-sm"'.$link.'>';
+                                                        echo '<i class="fa fa-file-pdf"></i>';
+                                                    echo '</a> ';
+                                                }
                                            
                                            
                                             echo '</td>';

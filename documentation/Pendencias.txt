@@ -24,6 +24,16 @@ os setores ja incluidos para o autorizado/empresa
 
 55) Criar agendamento para liberar usuarios logados . agendar para 11:00 todo dias 
 
+TESTAR:
+https://getbootstrap.com/docs/4.4/content/tables/
+
+<div class="table-responsive-sm">
+  <table class="table">
+    ...
+  </table>
+</div>
+
+
 RELAÇAO DO BACKLOG
 
 1) Verificar se tabela tem informação antes do preenchimendo da GRID R E S O L V I D O
