@@ -12,6 +12,7 @@ Class Autorizado
     private $celular;
     private $telefone;
     private $login;
+    private $liberado;
     
     
     private $descricao;
@@ -97,6 +98,16 @@ Class Autorizado
     public function getLogin()
     {
         return $this->login;
+    }
+
+
+    public function setLiberado($liberado)
+    {
+        $this->liberado=$liberado;
+    }
+    public function getLiberado()
+    {
+        return $this->liberado;
     }
     
 }

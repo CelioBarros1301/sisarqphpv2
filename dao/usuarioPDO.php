@@ -66,10 +66,11 @@ class UsuarioPDO
             $conexao=Conexao::getConnection();
             $sql='INSERT INTO tb_usuarios ( ';
             $sql.='`log_usuario`,' ;
-            $sql.='`nome_usuario`,' ;
+            $sql.='`nome_usuario`,';
             $sql.='`sen_usuario`,' ;
             $sql.='`sta_usuario`,' ;
-            $sql.='`per_usuario`) ';
+            $sql.='`per_usuario`,' ;
+            $sql.='`lib_usuario`) ';
             
             $sql.=' VALUES (?,?,?,?,?)';
             
@@ -81,6 +82,8 @@ class UsuarioPDO
             $smtm->bindValue(3,base64_encode($usuario->getSenha()));
             $smtm->bindValue(4,$usuario->getStatus());
             $smtm->bindValue(5,$usuario->getPerfil());
+            $smtm->bindValue(6,$usuario->getLiberado());
+            
             
             $result=$smtm->execute();
             
@@ -110,7 +113,9 @@ class UsuarioPDO
         $sql.='`nome_usuario`=?,';
         $sql.='`sen_usuario` =?,';
         $sql.='`sta_usuario` =?,';
-        $sql.='`per_usuario` =? ';
+        $sql.='`per_usuario` =?,';
+        $sql.='`lib_usuario` =? ';
+        
 
         $sql.= " WHERE id_usu=?";
 
@@ -120,7 +125,8 @@ class UsuarioPDO
         $smtm->bindValue(2,base64_encode($usuario->getSenha()));
         $smtm->bindValue(3,$usuario->getStatus());
         $smtm->bindValue(4,$usuario->getPerfil());
-        $smtm->bindValue(5,$usuario->getCodigo());
+        $smtm->bindValue(5,$usuario->getLiberado());
+        $smtm->bindValue(6,$usuario->getCodigo());
 
         $result=$smtm->execute();
         ##$conexao->commit();
@@ -147,7 +153,7 @@ class UsuarioPDO
         $conexao=Conexao::getConnection();
         $sql="UPDATE  tb_usuarios SET ";
         $sql.='`sta_usuario`=""';
-        if ( isset($codUsuario)  && $codigo!="") 
+        if ( isset($codigo)  && $codigo!="") 
         {
             $sql.= " WHERE id_usu=?";
         }
@@ -168,7 +174,9 @@ class UsuarioPDO
         $conexao=Conexao::getConnection();
         $result=array();
         $sql="SELECT id_usu Codigo,log_usuario Login , nome_usuario Nome,";
-        $sql.="CASE WHEN per_usuario ='1' THEN 'Administrador' ELSE 'Usuario Padrao' END as Perfil";
+        $sql.="CASE WHEN per_usuario ='1' THEN 'Administrador' ELSE 'Usuario Padrao' END as Perfil,";
+        $sql.="CASE WHEN lib_usuario ='1' THEN 'Liberado' ELSE 'Bloqueado' END as Status";
+       
         $sql.=" FROM tb_usuarios ";
 
         if (isset($codUsuario) && $codUsuario!="")
@@ -193,7 +201,9 @@ class UsuarioPDO
         $result =array();
         
         $sql="SELECT id_usu Codigo,log_usuario Login ,nome_usuario Nome,";
-        $sql.="CASE WHEN per_usuario ='1' THEN 'Administrador' ELSE 'Usuario Padrao' END as Perfil";
+        $sql.="CASE WHEN per_usuario ='1' THEN 'Administrador' ELSE 'Usuario Padrao' END as Perfil,";
+        $sql.="CASE WHEN lib_usuario ='1' THEN 'Liberado' ELSE 'Bloqueado' END as Status";
+       
         $sql.=" FROM tb_usuarios ";
         $sql.= " WHERE sta_usuario != ? AND ";
         $sql.= "       id_usu      != ?     ";
@@ -206,6 +216,35 @@ class UsuarioPDO
         $conexao=null;
         return  $result;
     }
+
+
+    public function liberaUsuario()
+    {
+        $conexao=Conexao::getConnection();
+        $sql="SELECT * FROM tb_usuarios ";
+        $sql.= " WHERE sta_usuario!=''";
+        $smtm=$conexao->prepare($sql);
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        foreach($result as $registro)
+        {
+            $liberar=base64_decode($registro['sta_usuario']);
+            if (substr($liberar,0,8)<date('Ymd'))
+            {
+                $sql="UPDATE  tb_usuarios SET ";
+                $sql.='`sta_usuario`=""';
+                $sql.= " WHERE id_usu=?";
+                $smtm=$conexao->prepare($sql);
+                $smtm->bindValue(1,$registro['id_usu']);
+                $result=$smtm->execute();
+            }
+
+        }
+        $conexao=null;
+  
+    }
+
+
 
 }
 

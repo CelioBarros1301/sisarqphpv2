@@ -92,6 +92,7 @@
                             <thead>
                                 <tr>
                                     <?php 
+                                        echo "<th></th>";
                                         foreach ($dataTableColunas as $coluna)
                                         {
                                             if (substr($coluna,0,3)!="Cod" )
@@ -106,7 +107,8 @@
                             <tbody>
                                 <?php for ($i=0;$i < count($dataTable);$i++ ) {
                                         echo "<tr>";
-                                        
+                                            echo "<td></td>";
+                                           
                                             foreach ($dataTable[$i] as $key=>$campo)
                                             {
                                                 if (substr($key,0,3)!="Cod" )
@@ -142,7 +144,7 @@
                                                 }
                                                 if ( $acoes['sta_rel']==1 )
                                                 {
-                                                    $link='href=sisarq.php?option=relcaixa&codEmp='. $dataTable[$i]['CodEmpresa'].'&codCai='. $dataTable[$i]['CodCaixa'].'&status=r';
+                                                    $link='href=modeloCaixa.html target=”_blank”';
                                                     echo '<a name="report" class="btn btn-sucess btn-sm"'.$link.'>';
                                                         echo '<i class="fa fa-file-pdf"></i>';
                                                     echo '</a> ';

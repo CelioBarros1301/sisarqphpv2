@@ -9,6 +9,8 @@ Class Usuario
     private $senha;
     private $status;
     private $perfil;
+    private $liberado;
+
 
     public function setCodigo($codigo)
     {
@@ -63,6 +65,16 @@ Class Usuario
     {
         return $this->perfil;
     }
+   
+    public function setLiberado($liberado)
+    {
+        $this->liberado=$liberado;
+    }
+    public function getLiberado()
+    {
+        return $this->liberado;
+    }
+
    
 }
 

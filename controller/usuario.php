@@ -53,6 +53,7 @@
         $usuario->setNome($_POST['nomUsu']);
         $usuario->setLogin($_POST['logUsu']);
         $usuario->setSenha($_POST['senUsu']);
+        
         if (isset($_POST['perfUsu']))
         {
             $usuario->setPerfil($_POST['perfUsu']);
@@ -60,6 +61,14 @@
         else
         {
             $usuario->setPerfil('0');
+        }
+        if (isset($_POST['libUsu']))
+        {
+            $usuario->setLiberado($_POST['libUsu']);
+        }
+        else
+        {
+            $usuario->setLiberado('0');
         }
         $usuario->setStatus("");
         

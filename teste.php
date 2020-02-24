@@ -15,21 +15,20 @@
 
     #var_dump($tabelaMenu);
     foreach ($tabelaMenu  as  $valor){
-        echo $valor['Opcao']."<br/>";
+     #   echo $valor['Opcao']."<br/>";
     }
+   
+    include_once "/model/class/Usuario.class.php";
+    include_once "/dao/usuarioPDO.php";
+    include_once "/dao/menuPDO.php";
+
+	# Criando a sessão
+    session_start();
+    
+    #liberar usuarios logados
+    $usuarioPDO = new UsuarioPDO();
+    $registro=$usuarioPDO->liberaUsuario();
+
+      
 ?>
 
-<html>
-
-    <head>
-    
-    </head>
-    <body>
-    <?Php
-    foreach ($tabelaMenu  as  $valor){
-        echo $valor['Opcao']."<br/>";
-    }
-    ?>
-
-    </body>
-</html>

@@ -70,6 +70,15 @@
         $usuario->setSenha($_POST['senAut']);
         $usuario->setStatus("");
         $usuario->setPerfil("0");
+
+        if (isset($_POST['libAut']))
+        {
+            $usuario->setLiberado($_POST['libAut']);
+        }
+        else
+        {
+            $usuario->setLiberado('0');
+        }
         
         switch ($operacao)
         {

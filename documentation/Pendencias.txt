@@ -22,7 +22,13 @@ os setores ja incluidos para o autorizado/empresa
 
 54) Criar campo na tb_documento com o id_usuario logado no sistema
 
-55) Criar agendamento para liberar usuarios logados . agendar para 11:00 todo dias 
+55) Criar rotina para liberar usuarios logados .R E S O L V I D O 
+
+56) Alterar acesso a documentos autorizados somente LIBERADOS
+
+57) Alterar a carga do combo de Autorizados,preencher todos os autorizados
+se usuario logado for administrador, senao so carregar com o Autorizado 
+logado no sistema
 
 TESTAR:
 https://getbootstrap.com/docs/4.4/content/tables/
@@ -201,3 +207,22 @@ ZERAR:
 		   setCookie('CookieLembrete', base64_encode('SIM'), $expira);
 		   setCookie('CookieEmail', base64_encode($email), $expira);
 		   setCookie('CookieSenha', base64_encode($senha), $expira);
+
+DOMPDF 
+
+RECONHER bootstrap
+URL:https://www.schoolofnet.com/forum/topico/como-fazer-o-dompdf-reconhecer-bootstrap-do-html-enviado-a-ele-8531
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+$options = new Options();
+$options->set('isRemoteEnabled', TRUE);
+$dompdf = new Dompdf($options);
+
+https://medium.com/@clebercarvalho/como-gerar-arquivos-pdf-com-php-a0597f63d8b
+
+
+ABRIR EM OUTRA 
+<a href=”http:\\linkdaoutrapagina.com” target=”_blank”>
+
+

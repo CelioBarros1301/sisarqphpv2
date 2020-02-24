@@ -11,6 +11,7 @@ include_once $GLOBALS['project_path'].'controller/autorizado.php';
   
 $selecao=$_GET["status"]!="i"?"selected":"";
 $readonly=$_GET['status']!="i"?"readonly":"";
+$disabled=($_GET['status']=="e" || $_GET['status']=="v")?"disabled":"";
 
 $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 $status= ($_GET['status']=="e" || $_GET['status']=="v")? "v":"'i'"; 
@@ -49,10 +50,19 @@ $status= ($_GET['status']=="e" || $_GET['status']=="v")? "v":"'i'";
                             </div>
                         </div>
                     
-                        <div class="col-md-10" >
+                        <div class="col-md-7" >
                             <div class="form-group">    
                                 <label>Nome</label>
                                 <input type="text" name="nomeAut" maxlength="80" value="<?=$_GET['status']!="i"?$registro["nom_autorizado"]:"";?>"  <?=$readonlyCampo;?> class="form-control" placeholder="Nome do Autorizado" required  >
+                            </div>
+                        </div>
+
+                        <div class="col-md-3"> 
+                            <div class="form-check">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" <?=$registro["lib_autorizado"]=='1'?'checked':"";?> <?=$disabled;?> class="custom-control-input" value="1"  id="liberado" name="libAut">
+                                    <label class="custom-control-label" for="liberado">Liberado</label>
+                                </div>
                             </div>
                         </div>
                     </div><!--Linha 01-->

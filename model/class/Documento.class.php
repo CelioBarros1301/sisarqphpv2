@@ -21,6 +21,7 @@ Class Documento
     private $descricao;
     private $anoExercicio;
     private $anoCalendario;
+    private $idUsuario;
     
     
     public function setIdDocumento($codigo)
@@ -187,6 +188,15 @@ Class Documento
     public function getAnoCalendario()
     {
         return $this->anoCalendario;
+    }
+
+    public function setIdUsuario($codigo)
+    {
+        $this->idUsuario=$codigo;
+    }
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
     }
    
     

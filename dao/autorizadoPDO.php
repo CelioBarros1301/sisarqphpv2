@@ -50,6 +50,7 @@ class AutorizadoPDO
         $sql.='`email_autorizado`,';
         $sql.='`cel_autorizado`,';
         $sql.='`tel_autorizado`,';
+        $sql.='`lib_autorizado`,';
         $sql.='`log_autorizado`)';
         
         $sql.=' VALUES ( ';
@@ -58,11 +59,11 @@ class AutorizadoPDO
 
         {
             $sql.='(SELECT ifnull(right(concat("0000",max(autorizado.cod_autorizado)+1),4),"0001") from tb_autorizados autorizado),';
-            $sql.='?,?,?,?,?,?,?,?)';
+            $sql.='?,?,?,?,?,?,?,?,?)';
         }
         else
         {
-            $sql.='?,?,?,?,?,?,?,?,?)';
+            $sql.='?,?,?,?,?,?,?,?,?,?)';
         }
         $smtm=$conexao->prepare($sql);
         if ($codigo=="0000")
@@ -74,7 +75,8 @@ class AutorizadoPDO
                 $smtm->bindValue(5,$autorizado->getEmail());
                 $smtm->bindValue(6,$autorizado->getCelular());
                 $smtm->bindValue(7,$autorizado->getTelefone());
-                $smtm->bindValue(8,$autorizado->getLogin());
+                $smtm->bindValue(8,$autorizado->getLiberado());
+                $smtm->bindValue(9,$autorizado->getLogin());
                 
         }
         else
@@ -87,7 +89,8 @@ class AutorizadoPDO
             $smtm->bindValue(6,$autorizado->getEmail());
             $smtm->bindValue(7,$autorizado->getCelular());
             $smtm->bindValue(8,$autorizado->getTelefone());
-            $smtm->bindValue(9,$autorizado->getLogin());
+            $smtm->bindValue(9,$autorizado->getLiberado());
+            $smtm->bindValue(10,$autorizado->getLogin());
           
         }
         $result=$smtm->execute();
@@ -99,14 +102,15 @@ class AutorizadoPDO
     {
         $conexao=Conexao::getConnection();
         $sql="UPDATE  tb_autorizados SET ";
-        $sql.='`nom_autorizado`=?,';
-        $sql.='`emp_autorizado`=?,';
-        $sql.='`set_autorizado`=?,';
-        $sql.='`fun_autorizado`=?,';
+        $sql.='`nom_autorizado`  =?,';
+        $sql.='`emp_autorizado`  =?,';
+        $sql.='`set_autorizado`  =?,';
+        $sql.='`fun_autorizado`  =?,';
         $sql.='`email_autorizado`=?,';
-        $sql.='`cel_autorizado`=?,';
-        $sql.='`tel_autorizado`=?,';
-        $sql.='`log_autorizado`=?';
+        $sql.='`cel_autorizado`  =?,';
+        $sql.='`tel_autorizado`  =?,';
+        $sql.='`log_autorizado`  =?,';
+        $sql.='`lib_autorizado`  =?';
        
         $sql.= " WHERE cod_autorizado=?";
         
@@ -120,7 +124,9 @@ class AutorizadoPDO
         $smtm->bindValue(6,$autorizado->getCelular());
         $smtm->bindValue(7,$autorizado->getTelefone());
         $smtm->bindValue(8,$autorizado->getLogin());
-        $smtm->bindValue(9,$autorizado->getCodigo());
+        $smtm->bindValue(9,$autorizado->getLiberado());
+        $smtm->bindValue(10,$autorizado->getCodigo());
+        
         $result=$smtm->execute();
         $conexao=null;
         return $result;
@@ -147,7 +153,9 @@ class AutorizadoPDO
         $sql="SELECT cod_autorizado CodAutorizado,";
         $sql.="      nom_autorizado Autorizado   ,";
         $sql.="      emp_autorizado Empresa      ,";
-        $sql.="      cel_autorizado Celular       ";
+        $sql.="      cel_autorizado Celular      , ";
+        $sql.="CASE WHEN lib_autorizado ='1' THEN 'Liberado' ELSE 'Bloqueado' END as Status";
+     
         $sql.=" FROM tb_autorizados ";
         
         if ( isset($filtro) && $filtro!="" )

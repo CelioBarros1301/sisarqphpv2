@@ -63,6 +63,7 @@ class DocumentoPDO
             $sql.='`des_documento`    ,';
             $sql.='`ref_exe_documento`,';
             $sql.='`ref_cal_documento`,';
+            $sql.='`id_usu`           ,';
             $sql.='`cod_status_ant`)'   ;
             $sql.=' VALUES ('            ;
             
@@ -70,7 +71,7 @@ class DocumentoPDO
             if ($documento->getIdDocumento()=="00000000000000000")
             {
                 $sql.='(SELECT CONCAT("' .$documento->getCodigoEmpresa().'"'. ', ifnull(right(concat("00000000000000000000",CAST(max(documento.cod_documento) AS UNSIGNED)+1),17),"00000000000000001")) from tb_documentos documento where documento.cod_empresa="'.$documento->getCodigoEmpresa().'"),';
-                $sql.='?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+                $sql.='?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
                 
                 $smtm=$conexao->prepare($sql);
 
@@ -96,13 +97,14 @@ class DocumentoPDO
 
                 $smtm->bindValue(16,$documento->getAnoExercicio());
                 $smtm->bindValue(17,$documento->getAnoCalendario());
-                $smtm->bindValue(18,$documento->getCodigoStatus());
+                $smtm->bindValue(18,$documento->getIdUsuario());
+                $smtm->bindValue(19,$documento->getCodigoStatus());
 
             }
             else
             {
 
-                $sql.=' (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+                $sql.=' (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
                 $smtm=$conexao->prepare($sql);
 
                 $smtm->bindValue(1,$documento->getIdDocumento());
@@ -128,7 +130,8 @@ class DocumentoPDO
 
                 $smtm->bindValue(17,$documento->getAnoExercicio());
                 $smtm->bindValue(18,$documento->getAnoCalendario());
-                $smtm->bindValue(19,$documento->getCodigoStatus());
+                $smtm->bindValue(19,$documento->getIdUsuario());
+                $smtm->bindValue(20,$documento->getCodigoStatus());
             }    
          
             $result=$smtm->execute();

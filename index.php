@@ -80,6 +80,9 @@
                 if ( $_GET['error']=="user_not_acess" ){
                     echo '<span class="text-danger" >Usuário Sem Permissão</span>';
                 }
+                if ( $_GET['error']=="blocked access" ){
+                  echo '<span class="text-danger" >Usuário Bloqueado</span>';
+                }
             }
         ?>
       </div>

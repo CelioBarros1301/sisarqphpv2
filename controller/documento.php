@@ -3,6 +3,10 @@
     #
     # Regras de Negocio para a Processo de Documento
     #
+
+    #Lendo variavel de sessao
+    session_start();
+    $user=$_SESSION['user'];
    
     # Incluindo as classes necessárias
     include_once dirname(__DIR__).'/model/config.php';
@@ -204,6 +208,7 @@
         $documento->setAnoExercicio($_POST['anoExe']);
         $documento->setAnoCalendario($_POST['anoCal']);
         $documento->setCodigoStatus('02');
+        $documento->setIdUsuario($user['id_usu']);
         
         
         switch ($operacao)

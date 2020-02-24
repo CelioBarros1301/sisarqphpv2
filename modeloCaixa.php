@@ -88,7 +88,7 @@ $dompdf->render();
 
 // Enviando o PDF para o browser
 
-$dompdf->stream();
+$dompdf->stream("teste.pdf",true);
 // File
 
 ?>

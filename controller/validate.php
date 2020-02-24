@@ -140,8 +140,11 @@ function validate_options(){
 		case 'cadcaixa':
 			include_once $GLOBALS['project_path'].'/view/forms/formcaixa.html';
 		break;
+		case 'relcaixa':	
+			include_once $GLOBALS['project_path'].'/view/caixa.html';			
+		break;
 
-
+		
 
 		# setor
 		case 'setor':	

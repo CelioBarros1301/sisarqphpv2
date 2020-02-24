@@ -9,14 +9,18 @@
     include_once $project_path."/dao/menuPDO.php";
 
 	# Criando a sessão
-	session_start();
+    session_start();
+    
+    #liberar usuarios logados
+    $usuarioPDO = new UsuarioPDO();
+    $registro=$usuarioPDO->liberaUsuario();
+
        
     #Dados dos Formularios
     $email = $_POST['email'];
     $senha = base64_encode($_POST['senha']);
     
     #Localizar o usuario
-    $usuarioPDO = new UsuarioPDO();
     $registro   = $usuarioPDO->buscaLogin($email);
 
     #Verificar se Usuario Logado
@@ -39,8 +43,12 @@
     elseif ($registro['sta_usuario']!=$logado && $registro['sta_usuario']!="" ){
         header("location: $project_index?error=user_log");
     }
+    // Verificar usuario liberado
+    elseif ($registro['lib_usuario']!='1'){
+        header("location: $project_index?error=blocked access");
+    }
     // Verificar usuario logado
-    elseif ($registro['sta_usuario']=$logado && $registro['sta_usuario']!=""){
+    elseif ($registro['sta_usuario']==$logado && $registro['sta_usuario']!=""){
 
 	    #  Criando a sessão
 	    session_start();
@@ -64,7 +72,7 @@
         
         # Gravando Cookie
         $expira = time() + 60*60*24*30; 
-        $hora   = base64_encode(time());
+        $hora   = base64_encode(date('YmdHis'));
         setCookie('CookieAcesso', $hora, $expira);
 
         # Gravando a informação usuario logado
@@ -72,6 +80,7 @@
         $usuario->setLogin($registro['log_usuario']);
         $usuario->setNome($registro['nome_usuario']);
         $usuario->setSenha(base64_decode($registro['sen_usuario']));
+        $usuario->setLiberado($registro['lib_usuario']);
         $usuario->setPerfil($registro['per_usuario']);
         $usuario->setStatus($hora);
         $registro=$usuarioPDO->update($usuario);

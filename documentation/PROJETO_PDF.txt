@@ -1,0 +1,12 @@
+PROJETO PARA EMISSAO RELATORIO EMPDF
+
+
+1)Criar arquivo html impressao em video
+
+2) Incluir um botao pdf PARA GEAR A IMPRESSAO EM PDF
+
+3) Quando do click do botao não incluir  o botao do PDF
+
+
+
+https://datatables.net/extensions/select/examples/initialisation/checkbox.html
