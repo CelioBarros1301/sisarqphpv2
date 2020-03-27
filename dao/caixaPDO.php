@@ -237,6 +237,30 @@ class CaixaPDO
     }
 
 
+    public function imprimirCapaCaixa($filtro)
+    {
+        $conexao=Conexao::getConnection();
+        $result=array();
+        $sql="SELECT * " ;  
+        $sql.=" FROM view_documentos documento ";
+        
+        $sql.="WHERE codempresa=?";
+        $sql.=' AND  codCaixa IN "'.$filtro['codCaixa'].'"';
+       
+        $sql.= " ORDER BY CodCaixa" ;
+
+        $smtm=$conexao -> prepare($sql);
+
+        $smtm->bindValue(1,$filtro['codEmpresa']);
+        
+        $smtm->execute();
+        $result=$smtm->fetchAll(PDO::FETCH_ASSOC);
+        $conexao=null;
+        return  $result;
+    }
+
+
+
 }
 
 ?>

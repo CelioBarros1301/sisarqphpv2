@@ -225,4 +225,8 @@ https://medium.com/@clebercarvalho/como-gerar-arquivos-pdf-com-php-a0597f63d8b
 ABRIR EM OUTRA 
 <a href=”http:\\linkdaoutrapagina.com” target=”_blank”>
 
+LOCK DE LINHA
+
+return $from.' with(rowlock,'.($query->lock ? 'updlock,' : '').'holdlock)';
+
 

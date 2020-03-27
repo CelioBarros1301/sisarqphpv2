@@ -1,0 +1,372 @@
+https://engenha.com/e/47378/cadastro
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<title>
+							MUNDO PET - Engenha
+					</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/assets/css/selectize.default.min.css"/>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+		<script src="/js/jquery.autocomplete.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+        <script defer src="/assets/js/selectize.min.js"></script>
+        
+
+		<style>
+		.body{
+			margin-top:58px;
+			padding-top:30px;
+			padding-bottom:30px;
+			min-height:500px;
+		}
+		.edit-icon i.fa-pen{
+			color:#9e9e9e;
+			padding-right:15px;
+		}
+		.edit-icon:hover i.fa-pen
+		{
+			visibility: visible!important;
+			color: #007bff;
+		}
+		.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+		.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+		.autocomplete-selected { background: #F0F0F0; }
+		.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+		.autocomplete-group { padding: 2px 5px; }
+		.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+		.logo_empresa {
+			max-height: 80px;
+			max-width: 200px;
+		}
+        .navbar-brand {
+            padding:0;
+        }
+		</style>
+
+
+	</head>
+	<body>
+
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-105051412-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+
+	<section id="header">
+					<nav class="navbar navbar-expand-lg bg-white border-bottom fixed-top text-uppercase pt-0 pb-0" id="mainNav">
+  <div class="container">
+  	    <a class="navbar-brand js-scroll-trigger" href="/e/47378">
+				<img src="/files_empresas/logo_47378.jpg"/ class="logo_empresa">
+			</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mx-0 mx-lg-1">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/e/47378"><i class="fas fa-briefcase fa-fw"></i> Vagas</a>
+        </li>
+        
+                <li class="nav-item mx-0 mx-lg-1">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/e/47378/cadastro"><i class="fab fa-wpforms fa-fw"></i> Cadastrar</a>
+        </li>
+        
+		
+		        <li class="nav-item mx-0 mx-lg-1">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#" data-toggle="modal" data-target="#modal_login"><i class="fas fa-sign-in-alt fa-fw"></i> Entrar</a>
+        </li>
+		
+      </ul>
+    </div>
+  </div>
+</nav>			</section>
+
+	<section class="body bg-light" id="jobs">
+	<div class="container">
+
+		<h2>Cadastre-se</h2>
+
+		
+		<form method="POST" action="https://engenha.com/e/47378/cadastro" accept-charset="UTF-8"><input name="_token" type="hidden" value="tA9hJBBZd6cFJxhBPVVWMn4Ta1jlSv7LTb1V849w">
+
+		<div class="form-group">
+			<label for="nome">Nome Completo</label>
+			<input class="form-control" required="required" name="nome" type="text" id="nome">
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-12 col-sm-6">
+				<label for="email">E-mail</label>
+				<div class="input-group">
+			        <div class="input-group-prepend">
+			          <div class="input-group-text"><i class="far fa-envelope"></i></div>
+			        </div>
+					<input class="form-control" required="required" name="email" type="text" id="email">
+				</div>
+			</div>
+
+			<div class="form-group col-12 col-sm-6">
+				<label for="password">Senha</label>
+				<div class="input-group">
+			        <div class="input-group-prepend">
+			          <div class="input-group-text"><i class="fas fa-key"></i></div>
+			        </div>
+					<input class="form-control" required="required" name="password" type="password" value="" id="password">
+				</div>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-12 col-sm-6">
+				<label for="cpf">CPF</label>
+				<input class="form-control cpf" required="required" name="cpf" type="text" id="cpf">
+			</div>
+
+			<div class="form-group col-12 col-sm-6">
+				<label for="data_nascimento">Nascimento</label>
+				<input class="form-control date" required="required" name="data_nascimento" type="text" id="data_nascimento">
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-12 col-sm-6">
+				<label for="sexo">Sexo</label>
+				<select class="form-control" required="required" id="sexo" name="sexo"><option selected="selected" value="">Selecione</option><option value="f">Feminino</option><option value="m">Masculino</option></select>
+			</div>
+
+			<div class="form-group col-12 col-sm-6">
+				<label for="estado_civil">Estado Civil</label>
+				<select class="form-control" required="required" id="estado_civil" name="estado_civil"><option selected="selected" value="">Selecione</option><option value="0">Solteiro(a)</option><option value="1">Casado(a)</option><option value="2">Divorciado(a)</option><option value="3">Viuvo(a)</option><option value="4">Outros</option></select>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-12 col-sm-6">
+				<label for="telefone">Telefone</label>
+				<div class="input-group">
+			        <div class="input-group-prepend">
+			          <div class="input-group-text"><i class="fas fa-phone"></i></div>
+			        </div>
+					<input class="form-control phone_br" name="telefone" type="text" id="telefone">
+				</div>
+			</div>
+
+			<div class="form-group col-12 col-sm-6">
+				<label for="celular">Celular</label>
+				<div class="input-group">
+			        <div class="input-group-prepend">
+			          <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+			        </div>
+					<input class="form-control cellphone_br" required="required" name="celular" type="text" id="celular">
+				</div>
+			</div>
+		</div>
+
+		<div class="text-right">
+			<input class="btn btn-primary btn-lg" type="submit" value="Cadastrar">	
+		</div>
+
+		</form>
+	</div>
+</section>
+
+	<footer class="footer bg-dark pt-2 pt-sm-4 pb-2 pb-sm-4 text-white">
+	  <div class="container">
+		<div class="d-flex flex-column flex-sm-row">
+		  <div class="mr-auto"><small>Todos os direitos reservados.</small></div>
+		  <div><small>Desenvolvido por 
+	          <a href="https://engenha.com" class="text-light">ENGENHA.COM</a></small></div>
+		</div>
+	  </div>
+	</footer>
+
+	<style>
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    top: calc(50% - 60px);
+    left: calc(50% - 60px);
+}
+
+@keyframes  spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<div class="loader position-fixed invisible"></div>
+
+	<script>
+	$(document).ready(function(){
+	    $('.form-modal-ajax').on('click',function(){
+
+			$('select, input, textarea').removeClass('is-invalid');
+			
+	        var url = $(this).attr('data-href');
+	        var modalId = $(this).attr('data-target');
+	        $(modalId + ' form').attr('action', url);
+
+			$('.delete').addClass('invisible');
+    		$('.loader').removeClass('invisible');
+
+			$(modalId + ' form').find("input[type=text], textarea, select").val('');
+			$(modalId + ' form').find("input[type=checkbox]").prop('checked', false).change();			
+
+			$.getJSON( url, function( data ) {
+
+				$.each(data, function(index, element) {
+
+					if($( "*[name='"+index+"']" ).attr('type') == "checkbox")
+					{
+						if(element)
+						{
+							$( "*[name='"+index+"']" ).prop('checked', true).change();
+						} 
+
+						return true;
+					} 
+
+					$( "*[name='"+index+"']" ).val(element);
+				});
+
+				if(data.length != 0)
+					$('.delete').removeClass('invisible');	
+				
+				$('.loader').addClass('invisible');
+				
+				$(modalId).modal({show:true});
+
+			});
+	        
+	    }); 
+
+
+	    $('.form-ajax').submit(function(e){
+	
+			$post = $.post($(this).attr('action'), $(this).serialize());
+
+			$('select, input, textarea').removeClass('is-invalid');
+
+			$post.done(function( data ) {
+	         	if(data.redirect) {
+	         		window.location.href = data.redirect;
+	         	}
+
+	         	if(data.errors) {
+	         		$.each(data.errors, function( index, value ) {
+	         			$('#'+index+'-error').text(value);
+	         			$('#'+index).addClass('is-invalid');
+					});
+	         	}
+
+	         	if(data.message) {
+	         		$('#message').text(data.message);
+					$('#message').show();
+	         	}
+			});
+
+	    	e.preventDefault();
+	    });
+
+
+	});
+	</script>
+	<script>
+	$(document).ready(function(){
+	  $('.date').mask('00/00/0000');
+	  $('.time').mask('00:00:00');
+	  $('.date_time').mask('00/00/0000 00:00:00');
+	  $('.cep').mask('00000-000');
+	  $('.phone').mask('0000-0000');
+	  $('.phone_with_ddd').mask('(00) 0000-0000');
+	  $('.phone_us').mask('(000) 000-0000');
+	  $('.phone_br').mask('(00) 0000-0000');
+	  $('.cellphone_br').mask('(00) 90000-0000');
+	  $('.mixed').mask('AAA 000-S0S');
+	  $('.cpf').mask('000.000.000-00', {reverse: true});
+	  $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+	  $('.money').mask('000.000.000.000.000,00', {reverse: true});
+	  $('.money2').mask("#.##0,00", {reverse: true});
+	  $('.money3').mask('000.000.000.000.000', {reverse: true});
+	  $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+	    translation: {
+	      'Z': {
+	        pattern: /[0-9]/, optional: true
+	      }
+	    }
+	  });
+	  $('.ip_address').mask('099.099.099.099');
+	  $('.percent').mask('##0,00%', {reverse: true});
+	  $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+	  $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+	  $('.fallback').mask("00r00r0000", {
+	      translation: {
+	        'r': {
+	          pattern: /[\/]/,
+	          fallback: '/'
+	        },
+	        placeholder: "__/__/____"
+	      }
+	    });
+	  $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+	});
+	</script>
+
+	<div class="modal fade" id="modal_login" tabindex="-1" role="dialog" aria-labelledby="modal_login" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Entrar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="https://engenha.com/api/login" accept-charset="UTF-8" class="form-ajax"><input name="_token" type="hidden" value="tA9hJBBZd6cFJxhBPVVWMn4Ta1jlSv7LTb1V849w">
+        <input name="l" type="hidden" value="https://engenha.com/e/47378/cadastro">
+
+        <div id="message" class="alert alert-danger" role="alert" style="display:none"></div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" required="required" name="email" type="text" id="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input class="form-control" required="required" name="password" type="password" value="" id="password">
+          <div class="text-right mt-1">
+            <a href="/password/reset">Esqueci a senha</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <input class="btn btn-primary" type="submit" value="Entrar">  
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+	</body>
+</html>

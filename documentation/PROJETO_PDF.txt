@@ -3,10 +3,38 @@ PROJETO PARA EMISSAO RELATORIO EMPDF
 
 1)Criar arquivo html impressao em video
 
-2) Incluir um botao pdf PARA GEAR A IMPRESSAO EM PDF
+2) Incluir um botao pdf PARA GEAR A IMPRESSAO EM PDF,
+so liberado o botao quando o combox da EMPRESA ESTIVER selecionado uma empresa R E S O L V I D O
 
 3) Quando do click do botao não incluir  o botao do PDF
 
 
+caixa&filtroEmp=
 
 https://datatables.net/extensions/select/examples/initialisation/checkbox.html
+
+
+Ler as linhas marcadas no datable
+https://forum.fluig.com/3917-obter-valor-de-checkbox-em-uma-datatable
+
+
+https://datatables.net/examples/api/select_row.html
+
+https://datatables.net/examples/plug-ins/api.html
+
+
+
+https://www.youtube.com/watch?v=E6I5ZoccWTQ
+ 
+
+http://www.datatables.net/examples/ajax/index.html
+
+Solucao para Guarda as Linhas Selecionadas
+1)Criar input (hidden) id="linhasSelecionadas" name="linhasSelecionadas"
+2) Quando click na linha 
+    Veriricar se ja estaja selecionado
+       - retirar do input a linha 
+    senao 
+       - incluir no input o id
+3) 
+
