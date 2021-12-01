@@ -56,7 +56,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                                         $codUsu=isset($_GET["codUsu"])?$_GET["codUsu"]:"";
                                         if ( $_GET["status"]=="i" )
                                         { 
-                                            echo '<option disabled selected value=0>=>Selecionar Usuario<=</option>';	
+                                            echo '<option disabled selected value="">=>Selecionar Usuario<=</option>';	
                                         }
                                         foreach ($tabelaUsuario as $coluna){
                                             $selecao = $codUsu==$coluna["Codigo"]?"selected":"";

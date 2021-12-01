@@ -124,11 +124,18 @@
                
             break;
             case 'e':
-                
-                $registro=$prateleiraPDO->delete($codEmpresa,$codArquivo,$codCorredor,$codEstante,$codPrateleira);
+                try
+                {
+                   $registro=$prateleiraPDO->delete($codEmpresa,$codArquivo,$codCorredor,$codEstante,$codPrateleira);
+                   $error=0;
+                }
+                catch(Exception  $e)
+                {
+                    $error=1;
+                }
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=prateleira&filtroEmp=$codEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=prateleira&filtroEmp=$codEmpresa&error=$error");
     }
      
 ?>

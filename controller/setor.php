@@ -94,7 +94,15 @@
             break;
 
             case 'e':
-                $registro=$setorPDO->delete($codEmpresa,$codSetor);
+                try
+                {
+                    $registro=$setorPDO->delete($codEmpresa,$codSetor);
+                    $error=0;
+                }
+                catch(Exception  $e)
+                {
+                    $error=1;
+                }
             break;
         }
         header("location:".$GLOBALS['project_index']."sisarq.php?option=setor&filtroEmp=$codEmpresa");

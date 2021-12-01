@@ -51,10 +51,20 @@
                 $registro=$empresaPDO->insert($codigo,$descricao);
             break;
             case 'e':
-                $registro=$empresaPDO->delete($codigo);
+                try {
+                    $registro=$empresaPDO->delete($codigo);
+                    $error=0;
+                }
+                catch(Exception  $e)
+                {
+                   $error=1; 
+                }
             break;
         }
-       header("location:".$GLOBALS['project_index']."sisarq.php?option=empresa");
+        
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=empresa&error=$error");
     }
 
 ?>
+
+

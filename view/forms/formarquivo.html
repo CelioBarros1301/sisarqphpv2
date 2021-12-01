@@ -38,14 +38,14 @@ $readonlyCampo=($_GET['status']=="e" || $_GET['status']=="v")?"readonly":"";
 
                       <div class="col-md-12">
                         <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
-                        
+                           
                         <div class="form-group ">
                           <label>Empresa</label>
                           <select name="codEmp" <?=$readonly;?> required class="form-control">
                             <?php
                             if ( $_GET["status"]=="i")
                             { 
-                                echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                                echo '<option disabled selected value="">=>Selecionar Empresa<=</option>';	
                             }
                             foreach ($tabelaEmpresa as $coluna){
                                 echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     

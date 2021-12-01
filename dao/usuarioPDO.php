@@ -72,7 +72,7 @@ class UsuarioPDO
             $sql.='`per_usuario`,' ;
             $sql.='`lib_usuario`) ';
             
-            $sql.=' VALUES (?,?,?,?,?)';
+            $sql.=' VALUES (?,?,?,?,?,?)';
             
             
             $smtm=$conexao->prepare($sql);

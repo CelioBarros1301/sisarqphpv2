@@ -112,7 +112,16 @@
                
             break;
             case 'e':
-                $registro=$caixaPDO->delete($codEmpresa,$codSetor,$codCaixa);
+                try
+                {
+                   $error=0; 
+                    $registro=$caixaPDO->delete($codEmpresa,$codSetor,$codCaixa);
+                }
+                catch(Exception  $e)
+                {
+                    $error=1;
+                }
+
             break;
             case 'r':
                 $html='<table border=2 cellpadding=3 style="max-width: 300px">';
@@ -199,7 +208,7 @@
             
         }
 
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=caixa&filtroEmp=$codEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=caixa&filtroEmp=$codEmpresa&error=$error");
  
        
     }

@@ -97,14 +97,17 @@
             }
         ?>
       </div>
+      
       <div class="row">
         <div class="col-xs-8">
-          <div class="checkbox icheck">
+          <!--<div class="checkbox icheck">
             <label>
               <input type="checkbox"> Lembrar-me
             </label>
           </div>
+          -->
         </div>
+         
         <!-- /.col -->
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
@@ -122,7 +125,9 @@
     </div>
      -->
     <hr />
+    <!-- Comentado por nao implementado
     <a href="javascript:void(0);" data-toggle="modal" data-target="#fogot-pass" class="text-center">Esqueci minha senha</a><br>
+    -->
     <a href="http://a4dev.com.br" target="_blank" class="text-center">SISARQ by Celio Barros &copy;</a>
     <!-- esqueci minha senha -->
     <div class="modal fade" id="fogot-pass" tabindex="-1" role="dialog">

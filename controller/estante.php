@@ -117,11 +117,18 @@
                
             break;
             case 'e':
-             
-                $registro=$estantePDO->delete($codEmpresa,$codArquivo,$codCorredor,$codEstante);
+                try
+                {
+                   $registro=$estantePDO->delete($codEmpresa,$codArquivo,$codCorredor,$codEstante);
+                   $error=0;
+                }
+                catch(Exception  $e)
+                {
+                    $error=1;
+                }
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=estante&filtroEmp=$codEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=estante&filtroEmp=$codEmpresa&error=$error");
     }
      
 ?>

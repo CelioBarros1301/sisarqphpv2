@@ -51,7 +51,7 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
                                     <?php
                                     if ( $_GET["status"]=="i" && ( $_GET["codEmp"]=="0" || $_GET["codEmp"]=="") )
                                     { 
-                                        echo '<option disabled selected value=0>=>Selecionar Autorizado<=</option>';	
+                                        echo '<option disabled selected value="">=>Selecionar Autorizado<=</option>';	
                                     }
                                     foreach ($tabelaAutorizado as $coluna){
                                         $selecao = $_GET["codAut"]==$coluna["CodAutorizado"]?"selected":"";

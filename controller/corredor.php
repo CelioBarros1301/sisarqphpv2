@@ -102,11 +102,20 @@
                
             break;
             case 'e':
-                $registro=$corredorPDO->delete($codEmpresa,$codArquivo,$codCorredor);
+                try
+                {
+                    $registro=$corredorPDO->delete($codEmpresa,$codArquivo,$codCorredor);
+                    $error=0;
+                }
+                catch(Exception  $e)
+                {
+                    $error=1;
+                }
+
             break;
         }
     
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=corredor&filtroEmp=$codEmpresa");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=corredor&filtroEmp=$codEmpresa&error=$error");
     }
      
 ?>

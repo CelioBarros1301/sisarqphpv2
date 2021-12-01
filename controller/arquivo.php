@@ -74,6 +74,7 @@
                 {
                     $conexao =Conexao::getConnection();
                     $registro=$arquivoPDO->insert($arquivo);
+                    $error=0;
                     $conexao =null;
                 }
                 catch (PDOExecption $e  )
@@ -81,16 +82,25 @@
                     $mensagem  = "Drivers disponiveis: " . implode(",", PDO::getAvailableDrivers());
                     $mensagem .= "\nErro: " . $e->getMessage();
                     $conexao   = null;
+                    $error=1;
                     throw new Exception($mensagem);
                     
                 }
                
             break;
             case 'e':
-                $registro=$arquivoPDO->delete($codEmpresa,$codArquivo);
+                try
+                {
+                   $error=0; 
+                   $registro=$arquivoPDO->delete($codEmpresa,$codArquivo);
+                }
+                catch(Exception  $e)
+                {
+                    $error=1;
+                }
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=arquivo");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=arquivo&error=$error");
     }
      
 ?>

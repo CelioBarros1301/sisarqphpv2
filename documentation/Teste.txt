@@ -1,0 +1,10 @@
+1) Cadastro Empresa: 
+   - incluir ok
+   - alterar ok
+   - consultar ok
+   - excluir 
+     - Sem cadastro das informacoes de arquivo ok
+     - com cadastro das informacoes de arquivo erro
+
+
+2) Cadastro

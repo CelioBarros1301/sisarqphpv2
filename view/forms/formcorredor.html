@@ -46,14 +46,14 @@ $ajax =$_GET["status"]=="i"?$ajax:"";
 
                         <div class="col-md-6">
                             <input  type="hidden" name="operacao" value="<?=$_GET['status'];?>" >
-                        
+                         
                             <div class="form-group ">
                                 <label>Empresa</label>
                                 <select id="idEmpresa" name="codEmp" <?=$readonly;?> class="form-control" <?=$ajax;?> >
                                  <?php
                                     if ( $_GET["status"]=="i")
                                     { 
-                                        echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                                        echo '<option disabled selected value="">=>Selecionar Empresa<=</option>';	
                                     }
                                     foreach ($tabelaEmpresa as $coluna)
                                     {

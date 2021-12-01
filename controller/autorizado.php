@@ -14,7 +14,6 @@
     include_once $GLOBALS['project_path'].'/model/class/Usuario.class.php';
   
     
-    
     # Instaciando as classes necessarias
     $autorizadoPDO= new AutorizadoPDO();
     $autorizado=new Autorizado();
@@ -37,6 +36,7 @@
         $registro=$autorizadoPDO->busca($codigo);
         
     }
+
     else if( !isset($_GET['status']))
     {
         # Preencher o DataTable
@@ -74,10 +74,14 @@
         if (isset($_POST['libAut']))
         {
             $usuario->setLiberado($_POST['libAut']);
+            $autorizado->setLiberado($_POST['libAut']);
+            
         }
         else
         {
             $usuario->setLiberado('0');
+            $autorizado->setLiberado('0');
+            
         }
         
         switch ($operacao)
@@ -108,16 +112,21 @@
                     throw new Exception($mensagem);
                     
                 }
-                /*finally
-                {
-                    $conexao=null; 
-                }*/
+                
             break;
             case 'e':
-                $registro=$autorizadoPDO->delete($codigo);
+               try
+               {
+                   $error=0; 
+                    $registro=$autorizadoPDO->delete($codigo);
+                }
+                catch(Exception  $e)
+                {
+                    $error=1;
+                }
             break;
         }
-        header("location:".$GLOBALS['project_index']."sisarq.php?option=autorizado");
+        header("location:".$GLOBALS['project_index']."sisarq.php?option=autorizado&error=$error");
         
     }
      

@@ -64,7 +64,7 @@ $ajaxEstante = $_GET["status"]=="i"?$ajaxEstante:"";
                                     <?php
                                     if ( $_GET["status"]=="i")
                                     { 
-                                        echo '<option disabled selected value=0>=>Selecionar Empresa<=</option>';	
+                                        echo '<option disabled selected value="">=>Selecionar Empresa<=</option>';	
                                     }
                                     foreach ($tabelaEmpresa as $coluna){
                                         echo '<option '. $selecao. ' '. $readonly . ' value="'. $coluna["Codigo"] .'">' .$coluna["Empresa"] ."</option>";                     

@@ -65,7 +65,17 @@
 </ol>
 
 <h1 class="page-header">Listar Corredores</h1>
-
+<div class="row">
+    <div class="col-md-12"> 
+        <?php 
+            if (isset($_GET['error'])) {
+                if ( $_GET['error']==1 ){
+                    echo '<h5 class="text-danger">Não é permitido excluir Corredor</h5>';
+                }
+            }
+        ?>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-success">
