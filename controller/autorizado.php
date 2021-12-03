@@ -89,7 +89,6 @@
             case 'a':
 
                 $registro=$autorizadoPDO->update($autorizado);
-                var_dump($registro);
             break;
             case 'i':
                 try 

@@ -19,7 +19,7 @@ class ajaxPDO
     {
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql ="SELECT '0' CodSetor,'=>Selecionar Setor<='  Setor ";
+        $sql ="SELECT '' CodSetor,'=>Selecionar Setor<='  Setor ";
         $sql.="UNION ALL ";
     
         $sql.="SELECT cod_setor CodSetor,des_setor Setor ";
@@ -54,7 +54,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodSetor"] .'">' .$coluna["Setor"] ."</option>";                     
             }
@@ -115,7 +115,7 @@ class ajaxPDO
     {
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql ="SELECT '0' CodArquivo,'=>Selecionar Arquivo<='  Arquivo ";
+        $sql ="SELECT '' CodArquivo,'=>Selecionar Arquivo<='  Arquivo ";
         $sql.="UNION ALL ";
     
         $sql.="SELECT    cod_arquivo CodArquivo,des_arquivo Arquivo ";
@@ -155,7 +155,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodArquivo"] .'">' .$coluna["Arquivo"] ."</option>";                     
             }
@@ -177,7 +177,7 @@ class ajaxPDO
         $conexao=Conexao::getConnection();
         $result=array();
    
-        $sql ="SELECT '0' CodCorredor,'=>Selecionar Corredor<='  Corredor ";
+        $sql ="SELECT '' CodCorredor,'=>Selecionar Corredor<='  Corredor ";
         $sql.="UNION ALL ";
         
         $sql.="SELECT cod_corredor  CodCorredor,des_corredor Corredor ";
@@ -221,7 +221,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodCorredor"] .'">' .$coluna["Corredor"] ."</option>";                     
             }
@@ -241,7 +241,7 @@ class ajaxPDO
     {
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql ="SELECT '0' CodEstante,'=>Selecionar Estante<='  Estante ";
+        $sql ="SELECT '' CodEstante,'=>Selecionar Estante<='  Estante ";
         $sql.="UNION ALL ";
         
          
@@ -299,7 +299,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodEstante"] .'">' .$coluna["Estante"] ."</option>";                     
             }
@@ -317,7 +317,7 @@ class ajaxPDO
     {
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql ="SELECT '0' CodEmpresa,'=>Selecionar Empresa<='  Empresa ";
+        $sql ="SELECT '' CodEmpresa,'=>Selecionar Empresa<='  Empresa ";
         $sql.="UNION ALL ";
        
         $sql.="SELECT DISTINCT ";
@@ -355,7 +355,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodEmpresa"] .'">' .$coluna["Empresa"] ."</option>";                     
             }
@@ -377,7 +377,7 @@ class ajaxPDO
        
         $conexao=Conexao::getConnection();
         $result=array();
-        $sql ="SELECT '0' CodPrateleira,'=>Selecionar Prateleira<='  Prateleira ";
+        $sql ="SELECT '' CodPrateleira,'=>Selecionar Prateleira<='  Prateleira ";
         $sql.="UNION ALL ";
        
         $sql.="SELECT cod_prateleira CodPrateleira,des_prateleira Prateleira ";
@@ -424,7 +424,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodPrateleira"] .'">' .$coluna["Prateleira"] ."</option>";                     
             }
@@ -446,7 +446,7 @@ class ajaxPDO
         $conexao=Conexao::getConnection();
         $result=array();
         
-        $sql ="SELECT '0' CodCaixa,'=>Selecionar Caixa<='  Caixa ";
+        $sql ="SELECT '' CodCaixa,'=>Selecionar Caixa<='  Caixa ";
         $sql.="UNION ALL ";
        
         $sql.="SELECT  cod_caixa  CodCaixa   ,des_caixa  Caixa  ";
@@ -487,7 +487,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodCaixa"] .'">' .$coluna["Caixa"] ."</option>";                     
             }
@@ -506,7 +506,7 @@ class ajaxPDO
     {
         $conexao=Conexao::getConnection();
         $result =array();
-        $sql ="SELECT '0' CodTipo,'=>Selecionar Tipo<='  Tipo ";
+        $sql ="SELECT '' CodTipo,'=>Selecionar Tipo<='  Tipo ";
         $sql.="UNION ALL ";
         $sql.="SELECT    cod_documento CodTipo,des_documento Tipo ";
         $sql.=" FROM tb_tipo_documentos documento ";
@@ -542,7 +542,7 @@ class ajaxPDO
         $html="";
         foreach ($result as $key=>$coluna){
 
-            if ( $key=='0' )
+            if ( $key=='' )
             {
                 $html.='<option  disabled selected value="'. $coluna["CodTipo"] .'">' .$coluna["Tipo"] ."</option>";                     
             }
