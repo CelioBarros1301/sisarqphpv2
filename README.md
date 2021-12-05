@@ -18,3 +18,11 @@ Procedimento de Instalação:
     maquina local: localhost/<pasta>
 
 
+Tecnologia Utilizadas:
+    1. PHP puro
+    2. HTML
+    3, CSS
+    4. JAVA SCRIPT
+    5. BOOTSTRAP
+    6. AJAX
+    7. MYSQL
