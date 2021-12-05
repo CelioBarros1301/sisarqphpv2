@@ -1,0 +1,19 @@
+<?php
+    
+   
+    # Verificar se sessão existe
+    if ( !isset($_SESSION['user'])){
+        header("location: $project_index?error=");
+    }
+    $user=$_SESSION['user'];
+
+             
+    
+?>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <H2>Em desenvolvimento....</H2>
+    </div>
+</div>

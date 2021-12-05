@@ -5,7 +5,10 @@
     #
 
     #Lendo variavel de sessao
-    session_start();
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
     $user=$_SESSION['user'];
    
     # Incluindo as classes necessárias

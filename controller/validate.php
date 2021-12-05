@@ -174,6 +174,10 @@ function validate_options(){
 			include_once $GLOBALS['project_path'].'/view/forms/formdocumento.html';
 		break;
 
+		case 'programa':	
+			include_once $GLOBALS['project_path'].'/view/programa.html';			
+		break;
+
 		# sair
 		case 'sair':
 			

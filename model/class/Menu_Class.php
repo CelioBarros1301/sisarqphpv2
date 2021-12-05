@@ -14,6 +14,7 @@ Class Menu
     private $iconeMenu;
     private $hrefMenu;
     private $tipoMenu;
+    private $statPro;
     
     
     
@@ -76,7 +77,17 @@ Class Menu
         return $this->tipoMenu;
     }
 
-    
+  
+    public function setStatPro($codigo)
+    {
+        $this->statPro=$codigo;
+    }
+    public function getStatPro()
+    {
+        return $this->statPro;
+    }
+
+
 }
 
 ?>

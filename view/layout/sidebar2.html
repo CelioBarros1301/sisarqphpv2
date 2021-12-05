@@ -36,13 +36,25 @@
       # Verificar se e SubMenu
       if ($menu[$indice]['tipo_menu']=='1')
       {
+        if ( $menu[$indice]['stat_pro']=='1') 
+        {  
+          $menuHtml.= '<li class="">';
+          $menuHtml.= '   <a  href="?option=programa">';
+          $menuHtml.= '     <i class="' .$menu[$indice]['icone_menu'].'"></i> ';
+          $menuHtml.= '     <span>' .$menu[$indice]['nome_menu'] .'</span>';
+          $menuHtml.= '   </a>';
+          $menuHtml.= '</li>';
+        }
+        else
+        {
           $menuHtml.= '<li class="">';
           $menuHtml.= '   <a href="?option='. $menu[$indice]['href_menu'].'">';
           $menuHtml.= '     <i class="' .$menu[$indice]['icone_menu'].'"></i> ';
           $menuHtml.= '     <span>' .$menu[$indice]['nome_menu'] .'</span>';
           $menuHtml.= '   </a>';
           $menuHtml.= '</li>';
-          $indice++;
+        }
+        $indice++;
       }
       else
       {
@@ -63,14 +75,27 @@
                   $menuHtml.='<ul class="sub-menu">';
               }
               else
-              {
-
-                  $menuHtml.='<li>';
-                  $menuHtml.='   <a href="?option='. $menu[$indice]['href_menu'].'">';
-                  $menuHtml.='     <i class="' .$menu[$indice]['icone_menu'].'"></i> ';
-                  $menuHtml.=      $menu[$indice]['nome_menu'];
-                  $menuHtml.='   </a>';
-                  $menuHtml.='</li>';
+              { 
+                  
+                if ( $menu[$indice]['stat_pro']=='1') 
+                  {
+                    $menuHtml.='<li>';
+                    $menuHtml.= '   <a  href="?option=programa">';
+                    ##$menuHtml.='   <a disabled href="#">';
+                    $menuHtml.='     <i class="' .$menu[$indice]['icone_menu'].'"></i> ';
+                    $menuHtml.=      $menu[$indice]['nome_menu'];
+                    $menuHtml.='   </a>';
+                    $menuHtml.='</li>';
+                  }
+                  else
+                  {            
+                    $menuHtml.='<li>';
+                    $menuHtml.='   <a href="?option='. $menu[$indice]['href_menu'].'">';
+                    $menuHtml.='     <i class="' .$menu[$indice]['icone_menu'].'"></i> ';
+                    $menuHtml.=      $menu[$indice]['nome_menu'];
+                    $menuHtml.='   </a>';
+                    $menuHtml.='</li>';
+                  }
 
               }
               $indice++;
@@ -78,6 +103,7 @@
 
           $menuHtml.='</ul>';
           $menuHtml.='</li>';
+          
       }
 
   }

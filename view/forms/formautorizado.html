@@ -61,7 +61,7 @@ $status= ($_GET['status']=="e" || $_GET['status']=="v")? "v":"'i'";
                             <div class="form-check">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" <?=($acao=="i" or $registro["lib_autorizado"]=='1')?'checked':"";?> <?=$disabled;?> class="custom-control-input" value="1"  id="liberado" name="libAut">
-                                    <input type="checkbox"  class="custom-control-input" value="1"  id="liberado" name="libAut">
+                                   <!----> <input type="checkbox"  class="custom-control-input" value="1"  id="liberado" name="libAut"> -->
                                     <label class="custom-control-label" for="liberado">Liberado</label>
                                 </div>
                             </div>
