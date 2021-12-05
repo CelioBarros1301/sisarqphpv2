@@ -2,7 +2,7 @@
 
 Ultima Atualizacao: 05/12/2021
 
-Procedimento de Instalação:
+## Procedimento de Instalação:
 1) Executar Script para criação do banco de dados
     - documentation\bd_arquivo2021.sql
    
@@ -18,7 +18,7 @@ Procedimento de Instalação:
     maquina local: localhost/<pasta>
 
 
-Tecnologia Utilizadas:
+## Tecnologia Utilizadas:
     1. PHP puro
     2. HTML
     3, CSS
