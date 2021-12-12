@@ -17,7 +17,9 @@ Ultima Atualizacao: 05/12/2021
     pasta:Nome da pasta onde foi copiado os fontes 
     maquina local: localhost/<pasta>
 
-
+ 4) Sistema esta publicado na url abaixo:
+    https://sisarqv2.000webhostapp.com/
+    
 ## Tecnologia Utilizadas:
     1. PHP puro
     2. HTML
