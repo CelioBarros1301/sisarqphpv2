@@ -2,6 +2,15 @@
 
 Ultima Atualizacao: 05/12/2021
 
+## Objetivo:
+   Realizar o controle de arquivamentos dos documentos, facilitando a localização 
+   dos documentos arquivos nas caixa.
+
+## Caracteristicas:
+ 
+ 1)multi-empresa
+ 2) Controle Local/Arquivo/Pratele
+
 ## Procedimento de Instalação:
 1) Executar Script para criação do banco de dados
     - documentation\bd_arquivo2021.sql
