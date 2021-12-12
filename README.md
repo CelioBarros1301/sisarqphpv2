@@ -8,8 +8,11 @@ Ultima Atualizacao: 05/12/2021
 
 ## Caracteristicas:
  
- 1)multi-empresa
- 2) Controle Local/Arquivo/Pratele
+ 1) multi-empresa
+ 2) Controle Local:Arquivo/Corredor/Estante/Prateleira/Caixa
+ 3) Controle de Documentos Por Setor
+ 4) Classificação de Tipo de Documentos
+ 5) Varios filtro para realizar a localização do documentos arquivados
 
 ## Procedimento de Instalação:
 1) Executar Script para criação do banco de dados
