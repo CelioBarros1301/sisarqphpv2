@@ -20,10 +20,10 @@ Ultima Atualizacao: 05/12/2021
  4) Sistema esta publicado na url abaixo:
     https://sisarqv2.000webhostapp.com/
 
-## Algumas Funcionalidade:
+## Algumas Funcionalidades:
    1) Menu Dinamico
    2) Controle de Acesso da Opcoes do Sistema por Usuario
-   3) Controle de Incluir,Alterar,Excluir e Consultar por Usuario
+   3) Controle de Incluir,Alterar,Excluir e Consultar dados por Usuario
    4) Bloqueio de Acesso de Usuario
    5) Liberação de menu so apos a implementação do Processo
    6) Bloqueio de acesso do usuario, não permite que mesmo usuario se logar mais de uma vez simultaneamente
