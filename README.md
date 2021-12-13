@@ -29,7 +29,7 @@ Ultima Atualizacao: 05/12/2021
    
  3) URL de acesso ao sistema:
     pasta:Nome da pasta onde foi copiado os fontes 
-    maquina local: localhost/<pasta>
+    maquina local: localhost/\<pasta\>
 
  4) Sistema esta publicado na url abaixo:
     https://sisarqv2.000webhostapp.com/
