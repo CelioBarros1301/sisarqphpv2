@@ -4,7 +4,7 @@ Ultima Atualizacao: 05/12/2021
 
 ## Objetivo:
    Realizar o controle de arquivamentos dos documentos, facilitando a localização 
-   dos documentos arquivos nas caixa.
+   dos documentos arquivados nas caixas.
 
 ## Caracteristicas:
  
