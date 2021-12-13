@@ -1,4 +1,4 @@
-1)Erro-Notice: session_start(): A session had already been started - ignoring in C:\xampp\htdocs\sisarqphpv2\controller\documento.php on line 8
+1)Erro-Notice: session_start(): A session had already been started - ignoring in C:\xampp\htdocs\sisarqphpv2\controller\documento.php on line 8 RESOLVIDO
 2) Cadastro de documento,, Ver Formatacao de data esta como mm/dd/yyyy
 3) Menu Solicitacao erro 404 RESOLVIDO
 4) Menu destruir erro 404 RESOLVIDO
@@ -7,3 +7,9 @@
 7) menu sobre erro 404 RESOLVIDO
 8) Alterar tabela de menu inclui sta_pro 1- Menu Nao Programado 2- Menu Programado RESOLVIDO
 9) Alterar acesso ao menu campo sta_pro RESOLVIDO   
+10) Criar job para atualizar liberar usuario bloqueados todo dia as 23:59
+11) Implementar o processo de requisicao de documentos
+12) Implementar a geração da CAPA DAS CAIXAS
+13) Implenmentar relatorio de requisicao de Documentos para Assinar quando da entregar dos documento
+14) FUTURO: Processo de scanear os documentos 
+
