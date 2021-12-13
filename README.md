@@ -13,6 +13,7 @@ Ultima Atualizacao: 05/12/2021
  3) Controle de Documentos Por Setor
  4) Classificação de Tipo de Documentos
  5) Varios filtro para realizar a localização do documentos arquivados
+ 6) Site Responsivo
 
 ## Procedimento de Instalação:
 1) Executar Script para criação do banco de dados
