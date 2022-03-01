@@ -57,4 +57,6 @@ Ultima Atualizacao: 13/12/2021
    3. Criar indice unico da tabela de menu/usuario constraint de indice unid usuario/menu
    4. Quando do cadastro de acesso do menu não apresentar no combobox se o menu ja estiver cadastrado para usuario
    5. Cadastro de documento,, Ver Formatacao de data esta como mm/dd/yyyy
+   6. Quando da Alteração de Usuario, botao mostra senha esta redirecionando para a tela de Usuario(lista). Esta Errado
+      e para habilitar para mostra a senha na tela 
    
