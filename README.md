@@ -60,4 +60,5 @@ Ultima Atualizacao: 13/12/2021
    6. Quando da Alteração de Usuario, botao mostra senha esta redirecionando para a tela de Usuario(lista). Esta Errado
       e para habilitar para mostra a senha na tela 
    7. Criar gatilho quando da inclusão de novo usuario, incluir opcao de menu de Sair
+   8. Rotina de transferencia de documento de local. Criar Historico da transferencia 
    
